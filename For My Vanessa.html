@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Vanessa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush: #ffc0cb;
+            --lavender: #e6e6fa;
+            --peach: #ffdab9;
+            --cream: #fff5ee;
+            --rose: #ff7fa2;
+            --plum: #8a5f7d;
+            --gold: #ffd166;
+            --card-shadow: 0 22px 60px rgba(170, 110, 138, 0.22);
+            --soft-shadow: 0 14px 30px rgba(255, 127, 162, 0.22);
+            --glow: 0 0 28px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 127, 162, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Nunito", sans-serif;
+            color: #6e4962;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.65), transparent 25%),
+                linear-gradient(145deg, var(--cream), var(--lavender) 35%, var(--blush) 68%, var(--peach));
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.55) 0 2px, transparent 3px),
+                radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.45) 0 1.5px, transparent 2.5px),
+                radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.35) 0 2px, transparent 3px),
+                radial-gradient(circle at 35% 85%, rgba(255, 255, 255, 0.5) 0 2px, transparent 3px);
+            animation: twinkleField 9s ease-in-out infinite alternate;
+            opacity: 0.9;
+        }
+
+        body::after {
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 55%);
+            mix-blend-mode: screen;
+        }
+
+        .page {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 32px 18px 24px;
+            isolation: isolate;
+        }
+
+        .sparkles,
+        .heart-stream {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle,
+        .floating-heart {
+            position: absolute;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .sparkle {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(10px, 1.2vw, 18px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+            animation: sparklePulse linear infinite;
+        }
+
+        .floating-heart {
+            color: rgba(255, 127, 162, 0.45);
+            font-size: clamp(18px, 2vw, 28px);
+            animation: heartRise linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 127, 162, 0.35));
+        }
+
+        .card {
+            width: min(100%, 920px);
+            background: rgba(255, 245, 238, 0.68);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 34px;
+            padding: 30px;
+            box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            position: relative;
+            z-index: 2;
+            animation: gentleFloat 5.5s ease-in-out infinite, fadeInUp 1.35s ease-out both;
+        }
+
+        .card::before,
+        .card::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        .card::before {
+            width: 220px;
+            height: 220px;
+            right: -80px;
+            top: -80px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.62), transparent 68%);
+        }
+
+        .card::after {
+            width: 170px;
+            height: 170px;
+            left: -65px;
+            bottom: -70px;
+            background: radial-gradient(circle, rgba(255, 192, 203, 0.3), transparent 70%);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 26px;
+        }
+
+        .hero {
+            text-align: center;
+            display: grid;
+            gap: 12px;
+        }
+
+        .name {
+            margin: 0;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(3.4rem, 9vw, 6.4rem);
+            line-height: 0.95;
+            color: #c95f86;
+            text-shadow: var(--glow);
+            letter-spacing: 1px;
+        }
+
+        .hero-note {
+            margin: 0 auto;
+            max-width: 640px;
+            font-size: clamp(1rem, 2.4vw, 1.18rem);
+            color: #7d5770;
+        }
+
+        .love-banner {
+            display: inline-flex;
+            justify-self: center;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 218, 185, 0.75));
+            border-radius: 999px;
+            box-shadow: var(--soft-shadow);
+            font-weight: 800;
+            font-size: clamp(1.45rem, 4vw, 2.2rem);
+            color: #d14b79;
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+        }
+
+        .love-banner span {
+            display: inline-block;
+            animation: pulseGlow 2.4s ease-in-out infinite;
+        }
+
+        .phrases {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .phrase {
+            background: rgba(255, 255, 255, 0.68);
+            border-radius: 24px;
+            padding: 18px 20px;
+            box-shadow: var(--soft-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: clamp(1rem, 2.3vw, 1.1rem);
+            font-weight: 700;
+            color: #7f5670;
+        }
+
+        .phrase.accent {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phrase-icon {
+            font-size: 1.35rem;
+            filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.65));
+        }
+
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.95fr;
+            gap: 18px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 28px;
+            padding: 22px;
+            box-shadow: var(--soft-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.58);
+        }
+
+        .panel-title {
+            margin: 0 0 16px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #b6537e;
+        }
+
+        .envelope-wrap {
+            display: grid;
+            gap: 18px;
+            justify-items: center;
+            text-align: center;
+        }
+
+        .envelope-button {
+            border: 0;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            position: relative;
+            width: min(100%, 290px);
+            outline: none;
+        }
+
+        .envelope-button:focus-visible .envelope,
+        .envelope-button:hover .envelope {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 18px 28px rgba(209, 75, 121, 0.24);
+        }
+
+        .envelope {
+            position: relative;
+            aspect-ratio: 1.35;
+            background: linear-gradient(180deg, #ffd7e3, #ffb9cb);
+            border-radius: 22px;
+            box-shadow: 0 12px 22px rgba(209, 75, 121, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .envelope::before,
+        .envelope::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto;
+        }
+
+        .envelope::before {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 49.5%, rgba(255, 245, 238, 0.98) 50%);
+            clip-path: polygon(0 0, 100% 0, 50% 55%);
+            transform-origin: top;
+            transition: transform 0.55s ease;
+        }
+
+        .envelope::after {
+            inset: auto 18px 14px;
+            height: 58%;
+            border-radius: 16px 16px 18px 18px;
+            background: linear-gradient(180deg, rgba(255, 245, 238, 0.92), rgba(255, 255, 255, 0.98));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        }
+
+        .envelope-heart {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 2.5rem;
+            z-index: 1;
+            color: #d14b79;
+            text-shadow: 0 0 16px rgba(255, 255, 255, 0.75);
+        }
+
+        .hidden-letter {
+            max-height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(255, 245, 238, 0.88);
+            transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.4s ease;
+            padding: 0 18px;
+            opacity: 0;
+            color: #7f5670;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .hidden-letter p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .letter-open .envelope::before {
+            transform: rotateX(180deg);
+        }
+
+        .letter-open .hidden-letter {
+            max-height: 220px;
+            padding: 18px;
+            opacity: 1;
+        }
+
+        .letter-hint {
+            margin: 0;
+            color: #8d6681;
+            font-size: 0.98rem;
+        }
+
+        .meter {
+            display: grid;
+            gap: 16px;
+            align-content: start;
+        }
+
+        .meter-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 14px 18px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff8fb0, #d86b93);
+            box-shadow: 0 14px 26px rgba(216, 107, 147, 0.28);
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .meter-button:hover,
+        .meter-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(216, 107, 147, 0.34);
+        }
+
+        .meter-track {
+            height: 22px;
+            border-radius: 999px;
+            background: rgba(230, 230, 250, 0.85);
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(138, 95, 125, 0.08);
+        }
+
+        .meter-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #ff90b2, #ffd6a5, #ffd166);
+            box-shadow: 0 0 18px rgba(255, 209, 102, 0.55);
+            transition: width 0.35s ease;
+        }
+
+        .meter-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meter-percent {
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            font-weight: 800;
+            color: #cb5b84;
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.75);
+        }
+
+        .meter-message {
+            margin: 0;
+            color: #8c6881;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.92rem;
+            color: #8a6780;
+        }
+
+        .cursor-heart {
+            position: fixed;
+            left: 0;
+            top: 0;
+            font-size: clamp(20px, 2.4vw, 28px);
+            pointer-events: none;
+            z-index: 4;
+            transform: translate3d(-50%, -50%, 0);
+            filter: drop-shadow(0 0 14px rgba(255, 127, 162, 0.65));
+            transition: transform 0.16s linear;
+        }
+
+        @keyframes gentleFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                transform: scale(1.03);
+                text-shadow: 0 0 24px rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        @keyframes twinkleField {
+            from {
+                opacity: 0.72;
+                transform: scale(1);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1.04);
+            }
+        }
+
+        @keyframes sparklePulse {
+            0% {
+                opacity: 0;
+                transform: translateY(8px) scale(0.6);
+            }
+            20% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-16px) scale(1.08);
+            }
+        }
+
+        @keyframes heartRise {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            15% {
+                opacity: 0.75;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-110vh) translateX(18px) scale(1.2);
+            }
+        }
+
+        @media (max-width: 780px) {
+            .card {
+                padding: 22px;
+                border-radius: 28px;
+            }
+
+            .phrases,
+            .interactive-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .love-banner {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" aria-hidden="true"></div>
+    <div class="heart-stream" aria-hidden="true"></div>
+    <div class="cursor-heart" aria-hidden="true">💖</div>
+
+    <main class="page">
+        <section class="card">
+            <div class="content">
+                <header class="hero">
+                    <h1 class="name">Vanessa</h1>
+                    <div class="love-banner"><span>I love you</span></div>
+                    <p class="hero-note">A tiny little corner of the internet made to feel like a warm hug, a blush, and a love letter all at once.</p>
+                </header>
+
+                <section class="phrases" aria-label="Romantic phrases">
+                    <article class="phrase accent"><span class="phrase-icon" aria-hidden="true">☀️</span><span>You light my world</span></article>
+                    <article class="phrase">Every day with you is magic</article>
+                    <article class="phrase">You are my heart's home</article>
+                    <article class="phrase">With you, even quiet moments sparkle a little brighter.</article>
+                </section>
+
+                <section class="interactive-grid">
+                    <article class="panel envelope-wrap" id="letterPanel">
+                        <h2 class="panel-title">A little love letter</h2>
+                        <button class="envelope-button" id="envelopeButton" type="button" aria-expanded="false" aria-controls="loveLetter">
+                            <div class="envelope" aria-hidden="true">
+                                <div class="envelope-heart">❤</div>
+                            </div>
+                        </button>
+                        <p class="letter-hint">Click the envelope to open something sweet.</p>
+                        <div class="hidden-letter" id="loveLetter">
+                            <p>Vanessa, you make everything brighter. I love you more than words can say. You truly light my whole world. 💖</p>
+                        </div>
+                    </article>
+
+                    <article class="panel meter">
+                        <h2 class="panel-title">Romance Meter</h2>
+                        <div class="meter-stats">
+                            <div class="meter-percent" id="meterPercent">0%</div>
+                            <p class="meter-message" id="meterMessage">More love every second...</p>
+                        </div>
+                        <div class="meter-track" aria-hidden="true">
+                            <div class="meter-fill" id="meterFill"></div>
+                        </div>
+                        <button class="meter-button" id="meterButton" type="button">Add More Romance</button>
+                    </article>
+                </section>
+
+                <footer class="footer">Made with all my love, just for you 💕</footer>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const sparkleContainer = document.querySelector('.sparkles');
+        const heartStream = document.querySelector('.heart-stream');
+        const cursorHeart = document.querySelector('.cursor-heart');
+        const envelopeButton = document.getElementById('envelopeButton');
+        const letterPanel = document.getElementById('letterPanel');
+        const meterButton = document.getElementById('meterButton');
+        const meterFill = document.getElementById('meterFill');
+        const meterPercent = document.getElementById('meterPercent');
+        const meterMessage = document.getElementById('meterMessage');
+
+        const romanceMessages = [
+            'More love every second...',
+            'Your smile makes the stars jealous.',
+            'The sweetness level is rising fast.',
+            'This heart only beats louder for Vanessa.',
+            'Completely full of love now.'
+        ];
+
+        let currentLove = 0;
+        let pointerX = window.innerWidth / 2;
+        let pointerY = window.innerHeight / 2;
+        let heartX = pointerX;
+        let heartY = pointerY;
+        let autoDrift = 0;
+
+        function createSparkles() {
+            const sparkleCount = 22;
+
+            for (let index = 0; index < sparkleCount; index += 1) {
+                const sparkle = document.createElement('span');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = index % 3 === 0 ? '✦' : '✧';
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDuration = `${4 + Math.random() * 4}s`;
+                sparkle.style.animationDelay = `${Math.random() * 4}s`;
+                sparkleContainer.appendChild(sparkle);
+            }
+        }
+
+        function spawnHeart() {
+            const heart = document.createElement('span');
+            heart.className = 'floating-heart';
+            heart.textContent = Math.random() > 0.5 ? '❤' : '♥';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.bottom = '-40px';
+            heart.style.animationDuration = `${7 + Math.random() * 5}s`;
+            heart.style.animationDelay = `${Math.random() * 1.8}s`;
+            heart.style.fontSize = `${18 + Math.random() * 18}px`;
+            heartStream.appendChild(heart);
+
+            window.setTimeout(() => {
+                heart.remove();
+            }, 12500);
+        }
+
+        function toggleLetter() {
+            const isOpen = letterPanel.classList.toggle('letter-open');
+            envelopeButton.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        function updateRomanceMeter() {
+            currentLove = Math.min(100, currentLove + 10);
+            meterFill.style.width = `${currentLove}%`;
+            meterPercent.textContent = `${currentLove}%`;
+
+            const messageIndex = Math.min(
+                romanceMessages.length - 1,
+                Math.floor(currentLove / 25)
+            );
+
+            meterMessage.textContent = romanceMessages[messageIndex];
+
+            if (currentLove === 100) {
+                meterButton.textContent = 'Overflowing with Love';
+                meterButton.disabled = true;
+                meterButton.style.opacity = '0.88';
+                meterButton.style.cursor = 'default';
+            }
+        }
+
+        function animateCursorHeart() {
+            autoDrift += 0.018;
+            const driftX = Math.cos(autoDrift) * 10;
+            const driftY = Math.sin(autoDrift * 1.25) * 8;
+
+            heartX += (pointerX - heartX) * 0.14;
+            heartY += (pointerY - heartY) * 0.14;
+            cursorHeart.style.transform = `translate3d(${heartX + driftX}px, ${heartY + driftY}px, 0)`;
+
+            requestAnimationFrame(animateCursorHeart);
+        }
+
+        document.addEventListener('pointermove', (event) => {
+            pointerX = event.clientX;
+            pointerY = event.clientY;
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            if (event.touches[0]) {
+                pointerX = event.touches[0].clientX;
+                pointerY = event.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        envelopeButton.addEventListener('click', toggleLetter);
+        meterButton.addEventListener('click', updateRomanceMeter);
+
+        createSparkles();
+        animateCursorHeart();
+        for (let index = 0; index < 14; index += 1) {
+            window.setTimeout(spawnHeart, index * 380);
+        }
+        window.setInterval(spawnHeart, 900);
+    </script>
+</body>
+</html>
