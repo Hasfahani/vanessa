@@ -406,6 +406,119 @@
             font-weight: 700;
         }
 
+        .forever-panel {
+            display: grid;
+            gap: 16px;
+            text-align: center;
+            justify-items: center;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 218, 185, 0.55));
+        }
+
+        .forever-copy {
+            margin: 0;
+            max-width: 560px;
+            color: #81556f;
+            line-height: 1.7;
+            font-weight: 700;
+        }
+
+        .forever-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 15px 24px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff92b3, #c95f86);
+            box-shadow: 0 16px 28px rgba(201, 95, 134, 0.28);
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .forever-button:hover,
+        .forever-button:focus-visible {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 20px 34px rgba(201, 95, 134, 0.34);
+        }
+
+        .forever-note {
+            margin: 0;
+            color: #926a82;
+            font-size: 0.98rem;
+        }
+
+        .forever-overlay {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.45), transparent 30%), rgba(201, 95, 134, 0.28);
+            backdrop-filter: blur(14px);
+            z-index: 6;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .forever-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .forever-message {
+            width: min(100%, 560px);
+            padding: 28px 24px;
+            border-radius: 30px;
+            background: rgba(255, 245, 238, 0.92);
+            box-shadow: 0 26px 70px rgba(141, 82, 109, 0.22);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.45s ease-out both;
+        }
+
+        .forever-title {
+            margin: 0 0 10px;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(2.5rem, 8vw, 4.2rem);
+            color: #c95f86;
+            text-shadow: var(--glow);
+        }
+
+        .forever-text {
+            margin: 0;
+            color: #7a5068;
+            font-size: clamp(1rem, 2.5vw, 1.12rem);
+            line-height: 1.75;
+            font-weight: 700;
+        }
+
+        .close-forever {
+            margin-top: 18px;
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            color: #b5547d;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .burst-heart {
+            position: fixed;
+            z-index: 7;
+            pointer-events: none;
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: burstFly 1.4s ease-out forwards;
+            filter: drop-shadow(0 0 12px rgba(255, 127, 162, 0.45));
+        }
+
         .footer {
             text-align: center;
             font-size: 0.92rem;
@@ -499,6 +612,20 @@
             }
         }
 
+        @keyframes burstFly {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 0, 0) scale(0.5);
+            }
+            15% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(var(--burst-x), var(--burst-y), 0) scale(1.35) rotate(var(--burst-rotate));
+            }
+        }
+
         @media (max-width: 780px) {
             .card {
                 padding: 22px;
@@ -581,10 +708,25 @@
                     </article>
                 </section>
 
+                <section class="panel forever-panel">
+                    <h2 class="panel-title">A forever little promise</h2>
+                    <p class="forever-copy">Some feelings are too big for a tiny screen, but this one can still try: if I had to choose my favorite place, it would always be wherever you are.</p>
+                    <button class="forever-button" id="foreverButton" type="button">Tap for Forever</button>
+                    <p class="forever-note">A tiny surprise for the sweetest girl in the world.</p>
+                </section>
+
                 <footer class="footer">Made with all my love, just for you 💕</footer>
             </div>
         </section>
     </main>
+
+    <div class="forever-overlay" id="foreverOverlay" aria-hidden="true">
+        <div class="forever-message" role="dialog" aria-modal="true" aria-labelledby="foreverTitle">
+            <h2 class="forever-title" id="foreverTitle">Forever, Vanessa</h2>
+            <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps, I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I want forever to feel like your hand in mine.</p>
+            <button class="close-forever" id="closeForever" type="button">Keep This Close ❤</button>
+        </div>
+    </div>
 
     <script>
         const sparkleContainer = document.querySelector('.sparkles');
@@ -596,6 +738,9 @@
         const meterFill = document.getElementById('meterFill');
         const meterPercent = document.getElementById('meterPercent');
         const meterMessage = document.getElementById('meterMessage');
+        const foreverButton = document.getElementById('foreverButton');
+        const foreverOverlay = document.getElementById('foreverOverlay');
+        const closeForever = document.getElementById('closeForever');
 
         const romanceMessages = [
             'More love every second...',
@@ -668,6 +813,43 @@
             }
         }
 
+        function createHeartBurst() {
+            const burstCount = 22;
+
+            for (let index = 0; index < burstCount; index += 1) {
+                const burstHeart = document.createElement('span');
+                const angle = (Math.PI * 2 * index) / burstCount;
+                const distance = 90 + Math.random() * 140;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance - 30;
+
+                burstHeart.className = 'burst-heart';
+                burstHeart.textContent = Math.random() > 0.5 ? '❤' : '💖';
+                burstHeart.style.left = '50%';
+                burstHeart.style.top = '50%';
+                burstHeart.style.fontSize = `${18 + Math.random() * 20}px`;
+                burstHeart.style.setProperty('--burst-x', `${x}px`);
+                burstHeart.style.setProperty('--burst-y', `${y}px`);
+                burstHeart.style.setProperty('--burst-rotate', `${-35 + Math.random() * 70}deg`);
+                document.body.appendChild(burstHeart);
+
+                window.setTimeout(() => {
+                    burstHeart.remove();
+                }, 1500);
+            }
+        }
+
+        function openForeverMoment() {
+            foreverOverlay.classList.add('show');
+            foreverOverlay.setAttribute('aria-hidden', 'false');
+            createHeartBurst();
+        }
+
+        function closeForeverMoment() {
+            foreverOverlay.classList.remove('show');
+            foreverOverlay.setAttribute('aria-hidden', 'true');
+        }
+
         function animateCursorHeart() {
             autoDrift += 0.018;
             const driftX = Math.cos(autoDrift) * 10;
@@ -694,6 +876,18 @@
 
         envelopeButton.addEventListener('click', toggleLetter);
         meterButton.addEventListener('click', updateRomanceMeter);
+        foreverButton.addEventListener('click', openForeverMoment);
+        closeForever.addEventListener('click', closeForeverMoment);
+        foreverOverlay.addEventListener('click', (event) => {
+            if (event.target === foreverOverlay) {
+                closeForeverMoment();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && foreverOverlay.classList.contains('show')) {
+                closeForeverMoment();
+            }
+        });
 
         createSparkles();
         animateCursorHeart();
