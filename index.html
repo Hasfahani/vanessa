@@ -519,6 +519,173 @@
             filter: drop-shadow(0 0 12px rgba(255, 127, 162, 0.45));
         }
 
+        /* ── Reasons I Love You ── */
+        .reasons-panel {
+            display: grid;
+            gap: 18px;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .reason-display {
+            min-height: 72px;
+            display: grid;
+            place-items: center;
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 185, 0.6));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        }
+
+        .reason-text {
+            margin: 0;
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+            font-weight: 700;
+            color: #854e72;
+            font-style: italic;
+            transition: opacity 0.28s ease;
+        }
+
+        .reason-text.fading {
+            opacity: 0;
+        }
+
+        .reason-counter {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #aa7894;
+        }
+
+        .reason-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 13px 22px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffb3cc, #d8608c);
+            box-shadow: 0 12px 24px rgba(216, 96, 140, 0.28);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .reason-button:hover,
+        .reason-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(216, 96, 140, 0.34);
+        }
+
+        /* ── Scrapbook ── */
+        .scrapbook {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            justify-content: center;
+        }
+
+        .polaroid {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 4px;
+            padding: 14px 14px 42px;
+            box-shadow: 0 10px 30px rgba(138, 95, 125, 0.18), 0 2px 6px rgba(138, 95, 125, 0.1);
+            width: clamp(150px, 26vw, 200px);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+
+        .polaroid:nth-child(1) { transform: rotate(-3deg); }
+        .polaroid:nth-child(2) { transform: rotate(1.8deg); }
+        .polaroid:nth-child(3) { transform: rotate(-1.5deg); }
+
+        .polaroid:hover {
+            transform: rotate(0) translateY(-7px) scale(1.04) !important;
+            box-shadow: 0 24px 46px rgba(138, 95, 125, 0.24);
+            z-index: 3;
+        }
+
+        .polaroid-scene {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--lavender), var(--blush));
+            border-radius: 2px;
+            padding: 18px 0;
+        }
+
+        .polaroid-caption {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #8a607a;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .polaroid-date {
+            display: block;
+            font-size: 0.76rem;
+            color: #b8899e;
+            margin-top: 5px;
+        }
+
+        /* ── Hold for Love ── */
+        .hold-panel {
+            display: grid;
+            gap: 14px;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .hold-button {
+            border: 0;
+            border-radius: 999px;
+            width: 118px;
+            height: 118px;
+            font-size: 2.6rem;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffb3cc, #e87dab);
+            box-shadow: 0 14px 32px rgba(232, 125, 171, 0.32);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+
+        .hold-button.pressing {
+            transform: scale(0.93);
+            box-shadow: 0 8px 20px rgba(232, 125, 171, 0.2);
+        }
+
+        .hold-hint {
+            margin: 0;
+            color: #926a82;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .hold-tip {
+            margin: 0;
+            color: #b090a0;
+            font-size: 0.88rem;
+        }
+
+        .kiss-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: kissFloat 1.8s ease-out forwards;
+            filter: drop-shadow(0 0 10px rgba(255, 127, 162, 0.5));
+        }
+
+        @keyframes kissFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.6); }
+            12% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-190px) translateX(var(--kiss-x)) scale(1.2); }
+        }
+
         .footer {
             text-align: center;
             font-size: 0.92rem;
@@ -671,7 +838,7 @@
                 <header class="hero">
                     <h1 class="name">Vanessa</h1>
                     <div class="love-banner"><span>I love you</span></div>
-                    <p class="hero-note">A tiny little corner of the internet made to feel like a warm hug, a blush, and a love letter all at once.</p>
+                    <p class="hero-note">A tiny little corner of the internet made by Habib, to feel like a warm hug, a blush, and a love letter — all just for you.</p>
                 </header>
 
                 <section class="phrases" aria-label="Romantic phrases">
@@ -715,7 +882,41 @@
                     <p class="forever-note">A tiny surprise for the sweetest girl in the world.</p>
                 </section>
 
-                <footer class="footer">Made with all my love, just for you 💕</footer>
+                <section class="panel reasons-panel">
+                    <h2 class="panel-title">Reasons I Love You</h2>
+                    <div class="reason-display">
+                        <p class="reason-text" id="reasonText">Press the button and discover something true ✨</p>
+                    </div>
+                    <p class="reason-counter" id="reasonCounter">0 of 14 reasons revealed</p>
+                    <button class="reason-button" id="reasonButton" type="button">Reveal a Reason 💛</button>
+                </section>
+
+                <section class="panel">
+                    <h2 class="panel-title">Little Scrapbook</h2>
+                    <div class="scrapbook">
+                        <div class="polaroid">
+                            <div class="polaroid-scene">🌅</div>
+                            <p class="polaroid-caption">The moment I knew<br><span class="polaroid-date">a golden afternoon</span></p>
+                        </div>
+                        <div class="polaroid">
+                            <div class="polaroid-scene">🌙</div>
+                            <p class="polaroid-caption">Late nights &amp; soft laughs<br><span class="polaroid-date">our favorite hours</span></p>
+                        </div>
+                        <div class="polaroid">
+                            <div class="polaroid-scene">🌸</div>
+                            <p class="polaroid-caption">Every ordinary day<br><span class="polaroid-date">made extraordinary</span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel hold-panel">
+                    <h2 class="panel-title">Hold for a Moment of Love</h2>
+                    <button class="hold-button" id="holdButton" type="button" aria-label="Hold for love">💗</button>
+                    <p class="hold-hint">Press and hold — Habib is sending love to Vanessa</p>
+                    <p class="hold-tip">Keep going… it never runs out 🌸</p>
+                </section>
+
+                <footer class="footer">Made with all my love, just for you 💕<br><span style="font-size:0.85rem;opacity:0.8;">— Habib, your boyfriend forever</span></footer>
             </div>
         </section>
     </main>
@@ -724,6 +925,7 @@
         <div class="forever-message" role="dialog" aria-modal="true" aria-labelledby="foreverTitle">
             <h2 class="forever-title" id="foreverTitle">Forever, Vanessa</h2>
             <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps, I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I want forever to feel like your hand in mine.</p>
+            <p style="margin:14px 0 0;font-size:0.95rem;color:#a07088;font-weight:700;">— with all of me, Habib 💖</p>
             <button class="close-forever" id="closeForever" type="button">Keep This Close ❤</button>
         </div>
     </div>
@@ -873,6 +1075,85 @@
                 pointerY = event.touches[0].clientY;
             }
         }, { passive: true });
+
+        // ── Reasons I Love You ──
+        const reasonButton = document.getElementById('reasonButton');
+        const reasonText = document.getElementById('reasonText');
+        const reasonCounter = document.getElementById('reasonCounter');
+
+        const reasons = [
+            'Your laugh — it fills every room with warmth.',
+            'The way you make ordinary moments feel golden.',
+            'How your eyes soften when you smile for real.',
+            'Your kindness, quiet and steady as starlight.',
+            'The way you make me feel seen, always.',
+            'Your voice — the one I want to wake up to.',
+            'How caring you are — it just overflows from you.',
+            'The little things you do without even thinking.',
+            'How safe the world feels when I am with you.',
+            'Your heart — it is the softest, bravest thing.',
+            'The way you love — fully, gently, completely.',
+            'Every version of you I have had the honour to know.',
+            'The calm you bring to everything you touch.',
+            'Simply being you — that is more than enough.'
+        ];
+
+        let reasonIndex = 0;
+
+        function revealReason() {
+            reasonText.classList.add('fading');
+            window.setTimeout(() => {
+                reasonText.textContent = `"${reasons[reasonIndex % reasons.length]}"`;
+                reasonText.classList.remove('fading');
+                reasonIndex += 1;
+                reasonCounter.textContent = `${Math.min(reasonIndex, reasons.length)} of ${reasons.length} reasons revealed`;
+                if (reasonIndex >= reasons.length) {
+                    reasonButton.textContent = 'All reasons revealed 💛';
+                    reasonButton.disabled = true;
+                    reasonButton.style.opacity = '0.85';
+                    reasonButton.style.cursor = 'default';
+                }
+            }, 290);
+        }
+
+        reasonButton.addEventListener('click', revealReason);
+
+        // ── Hold for Love ──
+        const holdButton = document.getElementById('holdButton');
+        let holdInterval = null;
+
+        function spawnKissHeart() {
+            const kissHeart = document.createElement('span');
+            const rect = holdButton.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            kissHeart.className = 'kiss-heart';
+            kissHeart.textContent = ['💗', '💖', '💕', '❤', '🌸'][Math.floor(Math.random() * 5)];
+            kissHeart.style.left = `${cx + (Math.random() * 44 - 22)}px`;
+            kissHeart.style.top = `${cy}px`;
+            kissHeart.style.fontSize = `${22 + Math.random() * 18}px`;
+            kissHeart.style.setProperty('--kiss-x', `${-35 + Math.random() * 70}px`);
+            document.body.appendChild(kissHeart);
+            window.setTimeout(() => { kissHeart.remove(); }, 1950);
+        }
+
+        function startHolding() {
+            holdButton.classList.add('pressing');
+            spawnKissHeart();
+            holdInterval = window.setInterval(spawnKissHeart, 155);
+        }
+
+        function stopHolding() {
+            holdButton.classList.remove('pressing');
+            window.clearInterval(holdInterval);
+            holdInterval = null;
+        }
+
+        holdButton.addEventListener('pointerdown', (event) => { event.preventDefault(); startHolding(); });
+        holdButton.addEventListener('pointerup', stopHolding);
+        holdButton.addEventListener('pointerleave', stopHolding);
+        holdButton.addEventListener('touchstart', (event) => { event.preventDefault(); startHolding(); }, { passive: false });
+        holdButton.addEventListener('touchend', stopHolding);
 
         envelopeButton.addEventListener('click', toggleLetter);
         meterButton.addEventListener('click', updateRomanceMeter);
