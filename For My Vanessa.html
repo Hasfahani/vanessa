@@ -23,6 +23,11 @@
 
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            min-height: 44px;
         }
 
         html,
@@ -793,10 +798,28 @@
             }
         }
 
+        /* ── touch devices: hide mouse-follower ── */
+        @media (hover: none) {
+            .cursor-heart { display: none; }
+        }
+
         @media (max-width: 780px) {
+            .page {
+                padding: 16px 12px 24px;
+            }
+
             .card {
-                padding: 22px;
-                border-radius: 28px;
+                padding: 20px 16px;
+                border-radius: 26px;
+                overflow: hidden; /* clip decorative orbs */
+            }
+
+            .content {
+                gap: 18px;
+            }
+
+            .hero {
+                gap: 8px;
             }
 
             .phrases,
@@ -805,13 +828,116 @@
             }
 
             .panel {
-                padding: 18px;
+                padding: 16px;
             }
 
             .love-banner {
                 width: 100%;
                 justify-content: center;
                 text-align: center;
+                padding: 12px 16px;
+            }
+
+            /* swipeable polaroid shelf */
+            .scrapbook {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                gap: 16px;
+                justify-content: flex-start;
+                padding-bottom: 6px;
+            }
+
+            .scrapbook::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .scrapbook::-webkit-scrollbar-thumb {
+                background: rgba(201, 95, 134, 0.25);
+                border-radius: 999px;
+            }
+
+            .polaroid {
+                flex-shrink: 0;
+                scroll-snap-align: center;
+                width: 155px;
+                padding: 12px 12px 36px;
+            }
+
+            .polaroid:nth-child(1),
+            .polaroid:nth-child(2),
+            .polaroid:nth-child(3) {
+                transform: rotate(0deg);
+            }
+
+            .polaroid:hover {
+                transform: none !important;
+            }
+
+            .meter-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .hold-button {
+                width: 110px;
+                height: 110px;
+                font-size: 2.4rem;
+            }
+
+            .forever-message {
+                padding: 22px 16px;
+            }
+
+            .forever-text {
+                font-size: 1rem;
+            }
+
+            .envelope-button {
+                width: 100%;
+            }
+
+            .meter-button,
+            .forever-button,
+            .reason-button,
+            .close-forever {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .page {
+                padding: 12px 10px 20px;
+            }
+
+            .card {
+                padding: 16px 14px;
+                border-radius: 22px;
+            }
+
+            .name {
+                font-size: clamp(2.8rem, 14vw, 4rem);
+            }
+
+            .love-banner {
+                font-size: clamp(1.2rem, 6vw, 1.6rem);
+                padding: 10px 14px;
+            }
+
+            .panel-title {
+                font-size: 1.08rem;
+            }
+
+            .polaroid {
+                width: 140px;
+            }
+
+            .hold-button {
+                width: 96px;
+                height: 96px;
+                font-size: 2.1rem;
             }
         }
 
