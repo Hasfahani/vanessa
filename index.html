@@ -798,6 +798,214 @@
             }
         }
 
+        /* ── Greeting Banner ── */
+        .greeting-panel {
+            display: grid;
+            gap: 10px;
+            text-align: center;
+            justify-items: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(255,218,185,0.55));
+        }
+
+        .greeting-emoji {
+            font-size: 2.8rem;
+            line-height: 1;
+            animation: pulseGlow 2.8s ease-in-out infinite;
+        }
+
+        .greeting-text {
+            margin: 0;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            color: #c95f86;
+            text-shadow: var(--glow);
+        }
+
+        .greeting-sub {
+            margin: 0;
+            font-size: clamp(0.95rem, 2.2vw, 1.08rem);
+            color: #81556f;
+            font-weight: 700;
+        }
+
+        /* ── Love Timer ── */
+        .timer-panel {
+            display: grid;
+            gap: 16px;
+            text-align: center;
+            justify-items: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(230,230,250,0.6));
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .timer-unit {
+            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,218,185,0.55));
+            border-radius: 20px;
+            padding: 14px 8px;
+            box-shadow: 0 8px 20px rgba(170,110,138,0.12);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .timer-number {
+            display: block;
+            font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+            font-weight: 800;
+            color: #c95f86;
+            text-shadow: 0 0 14px rgba(255,255,255,0.7);
+            line-height: 1.1;
+        }
+
+        .timer-label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #a07a90;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .timer-tagline {
+            margin: 0;
+            font-size: clamp(0.92rem, 2vw, 1.02rem);
+            color: #81556f;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* ── Typewriter Poem ── */
+        .poem-panel {
+            display: grid;
+            gap: 16px;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .poem-display {
+            width: 100%;
+            min-height: 180px;
+            padding: 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,218,185,0.5));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+            display: grid;
+            place-items: center;
+        }
+
+        .poem-text {
+            margin: 0;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            color: #854e72;
+            line-height: 1.65;
+            white-space: pre-line;
+        }
+
+        .poem-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #c95f86;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blinkCursor 0.72s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .poem-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 13px 22px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #c9a0dc, #9b6bae);
+            box-shadow: 0 12px 24px rgba(155,107,174,0.28);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .poem-button:hover,
+        .poem-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(155,107,174,0.34);
+        }
+
+        /* ── Dream Date Jar ── */
+        .date-jar-panel {
+            display: grid;
+            gap: 16px;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .jar-icon {
+            font-size: 3.4rem;
+            line-height: 1;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        .date-card {
+            width: 100%;
+            min-height: 80px;
+            padding: 18px 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,192,203,0.35));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+            display: grid;
+            place-items: center;
+            transition: transform 0.35s ease;
+        }
+
+        .date-card.shake {
+            animation: jarShake 0.45s ease;
+        }
+
+        @keyframes jarShake {
+            0%, 100% { transform: rotate(0); }
+            20% { transform: rotate(-4deg); }
+            40% { transform: rotate(4deg); }
+            60% { transform: rotate(-3deg); }
+            80% { transform: rotate(2deg); }
+        }
+
+        .date-idea {
+            margin: 0;
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: 700;
+            color: #854e72;
+        }
+
+        .date-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 13px 22px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffb3a6, #e8737a);
+            box-shadow: 0 12px 24px rgba(232,115,122,0.28);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .date-button:hover,
+        .date-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(232,115,122,0.34);
+        }
+
         /* ── touch devices: hide mouse-follower ── */
         @media (hover: none) {
             .cursor-heart { display: none; }
@@ -806,12 +1014,15 @@
         @media (max-width: 780px) {
             .page {
                 padding: 16px 12px 24px;
+                min-height: auto;
+                display: block;
             }
 
             .card {
+                width: 100%;
                 padding: 20px 16px;
                 border-radius: 26px;
-                overflow: hidden;
+                overflow: hidden; /* clip decorative orbs */
             }
 
             .content {
@@ -838,6 +1049,7 @@
                 padding: 12px 16px;
             }
 
+            /* swipeable polaroid shelf */
             .scrapbook {
                 flex-wrap: nowrap;
                 overflow-x: auto;
@@ -901,17 +1113,30 @@
             .meter-button,
             .forever-button,
             .reason-button,
-            .close-forever {
+            .close-forever,
+            .poem-button,
+            .date-button {
                 width: 100%;
+            }
+
+            .timer-grid {
+                gap: 8px;
+            }
+
+            .timer-number {
+                font-size: clamp(1.4rem, 5vw, 2rem);
             }
         }
 
         @media (max-width: 420px) {
             .page {
                 padding: 12px 10px 20px;
+                min-height: auto;
+                display: block;
             }
 
             .card {
+                width: 100%;
                 padding: 16px 14px;
                 border-radius: 22px;
             }
@@ -965,6 +1190,12 @@
                     <div class="love-banner"><span>I love you</span></div>
                     <p class="hero-note">A tiny little corner of the internet made by Habib, to feel like a warm hug, a blush, and a love letter — all just for you.</p>
                 </header>
+
+                <section class="panel greeting-panel" id="greetingPanel">
+                    <div class="greeting-emoji" id="greetingEmoji">🌸</div>
+                    <h2 class="greeting-text" id="greetingText">Good morning, my love</h2>
+                    <p class="greeting-sub" id="greetingSub">Hope your day is as beautiful as you are.</p>
+                </section>
 
                 <section class="phrases" aria-label="Romantic phrases">
                     <article class="phrase accent"><span class="phrase-icon" aria-hidden="true">☀️</span><span>You light my world</span></article>
@@ -1039,6 +1270,46 @@
                     <button class="hold-button" id="holdButton" type="button" aria-label="Hold for love">💗</button>
                     <p class="hold-hint">Press and hold — Habib is sending love to Vanessa</p>
                     <p class="hold-tip">Keep going… it never runs out 🌸</p>
+                </section>
+
+                <section class="panel timer-panel">
+                    <h2 class="panel-title">Time Since I Fell For You</h2>
+                    <div class="timer-grid">
+                        <div class="timer-unit">
+                            <span class="timer-number" id="timerDays">0</span>
+                            <span class="timer-label">Days</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span class="timer-number" id="timerHours">0</span>
+                            <span class="timer-label">Hours</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span class="timer-number" id="timerMins">0</span>
+                            <span class="timer-label">Minutes</span>
+                        </div>
+                        <div class="timer-unit">
+                            <span class="timer-number" id="timerSecs">0</span>
+                            <span class="timer-label">Seconds</span>
+                        </div>
+                    </div>
+                    <p class="timer-tagline">…and every single one has been worth it 💕</p>
+                </section>
+
+                <section class="panel poem-panel">
+                    <h2 class="panel-title">A Poem, Just for You</h2>
+                    <div class="poem-display">
+                        <p class="poem-text" id="poemText"><span class="poem-cursor"></span></p>
+                    </div>
+                    <button class="poem-button" id="poemButton" type="button">Read Me a Poem 🌙</button>
+                </section>
+
+                <section class="panel date-jar-panel">
+                    <h2 class="panel-title">Our Dream Date Jar</h2>
+                    <div class="jar-icon" aria-hidden="true">🫙</div>
+                    <div class="date-card" id="dateCard">
+                        <p class="date-idea" id="dateIdea">Shake the jar and pick our next adventure together…</p>
+                    </div>
+                    <button class="date-button" id="dateButton" type="button">Pull a Dream Date 🎲</button>
                 </section>
 
                 <footer class="footer">Made with all my love, just for you 💕<br><span style="font-size:0.85rem;opacity:0.8;">— Habib, your boyfriend forever</span></footer>
@@ -1301,6 +1572,148 @@
             window.setTimeout(spawnHeart, index * 380);
         }
         window.setInterval(spawnHeart, 900);
+
+        // ── Time-Based Greeting ──
+        (function initGreeting() {
+            const emoji = document.getElementById('greetingEmoji');
+            const text = document.getElementById('greetingText');
+            const sub = document.getElementById('greetingSub');
+            const hour = new Date().getHours();
+
+            if (hour >= 5 && hour < 12) {
+                emoji.textContent = '☀️';
+                text.textContent = 'Good morning, my love';
+                sub.textContent = 'Hope your day is as beautiful as you are.';
+            } else if (hour >= 12 && hour < 17) {
+                emoji.textContent = '🌤️';
+                text.textContent = 'Good afternoon, beautiful';
+                sub.textContent = 'Just a little reminder that I am thinking of you right now.';
+            } else if (hour >= 17 && hour < 21) {
+                emoji.textContent = '🌅';
+                text.textContent = 'Good evening, my Vanessa';
+                sub.textContent = 'The prettiest sunset has nothing on you.';
+            } else {
+                emoji.textContent = '🌙';
+                text.textContent = 'Goodnight, my everything';
+                sub.textContent = 'Dream of us tonight. I will be dreaming of you too.';
+            }
+        })();
+
+        // ── Love Timer ──
+        (function initLoveTimer() {
+            // Set your anniversary / start date here (YYYY, M-1, D)
+            const startDate = new Date(2024, 5, 1); // June 1 2024
+            const daysEl = document.getElementById('timerDays');
+            const hoursEl = document.getElementById('timerHours');
+            const minsEl = document.getElementById('timerMins');
+            const secsEl = document.getElementById('timerSecs');
+
+            function tick() {
+                const diff = Date.now() - startDate.getTime();
+                const totalSeconds = Math.floor(diff / 1000);
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const mins = Math.floor((totalSeconds % 3600) / 60);
+                const secs = totalSeconds % 60;
+                daysEl.textContent = days;
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minsEl.textContent = String(mins).padStart(2, '0');
+                secsEl.textContent = String(secs).padStart(2, '0');
+            }
+
+            tick();
+            window.setInterval(tick, 1000);
+        })();
+
+        // ── Typewriter Love Poem ──
+        (function initPoem() {
+            const poemButton = document.getElementById('poemButton');
+            const poemText = document.getElementById('poemText');
+
+            const poems = [
+                "Before you, the sky was just blue.\nNow every color reminds me of you.\nYour laugh is the music I replay,\nand loving you is my favourite way\nto spend every single day.",
+                "If I could bottle the way you smile,\nI would carry it with me every mile.\nYou are my sunrise and my goodnight,\nthe reason everything feels right.",
+                "They say that home is a place,\nbut mine is your warm embrace.\nIn your eyes I found my stay,\nyou are my forever and a day.",
+                "I did not know what love could be\nuntil you softly looked at me.\nNow every heartbeat speaks your name,\nand nothing has ever felt the same."
+            ];
+
+            let typing = false;
+
+            function typePoem() {
+                if (typing) return;
+                typing = true;
+                poemButton.disabled = true;
+                poemButton.style.opacity = '0.7';
+
+                const poem = poems[Math.floor(Math.random() * poems.length)];
+                poemText.innerHTML = '<span class="poem-cursor"></span>';
+                let i = 0;
+
+                function typeChar() {
+                    if (i < poem.length) {
+                        const char = poem[i] === '\n' ? '\n' : poem[i];
+                        poemText.innerHTML = poem.substring(0, i + 1) + '<span class="poem-cursor"></span>';
+                        i += 1;
+                        window.setTimeout(typeChar, 46 + Math.random() * 32);
+                    } else {
+                        typing = false;
+                        poemButton.disabled = false;
+                        poemButton.style.opacity = '1';
+                        poemButton.textContent = 'Another Poem 🌙';
+                    }
+                }
+
+                typeChar();
+            }
+
+            poemButton.addEventListener('click', typePoem);
+        })();
+
+        // ── Dream Date Jar ──
+        (function initDateJar() {
+            const dateButton = document.getElementById('dateButton');
+            const dateCard = document.getElementById('dateCard');
+            const dateIdea = document.getElementById('dateIdea');
+
+            const dateIdeas = [
+                '🌅  Watch sunset together with snacks & a blanket',
+                '🎬  Cozy movie marathon with matching pajamas',
+                '🍳  Cook each other breakfast in bed',
+                '📸  Go on a photo walk and capture little moments',
+                '🌙  Stargaze from a rooftop and name a star after us',
+                '🎨  Paint each other (even if it is terrible and funny)',
+                '🛁  Spa night at home with candles and face masks',
+                '📝  Write each other a letter to open in one year',
+                '🧁  Bake something sweet together (and lick the spoon)',
+                '🚗  Spontaneous drive with no destination, just music',
+                '🌸  Have a picnic in the prettiest park we can find',
+                '🎶  Dance in the kitchen to our favourite song',
+                '🏖️  Beach day — build sandcastles like little kids',
+                '🎮  Game night with silly bets and forehead kisses'
+            ];
+
+            let lastIndex = -1;
+
+            function pullDate() {
+                dateCard.classList.remove('shake');
+                void dateCard.offsetWidth;
+                dateCard.classList.add('shake');
+
+                let idx;
+                do {
+                    idx = Math.floor(Math.random() * dateIdeas.length);
+                } while (idx === lastIndex && dateIdeas.length > 1);
+                lastIndex = idx;
+
+                dateIdea.style.opacity = '0';
+                window.setTimeout(() => {
+                    dateIdea.textContent = dateIdeas[idx];
+                    dateIdea.style.opacity = '1';
+                }, 250);
+            }
+
+            dateButton.addEventListener('click', pullDate);
+        })();
     </script>
 </body>
 </html>
