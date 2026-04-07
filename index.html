@@ -1006,6 +1006,97 @@
             box-shadow: 0 16px 28px rgba(232,115,122,0.34);
         }
 
+        /* ── Virtual Hug / Countdown ── */
+        .hug-panel {
+            display: grid;
+            gap: 16px;
+            text-align: center;
+            justify-items: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(255,192,203,0.4));
+        }
+
+        .hug-emoji {
+            font-size: 3.6rem;
+            line-height: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .hug-emoji.hugging {
+            animation: hugSquish 0.7s ease;
+        }
+
+        @keyframes hugSquish {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.35) rotate(-5deg); }
+            60% { transform: scale(1.2) rotate(3deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        .hug-counter {
+            margin: 0;
+            font-size: clamp(0.92rem, 2.2vw, 1.04rem);
+            color: #926a82;
+            font-weight: 700;
+        }
+
+        .hug-message {
+            margin: 0;
+            font-size: clamp(1rem, 2.5vw, 1.12rem);
+            color: #81556f;
+            font-weight: 700;
+            font-style: italic;
+            min-height: 1.6em;
+            transition: opacity 0.3s ease;
+        }
+
+        .hug-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 15px 26px;
+            font: inherit;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f8a4c8, #e06c9f);
+            box-shadow: 0 14px 28px rgba(224,108,159,0.28);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .hug-button:hover,
+        .hug-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 32px rgba(224,108,159,0.34);
+        }
+
+        /* ── Miss You Countdown ── */
+        .countdown-panel {
+            display: grid;
+            gap: 14px;
+            text-align: center;
+            justify-items: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(230,230,250,0.55));
+        }
+
+        .countdown-emoji {
+            font-size: 2.6rem;
+            line-height: 1;
+        }
+
+        .countdown-text {
+            margin: 0;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+            color: #c95f86;
+            text-shadow: var(--glow);
+        }
+
+        .countdown-sub {
+            margin: 0;
+            font-size: clamp(0.92rem, 2.2vw, 1.04rem);
+            color: #81556f;
+            font-weight: 700;
+        }
+
         /* ── touch devices: hide mouse-follower ── */
         @media (hover: none) {
             .cursor-heart { display: none; }
@@ -1022,7 +1113,8 @@
                 width: 100%;
                 padding: 20px 16px;
                 border-radius: 26px;
-                overflow: hidden; /* clip decorative orbs */
+                overflow: hidden;
+                animation: fadeInUp 1.35s ease-out both; /* disable float on mobile */
             }
 
             .content {
@@ -1047,6 +1139,14 @@
                 justify-content: center;
                 text-align: center;
                 padding: 12px 16px;
+            }
+
+            .hidden-letter p {
+                font-size: 0.95rem;
+            }
+
+            .letter-open .hidden-letter {
+                max-height: 400px;
             }
 
             /* swipeable polaroid shelf */
@@ -1115,7 +1215,8 @@
             .reason-button,
             .close-forever,
             .poem-button,
-            .date-button {
+            .date-button,
+            .hug-button {
                 width: 100%;
             }
 
@@ -1126,32 +1227,70 @@
             .timer-number {
                 font-size: clamp(1.4rem, 5vw, 2rem);
             }
+
+            .poem-display {
+                min-height: 150px;
+                padding: 16px;
+            }
+
+            .poem-text {
+                font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            }
+
+            .date-card {
+                min-height: 70px;
+                padding: 14px 16px;
+            }
+
+            .greeting-text {
+                font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+            }
         }
 
         @media (max-width: 420px) {
             .page {
-                padding: 12px 10px 20px;
+                padding: 10px 8px 18px;
                 min-height: auto;
                 display: block;
             }
 
             .card {
                 width: 100%;
-                padding: 16px 14px;
-                border-radius: 22px;
+                padding: 14px 12px;
+                border-radius: 20px;
+            }
+
+            .content {
+                gap: 14px;
             }
 
             .name {
-                font-size: clamp(2.8rem, 14vw, 4rem);
+                font-size: clamp(2.6rem, 13vw, 3.6rem);
             }
 
             .love-banner {
-                font-size: clamp(1.2rem, 6vw, 1.6rem);
+                font-size: clamp(1.1rem, 5.5vw, 1.5rem);
                 padding: 10px 14px;
             }
 
+            .hero-note {
+                font-size: 0.92rem;
+            }
+
+            .panel {
+                padding: 14px 12px;
+                border-radius: 22px;
+            }
+
             .panel-title {
-                font-size: 1.08rem;
+                font-size: 1.05rem;
+                margin-bottom: 12px;
+            }
+
+            .phrase {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+                border-radius: 20px;
             }
 
             .polaroid {
@@ -1162,6 +1301,61 @@
                 width: 96px;
                 height: 96px;
                 font-size: 2.1rem;
+            }
+
+            .timer-grid {
+                gap: 6px;
+            }
+
+            .timer-unit {
+                padding: 10px 4px;
+                border-radius: 16px;
+            }
+
+            .timer-number {
+                font-size: clamp(1.2rem, 5vw, 1.7rem);
+            }
+
+            .timer-label {
+                font-size: 0.65rem;
+            }
+
+            .greeting-text {
+                font-size: clamp(1.3rem, 6vw, 1.8rem);
+            }
+
+            .greeting-sub {
+                font-size: 0.88rem;
+            }
+
+            .poem-display {
+                min-height: 130px;
+                padding: 14px;
+            }
+
+            .forever-overlay {
+                padding: 16px;
+            }
+
+            .forever-message {
+                padding: 18px 14px;
+                border-radius: 24px;
+            }
+
+            .forever-title {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+
+            .forever-text {
+                font-size: 0.92rem;
+            }
+
+            .hug-emoji {
+                font-size: 3rem;
+            }
+
+            .countdown-text {
+                font-size: clamp(1.3rem, 5vw, 1.8rem);
             }
         }
 
@@ -1188,7 +1382,7 @@
                 <header class="hero">
                     <h1 class="name">Vanessa</h1>
                     <div class="love-banner"><span>I love you</span></div>
-                    <p class="hero-note">A tiny little corner of the internet made by Habib, to feel like a warm hug, a blush, and a love letter — all just for you.</p>
+                    <p class="hero-note">A tiny little corner of the internet made by Habib — because even though the miles keep us apart, nothing in this world could ever keep my heart from yours.</p>
                 </header>
 
                 <section class="panel greeting-panel" id="greetingPanel">
@@ -1198,10 +1392,10 @@
                 </section>
 
                 <section class="phrases" aria-label="Romantic phrases">
-                    <article class="phrase accent"><span class="phrase-icon" aria-hidden="true">☀️</span><span>You light my world</span></article>
-                    <article class="phrase">Every day with you is magic</article>
-                    <article class="phrase">You are my heart's home</article>
-                    <article class="phrase">With you, even quiet moments sparkle a little brighter.</article>
+                    <article class="phrase accent"><span class="phrase-icon" aria-hidden="true">🌍</span><span>Miles apart, never apart in heart</span></article>
+                    <article class="phrase">Every text from you makes my whole day</article>
+                    <article class="phrase">Same moon, same stars, same love</article>
+                    <article class="phrase">The distance is temporary, but us — we are forever.</article>
                 </section>
 
                 <section class="interactive-grid">
@@ -1214,7 +1408,7 @@
                         </button>
                         <p class="letter-hint">Click the envelope to open something sweet.</p>
                         <div class="hidden-letter" id="loveLetter">
-                            <p>Vanessa, you make everything brighter. I love you more than words can say. You truly light my whole world. 💖</p>
+                            <p>Vanessa, even though I cannot hold your hand right now, I hold you in my heart every single second. The distance only makes me love you louder. I cannot wait for the day I get to see your face again — until then, every call, every text, every little "I love you" keeps me going. You are worth every mile. 💖</p>
                         </div>
                     </article>
 
@@ -1233,9 +1427,9 @@
 
                 <section class="panel forever-panel">
                     <h2 class="panel-title">A forever little promise</h2>
-                    <p class="forever-copy">Some feelings are too big for a tiny screen, but this one can still try: if I had to choose my favorite place, it would always be wherever you are.</p>
+                    <p class="forever-copy">The distance between us is just a test of how far love can travel — and ours reaches across everything. My favourite place will always be wherever you are, and one day, the distance will be zero.</p>
                     <button class="forever-button" id="foreverButton" type="button">Tap for Forever</button>
-                    <p class="forever-note">A tiny surprise for the sweetest girl in the world.</p>
+                    <p class="forever-note">A tiny surprise sent across the miles, just for you.</p>
                 </section>
 
                 <section class="panel reasons-panel">
@@ -1251,16 +1445,16 @@
                     <h2 class="panel-title">Little Scrapbook</h2>
                     <div class="scrapbook">
                         <div class="polaroid">
-                            <div class="polaroid-scene">🌅</div>
-                            <p class="polaroid-caption">The moment I knew<br><span class="polaroid-date">a golden afternoon</span></p>
+                            <div class="polaroid-scene">📱</div>
+                            <p class="polaroid-caption">Our late-night calls<br><span class="polaroid-date">the best hours</span></p>
                         </div>
                         <div class="polaroid">
                             <div class="polaroid-scene">🌙</div>
-                            <p class="polaroid-caption">Late nights &amp; soft laughs<br><span class="polaroid-date">our favorite hours</span></p>
+                            <p class="polaroid-caption">Same moon, different cities<br><span class="polaroid-date">always connected</span></p>
                         </div>
                         <div class="polaroid">
-                            <div class="polaroid-scene">🌸</div>
-                            <p class="polaroid-caption">Every ordinary day<br><span class="polaroid-date">made extraordinary</span></p>
+                            <div class="polaroid-scene">✈️</div>
+                            <p class="polaroid-caption">Counting down to you<br><span class="polaroid-date">soon, my love</span></p>
                         </div>
                     </div>
                 </section>
@@ -1268,8 +1462,8 @@
                 <section class="panel hold-panel">
                     <h2 class="panel-title">Hold for a Moment of Love</h2>
                     <button class="hold-button" id="holdButton" type="button" aria-label="Hold for love">💗</button>
-                    <p class="hold-hint">Press and hold — Habib is sending love to Vanessa</p>
-                    <p class="hold-tip">Keep going… it never runs out 🌸</p>
+                    <p class="hold-hint">Press and hold — Habib is sending love across the distance</p>
+                    <p class="hold-tip">Keep holding… every second sends a virtual kiss 🌸</p>
                 </section>
 
                 <section class="panel timer-panel">
@@ -1292,7 +1486,7 @@
                             <span class="timer-label">Seconds</span>
                         </div>
                     </div>
-                    <p class="timer-tagline">…and every single one has been worth it 💕</p>
+                    <p class="timer-tagline">…and the distance has not stolen a single one 💕</p>
                 </section>
 
                 <section class="panel poem-panel">
@@ -1307,12 +1501,26 @@
                     <h2 class="panel-title">Our Dream Date Jar</h2>
                     <div class="jar-icon" aria-hidden="true">🫙</div>
                     <div class="date-card" id="dateCard">
-                        <p class="date-idea" id="dateIdea">Shake the jar and pick our next adventure together…</p>
+                        <p class="date-idea" id="dateIdea">Shake the jar and pick our next long-distance date…</p>
                     </div>
                     <button class="date-button" id="dateButton" type="button">Pull a Dream Date 🎲</button>
                 </section>
 
-                <footer class="footer">Made with all my love, just for you 💕<br><span style="font-size:0.85rem;opacity:0.8;">— Habib, your boyfriend forever</span></footer>
+                <section class="panel hug-panel">
+                    <h2 class="panel-title">Send a Virtual Hug</h2>
+                    <div class="hug-emoji" id="hugEmoji" aria-hidden="true">🤗</div>
+                    <p class="hug-message" id="hugMessage">Every tap sends a hug across the miles…</p>
+                    <p class="hug-counter" id="hugCounter">0 hugs sent so far</p>
+                    <button class="hug-button" id="hugButton" type="button">Send Vanessa a Hug 💌</button>
+                </section>
+
+                <section class="panel countdown-panel">
+                    <div class="countdown-emoji" aria-hidden="true">✈️</div>
+                    <h2 class="countdown-text" id="countdownText">Missing you always</h2>
+                    <p class="countdown-sub" id="countdownSub">Every second apart is a second closer to being together again.</p>
+                </section>
+
+                <footer class="footer">Made with all my love, sent across the miles, just for you 💕<br><span style="font-size:0.85rem;opacity:0.8;">— Habib, your boyfriend forever, no matter the distance</span></footer>
             </div>
         </section>
     </main>
@@ -1320,7 +1528,7 @@
     <div class="forever-overlay" id="foreverOverlay" aria-hidden="true">
         <div class="forever-message" role="dialog" aria-modal="true" aria-labelledby="foreverTitle">
             <h2 class="forever-title" id="foreverTitle">Forever, Vanessa</h2>
-            <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps, I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I want forever to feel like your hand in mine.</p>
+            <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps — even across all this distance — I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I am counting down every single day until I can hold you again. Forever starts the moment we close this gap.</p>
             <p style="margin:14px 0 0;font-size:0.95rem;color:#a07088;font-weight:700;">— with all of me, Habib 💖</p>
             <button class="close-forever" id="closeForever" type="button">Keep This Close ❤</button>
         </div>
@@ -1478,20 +1686,20 @@
         const reasonCounter = document.getElementById('reasonCounter');
 
         const reasons = [
-            'Your laugh — it fills every room with warmth.',
-            'The way you make ordinary moments feel golden.',
-            'How your eyes soften when you smile for real.',
-            'Your kindness, quiet and steady as starlight.',
-            'The way you make me feel seen, always.',
-            'Your voice — the one I want to wake up to.',
-            'How caring you are — it just overflows from you.',
-            'The little things you do without even thinking.',
-            'How safe the world feels when I am with you.',
-            'Your heart — it is the softest, bravest thing.',
-            'The way you love — fully, gently, completely.',
-            'Every version of you I have had the honour to know.',
-            'The calm you bring to everything you touch.',
-            'Simply being you — that is more than enough.'
+            'Your laugh on the phone — it closes every mile between us.',
+            'The way you stay up late just to hear my voice.',
+            'How your eyes light up when we finally video call.',
+            'Your patience — loving someone far away takes real strength.',
+            'The way you make me feel close even from so far.',
+            'Your voice — the one I replay in my head all day.',
+            'How you never let the distance make you doubt us.',
+            'The little good morning texts that start my whole day.',
+            'How you still make me feel like the luckiest person alive.',
+            'Your heart — brave enough to love across the distance.',
+            'The way you count down the days until we see each other.',
+            'Every version of you I have fallen for, near and far.',
+            'How you turn a simple text into the highlight of my day.',
+            'Simply being mine — even from far away, that is everything.'
         ];
 
         let reasonIndex = 0;
@@ -1583,19 +1791,19 @@
             if (hour >= 5 && hour < 12) {
                 emoji.textContent = '☀️';
                 text.textContent = 'Good morning, my love';
-                sub.textContent = 'Hope your day is as beautiful as you are.';
+                sub.textContent = 'I wish I could wake up next to you. Until then, here is a sunrise hug.';
             } else if (hour >= 12 && hour < 17) {
                 emoji.textContent = '🌤️';
                 text.textContent = 'Good afternoon, beautiful';
-                sub.textContent = 'Just a little reminder that I am thinking of you right now.';
+                sub.textContent = 'Halfway through the day and I am still thinking about you across the miles.';
             } else if (hour >= 17 && hour < 21) {
                 emoji.textContent = '🌅';
                 text.textContent = 'Good evening, my Vanessa';
-                sub.textContent = 'The prettiest sunset has nothing on you.';
+                sub.textContent = 'Wish I was there to watch the sunset with you tonight.';
             } else {
                 emoji.textContent = '🌙';
                 text.textContent = 'Goodnight, my everything';
-                sub.textContent = 'Dream of us tonight. I will be dreaming of you too.';
+                sub.textContent = 'We are under the same sky tonight. Dream of us, I will too.';
             }
         })();
 
@@ -1631,10 +1839,10 @@
             const poemText = document.getElementById('poemText');
 
             const poems = [
-                "Before you, the sky was just blue.\nNow every color reminds me of you.\nYour laugh is the music I replay,\nand loving you is my favourite way\nto spend every single day.",
-                "If I could bottle the way you smile,\nI would carry it with me every mile.\nYou are my sunrise and my goodnight,\nthe reason everything feels right.",
-                "They say that home is a place,\nbut mine is your warm embrace.\nIn your eyes I found my stay,\nyou are my forever and a day.",
-                "I did not know what love could be\nuntil you softly looked at me.\nNow every heartbeat speaks your name,\nand nothing has ever felt the same."
+                "The miles between us stretch so wide,\nbut you are always by my side.\nIn every call and every text,\nmy heart beats loud — you are my next\nchapter, my always, my sweetest pride.",
+                "If I could fold the map in two,\nI would bring the world right back to you.\nUntil that day, I send my heart\nacross each mile that keeps us apart.",
+                "They say that distance makes love grow,\nand darling, now I finally know.\nWith every dawn in different skies,\nI fall in love again through your eyes.",
+                "I count the days, I count the hours,\nI send you love like distant flowers.\nAcross the oceans, through the air,\nmy heart is always, always there."
             ];
 
             let typing = false;
@@ -1676,20 +1884,20 @@
             const dateIdea = document.getElementById('dateIdea');
 
             const dateIdeas = [
-                '🌅  Watch sunset together with snacks & a blanket',
-                '🎬  Cozy movie marathon with matching pajamas',
-                '🍳  Cook each other breakfast in bed',
-                '📸  Go on a photo walk and capture little moments',
-                '🌙  Stargaze from a rooftop and name a star after us',
-                '🎨  Paint each other (even if it is terrible and funny)',
-                '🛁  Spa night at home with candles and face masks',
-                '📝  Write each other a letter to open in one year',
-                '🧁  Bake something sweet together (and lick the spoon)',
-                '🚗  Spontaneous drive with no destination, just music',
-                '🌸  Have a picnic in the prettiest park we can find',
-                '🎶  Dance in the kitchen to our favourite song',
-                '🏖️  Beach day — build sandcastles like little kids',
-                '🎮  Game night with silly bets and forehead kisses'
+                '📱  Fall asleep on a video call together',
+                '🎬  Sync a movie and watch it at the same time',
+                '🍳  Cook the same recipe on call together',
+                '🌙  Stargaze from different cities, same sky',
+                '🎮  Play an online game together all night',
+                '📝  Write each other a letter to open next visit',
+                '🎶  Make a shared playlist of songs that remind us of each other',
+                '📸  Send each other a photo every hour for a whole day',
+                '🧁  Bake the same recipe and compare results on call',
+                '🎨  Draw each other on video call (even if terrible)',
+                '📖  Read the same book and talk about it at night',
+                '🌅  Watch the sunrise or sunset together on FaceTime',
+                '💌  Send a surprise care package through the mail',
+                '🗺️  Plan our next trip together, detail by detail'
             ];
 
             let lastIndex = -1;
@@ -1713,6 +1921,44 @@
             }
 
             dateButton.addEventListener('click', pullDate);
+        })();
+
+        // ── Virtual Hug ──
+        (function initHug() {
+            const hugButton = document.getElementById('hugButton');
+            const hugEmoji = document.getElementById('hugEmoji');
+            const hugMessage = document.getElementById('hugMessage');
+            const hugCounter = document.getElementById('hugCounter');
+
+            const hugMessages = [
+                'Vanessa just got a warm hug from Habib 💕',
+                'Sending love across the miles… received! 💌',
+                'She felt that one, even from far away 🌍',
+                'Another hug safely delivered to your heart 💗',
+                'The distance just got a little smaller 🤗',
+                'Habib is hugging you right now, virtually 🫶',
+                'That hug traveled thousands of miles for you ✈️',
+                'Your heart just got a little warmer 🌸'
+            ];
+
+            let hugCount = 0;
+
+            function sendHug() {
+                hugCount += 1;
+                hugCounter.textContent = `${hugCount} hug${hugCount === 1 ? '' : 's'} sent so far`;
+
+                hugEmoji.classList.remove('hugging');
+                void hugEmoji.offsetWidth;
+                hugEmoji.classList.add('hugging');
+
+                hugMessage.style.opacity = '0';
+                window.setTimeout(() => {
+                    hugMessage.textContent = hugMessages[Math.floor(Math.random() * hugMessages.length)];
+                    hugMessage.style.opacity = '1';
+                }, 200);
+            }
+
+            hugButton.addEventListener('click', sendHug);
         })();
     </script>
 </body>
