@@ -34,6 +34,7 @@
         body {
             min-height: 100%;
             margin: 0;
+            overflow-x: hidden;
         }
 
         body {
@@ -151,6 +152,7 @@
             z-index: 1;
             display: grid;
             gap: 26px;
+            min-width: 0;
         }
 
         .hero {
@@ -217,6 +219,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .phrase-icon {
@@ -236,6 +240,7 @@
             padding: 22px;
             box-shadow: var(--soft-shadow);
             border: 1px solid rgba(255, 255, 255, 0.58);
+            min-width: 0;
         }
 
         .panel-title {
@@ -745,11 +750,9 @@
         @keyframes twinkleField {
             from {
                 opacity: 0.72;
-                transform: scale(1);
             }
             to {
                 opacity: 1;
-                transform: scale(1.04);
             }
         }
 
@@ -1097,6 +1100,22 @@
             font-weight: 700;
         }
 
+        .hero-note,
+        .phrase,
+        .letter-hint,
+        .meter-message,
+        .forever-copy,
+        .forever-text,
+        .reason-text,
+        .polaroid-caption,
+        .timer-tagline,
+        .date-idea,
+        .hug-message,
+        .countdown-sub {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
         /* ── touch devices: hide mouse-follower ── */
         @media (hover: none) {
             .cursor-heart { display: none; }
@@ -1104,17 +1123,23 @@
 
         @media (max-width: 780px) {
             .page {
-                padding: 16px 12px 24px;
+                padding: 16px 10px 24px;
                 min-height: auto;
                 display: block;
             }
 
             .card {
                 width: 100%;
-                padding: 20px 16px;
+                max-width: 100%;
+                padding: 20px 14px;
                 border-radius: 26px;
                 overflow: hidden;
-                animation: fadeInUp 1.35s ease-out both; /* disable float on mobile */
+                animation: fadeInUp 1.35s ease-out both;
+            }
+
+            .card::before,
+            .card::after {
+                display: none;
             }
 
             .content {
@@ -1149,30 +1174,18 @@
                 max-height: 400px;
             }
 
-            /* swipeable polaroid shelf */
             .scrapbook {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scroll-snap-type: x mandatory;
+                flex-wrap: wrap;
+                overflow-x: visible;
                 gap: 16px;
-                justify-content: flex-start;
-                padding-bottom: 6px;
-            }
-
-            .scrapbook::-webkit-scrollbar {
-                height: 4px;
-            }
-
-            .scrapbook::-webkit-scrollbar-thumb {
-                background: rgba(201, 95, 134, 0.25);
-                border-radius: 999px;
+                justify-content: center;
+                padding-bottom: 0;
             }
 
             .polaroid {
-                flex-shrink: 0;
-                scroll-snap-align: center;
-                width: 155px;
+                flex: 1 1 180px;
+                width: min(100%, 220px);
+                max-width: 220px;
                 padding: 12px 12px 36px;
             }
 
@@ -1221,6 +1234,7 @@
             }
 
             .timer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 8px;
             }
 
@@ -1249,15 +1263,16 @@
 
         @media (max-width: 420px) {
             .page {
-                padding: 10px 8px 18px;
+                padding: 8px 6px 16px;
                 min-height: auto;
                 display: block;
             }
 
             .card {
                 width: 100%;
-                padding: 14px 12px;
-                border-radius: 20px;
+                max-width: 100%;
+                padding: 12px 10px;
+                border-radius: 18px;
             }
 
             .content {
@@ -1294,7 +1309,9 @@
             }
 
             .polaroid {
-                width: 140px;
+                flex-basis: 100%;
+                width: min(100%, 220px);
+                max-width: 220px;
             }
 
             .hold-button {
@@ -1304,6 +1321,7 @@
             }
 
             .timer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 6px;
             }
 
