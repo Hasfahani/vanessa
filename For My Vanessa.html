@@ -6,19 +6,25 @@
     <title>For My Vanessa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --blush: #ffc0cb;
-            --lavender: #e6e6fa;
-            --peach: #ffdab9;
-            --cream: #fff5ee;
-            --rose: #ff7fa2;
-            --plum: #8a5f7d;
-            --gold: #ffd166;
-            --card-shadow: 0 22px 60px rgba(170, 110, 138, 0.22);
-            --soft-shadow: 0 14px 30px rgba(255, 127, 162, 0.22);
-            --glow: 0 0 28px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 127, 162, 0.35);
+            --bg-1: #2f1221;
+            --bg-2: #5a2137;
+            --bg-3: #f4d7c9;
+            --surface: rgba(255, 249, 244, 0.78);
+            --surface-strong: rgba(255, 252, 248, 0.9);
+            --line: rgba(255, 255, 255, 0.5);
+            --text: #5a2940;
+            --text-soft: #7b5164;
+            --heading: #7a183e;
+            --rose: #c73968;
+            --rose-deep: #8f2144;
+            --glow: 0 0 28px rgba(255, 214, 230, 0.55);
+            --shadow-lg: 0 28px 80px rgba(84, 22, 47, 0.24);
+            --shadow-md: 0 16px 36px rgba(120, 39, 76, 0.16);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
         }
 
         * {
@@ -26,24 +32,18 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        button {
-            min-height: 44px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        html,
         body {
-            min-height: 100%;
             margin: 0;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: "Nunito", sans-serif;
-            color: #6e4962;
+            min-height: 100vh;
+            font-family: "Manrope", sans-serif;
+            color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 30%),
-                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.65), transparent 25%),
-                linear-gradient(145deg, var(--cream), var(--lavender) 35%, var(--blush) 68%, var(--peach));
+                radial-gradient(circle at top, rgba(255, 232, 217, 0.24), transparent 28%),
+                linear-gradient(160deg, var(--bg-1) 0%, #4a1930 28%, var(--bg-2) 58%, #c97b8f 86%, var(--bg-3) 100%);
             overflow-x: hidden;
             position: relative;
         }
@@ -54,258 +54,395 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
+            z-index: -3;
         }
 
         body::before {
-            background-image:
-                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.55) 0 2px, transparent 3px),
-                radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.45) 0 1.5px, transparent 2.5px),
-                radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.35) 0 2px, transparent 3px),
-                radial-gradient(circle at 35% 85%, rgba(255, 255, 255, 0.5) 0 2px, transparent 3px);
-            animation: twinkleField 9s ease-in-out infinite alternate;
-            opacity: 0.9;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 243, 220, 0.16), transparent 18%),
+                radial-gradient(circle at 80% 15%, rgba(255, 196, 214, 0.16), transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.1), transparent 22%);
         }
 
         body::after {
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 55%);
-            mix-blend-mode: screen;
+            background: linear-gradient(180deg, rgba(18, 8, 15, 0.05), rgba(18, 8, 15, 0.28));
+            z-index: -2;
+        }
+
+        body.day-theme {
+            --bg-1: #7e2742;
+            --bg-2: #bf5f7f;
+            --bg-3: #f6ded0;
+        }
+
+        body.evening-theme {
+            --bg-1: #2e1534;
+            --bg-2: #6b315a;
+            --bg-3: #eccab7;
+        }
+
+        body.night-theme {
+            --bg-1: #140b20;
+            --bg-2: #3a1d42;
+            --bg-3: #cda1a4;
+        }
+
+        button,
+        iframe {
+            border: 0;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .background-layer,
+        .aurora-layer,
+        .cursor-trail,
+        .burst-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .background-layer {
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .aurora-layer {
+            z-index: -2;
+            opacity: 0.85;
+            overflow: hidden;
+        }
+
+        .aurora-band {
+            position: absolute;
+            width: 55vw;
+            height: 55vw;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.32;
+            animation: driftAurora 18s ease-in-out infinite alternate;
+        }
+
+        .aurora-band.one {
+            left: -10vw;
+            top: -10vh;
+            background: radial-gradient(circle, rgba(255, 211, 167, 0.6), transparent 70%);
+        }
+
+        .aurora-band.two {
+            right: -15vw;
+            top: 20vh;
+            background: radial-gradient(circle, rgba(255, 170, 205, 0.52), transparent 72%);
+            animation-duration: 22s;
+        }
+
+        .aurora-band.three {
+            left: 25vw;
+            bottom: -18vh;
+            background: radial-gradient(circle, rgba(255, 238, 196, 0.38), transparent 70%);
+            animation-duration: 24s;
+        }
+
+        .floating-piece,
+        .sky-piece {
+            position: absolute;
+            will-change: transform, opacity;
+            opacity: 0;
+        }
+
+        .floating-piece {
+            animation: driftPiece linear forwards;
+            filter: drop-shadow(0 0 12px rgba(255, 199, 215, 0.35));
+        }
+
+        .sky-piece {
+            border-radius: 50%;
+            background: rgba(255, 251, 235, 0.9);
+            box-shadow: 0 0 14px rgba(255, 251, 235, 0.75);
+            animation: twinklePiece linear forwards;
         }
 
         .page {
+            width: 100%;
+            padding: 20px 12px 40px;
             position: relative;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 32px 18px 24px;
-            isolation: isolate;
-        }
-
-        .sparkles,
-        .heart-stream {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .sparkle,
-        .floating-heart {
-            position: absolute;
-            opacity: 0;
-            will-change: transform, opacity;
-        }
-
-        .sparkle {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: clamp(10px, 1.2vw, 18px);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-            animation: sparklePulse linear infinite;
-        }
-
-        .floating-heart {
-            color: rgba(255, 127, 162, 0.45);
-            font-size: clamp(18px, 2vw, 28px);
-            animation: heartRise linear infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 127, 162, 0.35));
+            z-index: 1;
         }
 
         .card {
-            width: min(100%, 920px);
-            background: rgba(255, 245, 238, 0.68);
-            border: 1px solid rgba(255, 255, 255, 0.55);
-            border-radius: 34px;
-            padding: 30px;
-            box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            width: min(100%, 1080px);
+            margin: 0 auto;
+            padding: 18px;
+            border-radius: 38px;
+            background: linear-gradient(180deg, rgba(255, 248, 243, 0.18), rgba(255, 248, 243, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: var(--shadow-lg);
             backdrop-filter: blur(14px);
-            position: relative;
-            z-index: 2;
-            animation: gentleFloat 5.5s ease-in-out infinite, fadeInUp 1.35s ease-out both;
-        }
-
-        .card::before,
-        .card::after {
-            content: "";
-            position: absolute;
-            border-radius: 999px;
-            pointer-events: none;
-        }
-
-        .card::before {
-            width: 220px;
-            height: 220px;
-            right: -80px;
-            top: -80px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.62), transparent 68%);
-        }
-
-        .card::after {
-            width: 170px;
-            height: 170px;
-            left: -65px;
-            bottom: -70px;
-            background: radial-gradient(circle, rgba(255, 192, 203, 0.3), transparent 70%);
         }
 
         .content {
-            position: relative;
-            z-index: 1;
             display: grid;
-            gap: 26px;
-            min-width: 0;
+            gap: 18px;
+        }
+
+        .hero,
+        .panel,
+        .phrase,
+        .footer {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .hero.is-visible,
+        .panel.is-visible,
+        .phrase.is-visible,
+        .footer.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .hero {
             text-align: center;
-            display: grid;
-            gap: 12px;
+            padding: 28px 18px;
+            border-radius: var(--radius-xl);
+            background:
+                radial-gradient(circle at top, rgba(255, 255, 255, 0.28), transparent 34%),
+                linear-gradient(160deg, rgba(255, 248, 243, 0.86), rgba(249, 225, 210, 0.62));
+            border: 1px solid rgba(255, 255, 255, 0.52);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto auto -30px -20px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255, 211, 222, 0.32), transparent 70%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            justify-self: center;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(122, 24, 62, 0.08);
+            color: var(--rose-deep);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .name,
+        .greeting-text,
+        .countdown-text,
+        .forever-title,
+        .song-title {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            color: var(--heading);
+            text-shadow: var(--glow);
+            line-height: 1.05;
         }
 
         .name {
-            margin: 0;
-            font-family: "Great Vibes", cursive;
-            font-size: clamp(3.4rem, 9vw, 6.4rem);
-            line-height: 0.95;
-            color: #c95f86;
-            text-shadow: var(--glow);
-            letter-spacing: 1px;
-        }
-
-        .hero-note {
-            margin: 0 auto;
-            max-width: 640px;
-            font-size: clamp(1rem, 2.4vw, 1.18rem);
-            color: #7d5770;
+            font-size: clamp(3rem, 14vw, 5.8rem);
+            margin-bottom: 12px;
         }
 
         .love-banner {
             display: inline-flex;
-            justify-self: center;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 218, 185, 0.75));
+            gap: 10px;
+            margin: 0 auto 16px;
+            padding: 14px 22px;
             border-radius: 999px;
-            box-shadow: var(--soft-shadow);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 232, 221, 0.92));
+            color: var(--rose);
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             font-weight: 800;
-            font-size: clamp(1.45rem, 4vw, 2.2rem);
-            color: #d14b79;
-            text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 14px 28px rgba(141, 33, 68, 0.12);
         }
 
         .love-banner span {
-            display: inline-block;
-            animation: pulseGlow 2.4s ease-in-out infinite;
+            animation: pulseGlow 2.6s ease-in-out infinite;
         }
 
-        .phrases {
+        .hero-note,
+        .forever-copy,
+        .forever-text,
+        .greeting-sub,
+        .letter-hint,
+        .meter-message,
+        .reason-text,
+        .hold-hint,
+        .hold-tip,
+        .timer-tagline,
+        .poem-text,
+        .date-idea,
+        .hug-message,
+        .countdown-sub,
+        .song-caption,
+        .footer {
+            overflow-wrap: anywhere;
+        }
+
+        .hero-note {
+            margin: 0 auto;
+            max-width: 720px;
+            color: var(--text-soft);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        .phrases,
+        .interactive-grid,
+        .timers-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 16px;
         }
 
-        .phrase {
-            background: rgba(255, 255, 255, 0.68);
-            border-radius: 24px;
-            padding: 18px 20px;
-            box-shadow: var(--soft-shadow);
+        .phrase,
+        .panel {
+            background: linear-gradient(180deg, var(--surface-strong), var(--surface));
             border: 1px solid rgba(255, 255, 255, 0.5);
-            font-size: clamp(1rem, 2.3vw, 1.1rem);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+        }
+
+        .phrase {
+            padding: 18px;
             font-weight: 700;
-            color: #7f5670;
+            color: var(--text-soft);
+            text-align: center;
         }
 
         .phrase.accent {
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
         }
 
         .phrase-icon {
-            font-size: 1.35rem;
-            filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.65));
-        }
-
-        .interactive-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.95fr;
-            gap: 18px;
+            font-size: 1.3rem;
         }
 
         .panel {
-            background: rgba(255, 255, 255, 0.72);
-            border-radius: 28px;
-            padding: 22px;
-            box-shadow: var(--soft-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.58);
-            min-width: 0;
+            padding: 22px 18px;
         }
 
         .panel-title {
             margin: 0 0 16px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #b6537e;
+            color: var(--rose-deep);
+            font-family: "Playfair Display", serif;
+            font-size: 1.45rem;
+        }
+
+        .greeting-panel,
+        .reasons-panel,
+        .hold-panel,
+        .timer-panel,
+        .poem-panel,
+        .date-jar-panel,
+        .hug-panel,
+        .song-panel,
+        .countdown-panel {
+            text-align: center;
+        }
+
+        .greeting-panel {
+            background: linear-gradient(145deg, rgba(255, 250, 246, 0.92), rgba(250, 221, 212, 0.72));
+        }
+
+        .greeting-emoji {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+
+        .greeting-text {
+            font-size: clamp(1.8rem, 7vw, 2.9rem);
+            margin-bottom: 10px;
+        }
+
+        .greeting-sub {
+            margin: 0;
+            color: var(--text-soft);
+            font-weight: 700;
+            line-height: 1.7;
         }
 
         .envelope-wrap {
-            display: grid;
-            gap: 18px;
-            justify-items: center;
             text-align: center;
         }
 
         .envelope-button {
-            border: 0;
-            background: none;
+            width: min(100%, 310px);
             padding: 0;
+            background: none;
             cursor: pointer;
-            position: relative;
-            width: min(100%, 290px);
-            outline: none;
         }
 
-        .envelope-button:focus-visible .envelope,
-        .envelope-button:hover .envelope {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 18px 28px rgba(209, 75, 121, 0.24);
+        .envelope-shell {
+            position: relative;
+            perspective: 1200px;
+            margin: 0 auto 16px;
         }
 
         .envelope {
             position: relative;
             aspect-ratio: 1.35;
-            background: linear-gradient(180deg, #ffd7e3, #ffb9cb);
-            border-radius: 22px;
-            box-shadow: 0 12px 22px rgba(209, 75, 121, 0.2);
+            border-radius: 26px;
+            background: linear-gradient(180deg, #ffcddd, #f29ab2);
+            box-shadow: 0 18px 36px rgba(164, 46, 91, 0.2);
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(.22, 1, .36, 1), box-shadow 0.55s ease;
         }
 
-        .envelope::before,
-        .envelope::after {
-            content: "";
+        .envelope-letter {
+            position: absolute;
+            left: 12%;
+            right: 12%;
+            bottom: 6%;
+            height: 72%;
+            border-radius: 18px 18px 12px 12px;
+            background: linear-gradient(180deg, rgba(255, 251, 247, 0.98), rgba(255, 242, 233, 0.96));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            transform: translateY(24%) scale(0.98);
+            transition: transform 0.8s cubic-bezier(.2, .9, .2, 1);
+        }
+
+        .envelope-flap {
             position: absolute;
             inset: 0;
-            margin: auto;
+            background: linear-gradient(135deg, #ffd9e5, #f6b2c6);
+            clip-path: polygon(0 0, 100% 0, 50% 58%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(.2, .9, .2, 1);
+            backface-visibility: hidden;
         }
 
-        .envelope::before {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 49.5%, rgba(255, 245, 238, 0.98) 50%);
-            clip-path: polygon(0 0, 100% 0, 50% 55%);
-            transform-origin: top;
-            transition: transform 0.55s ease;
-        }
-
-        .envelope::after {
-            inset: auto 18px 14px;
-            height: 58%;
-            border-radius: 16px 16px 18px 18px;
-            background: linear-gradient(180deg, rgba(255, 245, 238, 0.92), rgba(255, 255, 255, 0.98));
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        .envelope-front {
+            position: absolute;
+            inset: auto 0 0;
+            height: 64%;
+            background: linear-gradient(180deg, rgba(255, 236, 243, 0.88), rgba(247, 182, 204, 0.95));
+            clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
         }
 
         .envelope-heart {
@@ -313,148 +450,186 @@
             inset: 0;
             display: grid;
             place-items: center;
-            font-size: 2.5rem;
-            z-index: 1;
-            color: #d14b79;
-            text-shadow: 0 0 16px rgba(255, 255, 255, 0.75);
+            font-size: 2.3rem;
+            z-index: 2;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .envelope-button:hover .envelope,
+        .envelope-button:focus-visible .envelope {
+            transform: translateY(-6px) rotateX(6deg);
+            box-shadow: 0 26px 48px rgba(164, 46, 91, 0.24);
         }
 
         .hidden-letter {
             max-height: 0;
             overflow: hidden;
-            border-radius: 20px;
-            background: rgba(255, 245, 238, 0.88);
-            transition: max-height 0.55s ease, padding 0.55s ease, opacity 0.4s ease;
-            padding: 0 18px;
             opacity: 0;
-            color: #7f5670;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            padding: 0 16px;
+            border-radius: 20px;
+            background: rgba(255, 249, 245, 0.72);
+            transition: max-height 0.85s cubic-bezier(.2, .9, .2, 1), opacity 0.45s ease, padding 0.45s ease;
         }
 
         .hidden-letter p {
             margin: 0;
-            font-size: 1rem;
-            line-height: 1.7;
+            line-height: 1.9;
+            color: var(--text-soft);
+            font-weight: 600;
         }
 
-        .letter-open .envelope::before {
-            transform: rotateX(180deg);
+        .letter-open .envelope {
+            transform: translateY(-8px);
+        }
+
+        .letter-open .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        .letter-open .envelope-letter {
+            transform: translateY(-6%) scale(1);
         }
 
         .letter-open .hidden-letter {
-            max-height: 220px;
-            padding: 18px;
+            max-height: 260px;
             opacity: 1;
+            padding: 18px 16px;
         }
 
         .letter-hint {
-            margin: 0;
-            color: #8d6681;
-            font-size: 0.98rem;
+            margin: 0 0 14px;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            font-weight: 600;
         }
 
         .meter {
             display: grid;
             gap: 16px;
-            align-content: start;
         }
 
-        .meter-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 14px 18px;
-            font: inherit;
+        .meter-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meter-percent {
+            font-size: clamp(2rem, 10vw, 3.3rem);
             font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #ff8fb0, #d86b93);
-            box-shadow: 0 14px 26px rgba(216, 107, 147, 0.28);
-            transition: transform 0.24s ease, box-shadow 0.24s ease;
-        }
-
-        .meter-button:hover,
-        .meter-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 30px rgba(216, 107, 147, 0.34);
+            color: var(--rose);
+            line-height: 1;
         }
 
         .meter-track {
-            height: 22px;
+            position: relative;
+            height: 24px;
             border-radius: 999px;
-            background: rgba(230, 230, 250, 0.85);
+            background: rgba(184, 103, 134, 0.14);
             overflow: hidden;
-            box-shadow: inset 0 2px 8px rgba(138, 95, 125, 0.08);
         }
 
         .meter-fill {
             width: 0;
             height: 100%;
             border-radius: inherit;
-            background: linear-gradient(90deg, #ff90b2, #ffd6a5, #ffd166);
-            box-shadow: 0 0 18px rgba(255, 209, 102, 0.55);
-            transition: width 0.35s ease;
+            background: linear-gradient(90deg, #d74c73 0%, #f18ea5 45%, #f4d28a 100%);
+            box-shadow: 0 0 18px rgba(244, 210, 138, 0.5);
+            transition: width 0.6s ease;
         }
 
-        .meter-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 12px;
-            flex-wrap: wrap;
+        .meter-fill.full {
+            box-shadow: 0 0 18px rgba(244, 210, 138, 0.8), 0 0 34px rgba(247, 119, 158, 0.65);
         }
 
-        .meter-percent {
-            font-size: clamp(1.9rem, 5vw, 2.8rem);
-            font-weight: 800;
-            color: #cb5b84;
-            text-shadow: 0 0 18px rgba(255, 255, 255, 0.75);
+        .meter-track::after {
+            content: "❤";
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.9);
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0.75;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .meter-track.maxed::after {
+            transform: translateY(-50%) scale(1.18);
+            filter: drop-shadow(0 0 12px rgba(255, 244, 209, 0.88));
         }
 
         .meter-message {
             margin: 0;
-            color: #8c6881;
+            color: var(--text-soft);
             font-weight: 700;
+        }
+
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .poem-button,
+        .date-button,
+        .hug-button,
+        .close-forever {
+            min-height: 48px;
+            padding: 14px 20px;
+            border-radius: 999px;
+            font-weight: 800;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .hug-button {
+            background: linear-gradient(135deg, #d34d78, #9d264f);
+            box-shadow: 0 14px 28px rgba(157, 38, 79, 0.22);
+        }
+
+        .poem-button,
+        .date-button,
+        .close-forever {
+            background: linear-gradient(135deg, #ca8d5f, #a24f39);
+            box-shadow: 0 14px 28px rgba(162, 79, 57, 0.18);
+        }
+
+        .meter-button:hover,
+        .forever-button:hover,
+        .reason-button:hover,
+        .poem-button:hover,
+        .date-button:hover,
+        .hug-button:hover,
+        .close-forever:hover,
+        .meter-button:focus-visible,
+        .forever-button:focus-visible,
+        .reason-button:focus-visible,
+        .poem-button:focus-visible,
+        .date-button:focus-visible,
+        .hug-button:focus-visible,
+        .close-forever:focus-visible {
+            transform: translateY(-2px);
         }
 
         .forever-panel {
-            display: grid;
-            gap: 16px;
-            text-align: center;
-            justify-items: center;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 218, 185, 0.55));
+            background: linear-gradient(145deg, rgba(255, 249, 245, 0.92), rgba(243, 215, 205, 0.68));
         }
 
-        .forever-copy {
+        .forever-copy,
+        .forever-note {
             margin: 0;
-            max-width: 560px;
-            color: #81556f;
-            line-height: 1.7;
+            color: var(--text-soft);
             font-weight: 700;
-        }
-
-        .forever-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 15px 24px;
-            font: inherit;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #ff92b3, #c95f86);
-            box-shadow: 0 16px 28px rgba(201, 95, 134, 0.28);
-            transition: transform 0.24s ease, box-shadow 0.24s ease;
-        }
-
-        .forever-button:hover,
-        .forever-button:focus-visible {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 20px 34px rgba(201, 95, 134, 0.34);
+            line-height: 1.8;
+            text-align: center;
         }
 
         .forever-note {
-            margin: 0;
-            color: #926a82;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
         }
 
         .forever-overlay {
@@ -462,14 +637,14 @@
             inset: 0;
             display: grid;
             place-items: center;
-            padding: 24px;
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.45), transparent 30%), rgba(201, 95, 134, 0.28);
+            padding: 18px;
+            background: rgba(51, 17, 31, 0.48);
             backdrop-filter: blur(14px);
-            z-index: 6;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
             transition: opacity 0.35s ease, visibility 0.35s ease;
+            z-index: 20;
         }
 
         .forever-overlay.show {
@@ -479,493 +654,256 @@
         }
 
         .forever-message {
-            width: min(100%, 560px);
-            padding: 28px 24px;
+            width: min(100%, 620px);
+            padding: 28px 22px;
             border-radius: 30px;
-            background: rgba(255, 245, 238, 0.92);
-            box-shadow: 0 26px 70px rgba(141, 82, 109, 0.22);
+            background: linear-gradient(180deg, rgba(255, 251, 246, 0.98), rgba(255, 241, 232, 0.94));
+            box-shadow: var(--shadow-lg);
             text-align: center;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.45s ease-out both;
         }
 
         .forever-title {
-            margin: 0 0 10px;
-            font-family: "Great Vibes", cursive;
-            font-size: clamp(2.5rem, 8vw, 4.2rem);
-            color: #c95f86;
-            text-shadow: var(--glow);
+            font-size: clamp(2.3rem, 10vw, 4rem);
+            margin-bottom: 12px;
         }
 
         .forever-text {
             margin: 0;
-            color: #7a5068;
-            font-size: clamp(1rem, 2.5vw, 1.12rem);
-            line-height: 1.75;
+            color: var(--text-soft);
+            line-height: 1.85;
             font-weight: 700;
         }
 
-        .close-forever {
-            margin-top: 18px;
-            border: 0;
-            border-radius: 999px;
-            padding: 12px 18px;
-            font: inherit;
+        .signature {
+            margin: 14px 0 0;
+            color: #986575;
             font-weight: 800;
-            cursor: pointer;
-            color: #b5547d;
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: var(--soft-shadow);
         }
 
-        .burst-heart {
-            position: fixed;
-            z-index: 7;
-            pointer-events: none;
-            opacity: 0;
-            will-change: transform, opacity;
-            animation: burstFly 1.4s ease-out forwards;
-            filter: drop-shadow(0 0 12px rgba(255, 127, 162, 0.45));
-        }
-
-        /* ── Reasons I Love You ── */
-        .reasons-panel {
-            display: grid;
-            gap: 18px;
-            text-align: center;
-            justify-items: center;
-        }
-
-        .reason-display {
-            min-height: 72px;
-            display: grid;
-            place-items: center;
-            width: 100%;
-            padding: 16px 20px;
+        .reason-display,
+        .poem-display,
+        .date-card,
+        .hug-milestone,
+        .song-frame {
             border-radius: 22px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 185, 0.6));
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(249, 232, 221, 0.7));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+
+        .reason-display,
+        .date-card,
+        .hug-milestone {
+            padding: 18px;
         }
 
         .reason-text {
             margin: 0;
-            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
-            font-weight: 700;
-            color: #854e72;
+            color: var(--text-soft);
+            font-size: 1.02rem;
             font-style: italic;
-            transition: opacity 0.28s ease;
+            line-height: 1.8;
+            font-weight: 700;
+            transition: opacity 0.3s ease;
         }
 
         .reason-text.fading {
             opacity: 0;
         }
 
-        .reason-counter {
+        .reason-counter,
+        .hug-counter {
             margin: 0;
-            font-size: 0.88rem;
-            color: #aa7894;
+            color: #9b7280;
+            font-size: 0.92rem;
+            font-weight: 700;
         }
 
-        .reason-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 13px 22px;
-            font: inherit;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #ffb3cc, #d8608c);
-            box-shadow: 0 12px 24px rgba(216, 96, 140, 0.28);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
-        }
-
-        .reason-button:hover,
-        .reason-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 28px rgba(216, 96, 140, 0.34);
-        }
-
-        /* ── Scrapbook ── */
         .scrapbook {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 22px;
-            justify-content: center;
+            display: grid;
+            gap: 14px;
         }
 
         .polaroid {
+            padding: 14px 14px 30px;
+            border-radius: 6px;
             background: rgba(255, 255, 255, 0.96);
-            border-radius: 4px;
-            padding: 14px 14px 42px;
-            box-shadow: 0 10px 30px rgba(138, 95, 125, 0.18), 0 2px 6px rgba(138, 95, 125, 0.1);
-            width: clamp(150px, 26vw, 200px);
             text-align: center;
+            box-shadow: 0 14px 32px rgba(100, 32, 62, 0.12);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: default;
         }
 
-        .polaroid:nth-child(1) { transform: rotate(-3deg); }
-        .polaroid:nth-child(2) { transform: rotate(1.8deg); }
-        .polaroid:nth-child(3) { transform: rotate(-1.5deg); }
-
         .polaroid:hover {
-            transform: rotate(0) translateY(-7px) scale(1.04) !important;
-            box-shadow: 0 24px 46px rgba(138, 95, 125, 0.24);
-            z-index: 3;
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 22px 36px rgba(100, 32, 62, 0.18);
         }
 
         .polaroid-scene {
+            padding: 22px 0;
+            margin-bottom: 12px;
+            border-radius: 4px;
             font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--lavender), var(--blush));
-            border-radius: 2px;
-            padding: 18px 0;
+            background: linear-gradient(135deg, rgba(228, 180, 194, 0.55), rgba(255, 238, 225, 0.9));
         }
 
         .polaroid-caption {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #8a607a;
-            line-height: 1.4;
             margin: 0;
+            color: var(--text-soft);
+            font-weight: 800;
+            line-height: 1.6;
         }
 
         .polaroid-date {
             display: block;
-            font-size: 0.76rem;
-            color: #b8899e;
-            margin-top: 5px;
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: #b18290;
         }
 
-        /* ── Hold for Love ── */
         .hold-panel {
             display: grid;
             gap: 14px;
-            text-align: center;
             justify-items: center;
         }
 
         .hold-button {
-            border: 0;
-            border-radius: 999px;
             width: 118px;
             height: 118px;
-            font-size: 2.6rem;
+            border-radius: 999px;
             cursor: pointer;
-            background: linear-gradient(135deg, #ffb3cc, #e87dab);
-            box-shadow: 0 14px 32px rgba(232, 125, 171, 0.32);
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            color: white;
+            font-size: 2.5rem;
+            background: radial-gradient(circle at top, #f6adc1, #ca476e);
+            box-shadow: 0 18px 40px rgba(202, 71, 110, 0.24);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             user-select: none;
-            -webkit-user-select: none;
             touch-action: none;
         }
 
         .hold-button.pressing {
-            transform: scale(0.93);
-            box-shadow: 0 8px 20px rgba(232, 125, 171, 0.2);
+            transform: scale(0.94);
+            box-shadow: 0 10px 24px rgba(202, 71, 110, 0.16);
         }
 
-        .hold-hint {
+        .hold-hint,
+        .hold-tip {
             margin: 0;
-            color: #926a82;
-            font-size: 0.95rem;
+            color: var(--text-soft);
             font-weight: 700;
         }
 
         .hold-tip {
-            margin: 0;
-            color: #b090a0;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
+            color: #a27c89;
+        }
+
+        .kiss-heart,
+        .burst-heart,
+        .magic-piece,
+        .trail-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 30;
+            will-change: transform, opacity;
         }
 
         .kiss-heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 5;
-            opacity: 0;
-            will-change: transform, opacity;
             animation: kissFloat 1.8s ease-out forwards;
-            filter: drop-shadow(0 0 10px rgba(255, 127, 162, 0.5));
         }
 
-        @keyframes kissFloat {
-            0% { opacity: 0; transform: translateY(0) scale(0.6); }
-            12% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-190px) translateX(var(--kiss-x)) scale(1.2); }
+        .burst-heart {
+            animation: burstFly 1.4s ease-out forwards;
         }
 
-        .footer {
-            text-align: center;
-            font-size: 0.92rem;
-            color: #8a6780;
+        .magic-piece {
+            animation: magicBurst 1.25s ease-out forwards;
         }
 
-        .cursor-heart {
-            position: fixed;
-            left: 0;
-            top: 0;
-            font-size: clamp(20px, 2.4vw, 28px);
-            pointer-events: none;
-            z-index: 4;
-            transform: translate3d(-50%, -50%, 0);
-            filter: drop-shadow(0 0 14px rgba(255, 127, 162, 0.65));
-            transition: transform 0.16s linear;
+        .trail-heart {
+            animation: trailFade 0.95s ease-out forwards;
+            font-size: 0.95rem;
+            color: rgba(255, 216, 225, 0.92);
+            text-shadow: 0 0 10px rgba(255, 216, 225, 0.85);
         }
 
-        @keyframes gentleFloat {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes pulseGlow {
-            0%,
-            100% {
-                transform: scale(1);
-                text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-            }
-            50% {
-                transform: scale(1.03);
-                text-shadow: 0 0 24px rgba(255, 255, 255, 0.9);
-            }
-        }
-
-        @keyframes twinkleField {
-            from {
-                opacity: 0.72;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes sparklePulse {
-            0% {
-                opacity: 0;
-                transform: translateY(8px) scale(0.6);
-            }
-            20% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 0.8;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-16px) scale(1.08);
-            }
-        }
-
-        @keyframes heartRise {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
-            15% {
-                opacity: 0.75;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-110vh) translateX(18px) scale(1.2);
-            }
-        }
-
-        @keyframes burstFly {
-            0% {
-                opacity: 0;
-                transform: translate3d(0, 0, 0) scale(0.5);
-            }
-            15% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translate3d(var(--burst-x), var(--burst-y), 0) scale(1.35) rotate(var(--burst-rotate));
-            }
-        }
-
-        /* ── Greeting Banner ── */
-        .greeting-panel {
-            display: grid;
-            gap: 10px;
-            text-align: center;
-            justify-items: center;
-            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(255,218,185,0.55));
-        }
-
-        .greeting-emoji {
-            font-size: 2.8rem;
-            line-height: 1;
-            animation: pulseGlow 2.8s ease-in-out infinite;
-        }
-
-        .greeting-text {
-            margin: 0;
-            font-family: "Great Vibes", cursive;
-            font-size: clamp(1.8rem, 5vw, 2.6rem);
-            color: #c95f86;
-            text-shadow: var(--glow);
-        }
-
-        .greeting-sub {
-            margin: 0;
-            font-size: clamp(0.95rem, 2.2vw, 1.08rem);
-            color: #81556f;
-            font-weight: 700;
-        }
-
-        /* ── Love Timer ── */
-        .timer-panel {
-            display: grid;
-            gap: 16px;
-            text-align: center;
-            justify-items: center;
-            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(230,230,250,0.6));
+        .timer-panel,
+        .countdown-panel {
+            background: linear-gradient(145deg, rgba(255, 250, 246, 0.92), rgba(243, 220, 212, 0.72));
         }
 
         .timer-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            width: 100%;
-            max-width: 420px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
         }
 
         .timer-unit {
-            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,218,185,0.55));
-            border-radius: 20px;
-            padding: 14px 8px;
-            box-shadow: 0 8px 20px rgba(170,110,138,0.12);
-            border: 1px solid rgba(255,255,255,0.6);
+            padding: 14px 10px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
         .timer-number {
             display: block;
-            font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+            color: var(--rose);
+            font-size: clamp(1.5rem, 8vw, 2.5rem);
             font-weight: 800;
-            color: #c95f86;
-            text-shadow: 0 0 14px rgba(255,255,255,0.7);
-            line-height: 1.1;
+            line-height: 1.05;
         }
 
         .timer-label {
             display: block;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #a07a90;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-top: 4px;
+            color: #a07a87;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+            font-weight: 800;
         }
 
         .timer-tagline {
             margin: 0;
-            font-size: clamp(0.92rem, 2vw, 1.02rem);
-            color: #81556f;
-            font-weight: 700;
+            color: var(--text-soft);
             font-style: italic;
-        }
-
-        /* ── Typewriter Poem ── */
-        .poem-panel {
-            display: grid;
-            gap: 16px;
-            text-align: center;
-            justify-items: center;
+            font-weight: 700;
         }
 
         .poem-display {
-            width: 100%;
             min-height: 180px;
-            padding: 20px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,218,185,0.5));
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
             display: grid;
             place-items: center;
+            padding: 18px;
         }
 
         .poem-text {
             margin: 0;
-            font-family: "Great Vibes", cursive;
-            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-            color: #854e72;
-            line-height: 1.65;
+            color: var(--text-soft);
+            line-height: 1.9;
             white-space: pre-line;
+            font-weight: 700;
         }
 
         .poem-cursor {
             display: inline-block;
             width: 2px;
-            height: 1.2em;
-            background: #c95f86;
+            height: 1.1em;
             margin-left: 2px;
             vertical-align: text-bottom;
-            animation: blinkCursor 0.72s step-end infinite;
+            background: var(--rose);
+            animation: blinkCursor 0.75s step-end infinite;
         }
 
-        @keyframes blinkCursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .poem-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 13px 22px;
-            font: inherit;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #c9a0dc, #9b6bae);
-            box-shadow: 0 12px 24px rgba(155,107,174,0.28);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
-        }
-
-        .poem-button:hover,
-        .poem-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 28px rgba(155,107,174,0.34);
-        }
-
-        /* ── Dream Date Jar ── */
-        .date-jar-panel {
-            display: grid;
-            gap: 16px;
-            text-align: center;
-            justify-items: center;
-        }
-
-        .jar-icon {
-            font-size: 3.4rem;
-            line-height: 1;
-            animation: gentleFloat 4s ease-in-out infinite;
+        .jar-icon,
+        .hug-emoji,
+        .countdown-emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
         }
 
         .date-card {
-            width: 100%;
-            min-height: 80px;
-            padding: 18px 20px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,192,203,0.35));
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+            min-height: 96px;
             display: grid;
             place-items: center;
             transition: transform 0.35s ease;
@@ -975,406 +913,95 @@
             animation: jarShake 0.45s ease;
         }
 
-        @keyframes jarShake {
-            0%, 100% { transform: rotate(0); }
-            20% { transform: rotate(-4deg); }
-            40% { transform: rotate(4deg); }
-            60% { transform: rotate(-3deg); }
-            80% { transform: rotate(2deg); }
-        }
-
-        .date-idea {
+        .date-idea,
+        .hug-message,
+        .countdown-sub,
+        .song-caption {
             margin: 0;
-            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            color: var(--text-soft);
+            line-height: 1.8;
             font-weight: 700;
-            color: #854e72;
-        }
-
-        .date-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 13px 22px;
-            font: inherit;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #ffb3a6, #e8737a);
-            box-shadow: 0 12px 24px rgba(232,115,122,0.28);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
-        }
-
-        .date-button:hover,
-        .date-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 28px rgba(232,115,122,0.34);
-        }
-
-        /* ── Virtual Hug / Countdown ── */
-        .hug-panel {
-            display: grid;
-            gap: 16px;
-            text-align: center;
-            justify-items: center;
-            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(255,192,203,0.4));
-        }
-
-        .hug-emoji {
-            font-size: 3.6rem;
-            line-height: 1;
-            transition: transform 0.4s ease;
         }
 
         .hug-emoji.hugging {
             animation: hugSquish 0.7s ease;
         }
 
-        @keyframes hugSquish {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.35) rotate(-5deg); }
-            60% { transform: scale(1.2) rotate(3deg); }
-            100% { transform: scale(1) rotate(0); }
-        }
-
-        .hug-counter {
-            margin: 0;
-            font-size: clamp(0.92rem, 2.2vw, 1.04rem);
-            color: #926a82;
-            font-weight: 700;
-        }
-
-        .hug-message {
-            margin: 0;
-            font-size: clamp(1rem, 2.5vw, 1.12rem);
-            color: #81556f;
-            font-weight: 700;
-            font-style: italic;
-            min-height: 1.6em;
-            transition: opacity 0.3s ease;
-        }
-
-        .hug-button {
-            border: 0;
-            border-radius: 999px;
-            padding: 15px 26px;
-            font: inherit;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            background: linear-gradient(135deg, #f8a4c8, #e06c9f);
-            box-shadow: 0 14px 28px rgba(224,108,159,0.28);
-            transition: transform 0.22s ease, box-shadow 0.22s ease;
-        }
-
-        .hug-button:hover,
-        .hug-button:focus-visible {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 32px rgba(224,108,159,0.34);
-        }
-
-        /* ── Miss You Countdown ── */
-        .countdown-panel {
+        .hug-milestone {
+            min-height: 58px;
             display: grid;
-            gap: 14px;
-            text-align: center;
-            justify-items: center;
-            background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(230,230,250,0.55));
+            place-items: center;
         }
 
-        .countdown-emoji {
-            font-size: 2.6rem;
-            line-height: 1;
+        .hug-milestone p {
+            margin: 0;
+            color: #b34b71;
+            font-weight: 800;
+        }
+
+        .song-title {
+            font-size: clamp(2rem, 8vw, 3rem);
+            margin-bottom: 10px;
+        }
+
+        .song-frame {
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            box-shadow: 0 0 0 1px rgba(226, 184, 103, 0.18), 0 0 36px rgba(226, 184, 103, 0.2);
+        }
+
+        .song-frame iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            display: block;
         }
 
         .countdown-text {
-            margin: 0;
-            font-family: "Great Vibes", cursive;
-            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
-            color: #c95f86;
-            text-shadow: var(--glow);
+            font-size: clamp(1.9rem, 8vw, 3rem);
+            margin-bottom: 10px;
         }
 
-        .countdown-sub {
-            margin: 0;
-            font-size: clamp(0.92rem, 2.2vw, 1.04rem);
-            color: #81556f;
+        .footer {
+            text-align: center;
+            padding: 24px 18px;
+            border-radius: 26px;
+            background: linear-gradient(180deg, rgba(255, 247, 241, 0.8), rgba(247, 226, 216, 0.62));
+            border: 1px solid rgba(255, 255, 255, 0.46);
+            color: var(--text-soft);
+            line-height: 1.9;
             font-weight: 700;
         }
 
-        .hero-note,
-        .phrase,
-        .letter-hint,
-        .meter-message,
-        .forever-copy,
-        .forever-text,
-        .reason-text,
-        .polaroid-caption,
-        .timer-tagline,
-        .date-idea,
-        .hug-message,
-        .countdown-sub {
-            overflow-wrap: anywhere;
-            word-break: break-word;
+        .footer strong {
+            color: var(--rose-deep);
         }
 
-        /* ── touch devices: hide mouse-follower ── */
+        .footer-note {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.92rem;
+            color: #9c7181;
+        }
+
+        @media (min-width: 700px) {
+            .page { padding: 28px 18px 56px; }
+            .card { padding: 24px; }
+            .phrases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .interactive-grid { grid-template-columns: 1.1fr 0.9fr; }
+            .timers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .scrapbook { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .timer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .meter-stats { flex-wrap: nowrap; }
+        }
+
+        @media (min-width: 900px) {
+            .hero { padding: 42px 34px; }
+            .panel, .phrase { padding: 24px; }
+        }
+
         @media (hover: none) {
-            .cursor-heart { display: none; }
-        }
-
-        @media (max-width: 780px) {
-            .page {
-                padding: 16px 10px 24px;
-                min-height: auto;
-                display: block;
-            }
-
-            .card {
-                width: 100%;
-                max-width: 100%;
-                padding: 20px 14px;
-                border-radius: 26px;
-                overflow: hidden;
-                animation: fadeInUp 1.35s ease-out both;
-            }
-
-            .card::before,
-            .card::after {
-                display: none;
-            }
-
-            .content {
-                gap: 18px;
-            }
-
-            .hero {
-                gap: 8px;
-            }
-
-            .phrases,
-            .interactive-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .panel {
-                padding: 16px;
-            }
-
-            .love-banner {
-                width: 100%;
-                justify-content: center;
-                text-align: center;
-                padding: 12px 16px;
-            }
-
-            .hidden-letter p {
-                font-size: 0.95rem;
-            }
-
-            .letter-open .hidden-letter {
-                max-height: 400px;
-            }
-
-            .scrapbook {
-                flex-wrap: wrap;
-                overflow-x: visible;
-                gap: 16px;
-                justify-content: center;
-                padding-bottom: 0;
-            }
-
-            .polaroid {
-                flex: 1 1 180px;
-                width: min(100%, 220px);
-                max-width: 220px;
-                padding: 12px 12px 36px;
-            }
-
-            .polaroid:nth-child(1),
-            .polaroid:nth-child(2),
-            .polaroid:nth-child(3) {
-                transform: rotate(0deg);
-            }
-
-            .polaroid:hover {
-                transform: none !important;
-            }
-
-            .meter-stats {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-
-            .hold-button {
-                width: 110px;
-                height: 110px;
-                font-size: 2.4rem;
-            }
-
-            .forever-message {
-                padding: 22px 16px;
-            }
-
-            .forever-text {
-                font-size: 1rem;
-            }
-
-            .envelope-button {
-                width: 100%;
-            }
-
-            .meter-button,
-            .forever-button,
-            .reason-button,
-            .close-forever,
-            .poem-button,
-            .date-button,
-            .hug-button {
-                width: 100%;
-            }
-
-            .timer-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px;
-            }
-
-            .timer-number {
-                font-size: clamp(1.4rem, 5vw, 2rem);
-            }
-
-            .poem-display {
-                min-height: 150px;
-                padding: 16px;
-            }
-
-            .poem-text {
-                font-size: clamp(1.1rem, 3.5vw, 1.5rem);
-            }
-
-            .date-card {
-                min-height: 70px;
-                padding: 14px 16px;
-            }
-
-            .greeting-text {
-                font-size: clamp(1.5rem, 5.5vw, 2.2rem);
-            }
-        }
-
-        @media (max-width: 420px) {
-            .page {
-                padding: 8px 6px 16px;
-                min-height: auto;
-                display: block;
-            }
-
-            .card {
-                width: 100%;
-                max-width: 100%;
-                padding: 12px 10px;
-                border-radius: 18px;
-            }
-
-            .content {
-                gap: 14px;
-            }
-
-            .name {
-                font-size: clamp(2.6rem, 13vw, 3.6rem);
-            }
-
-            .love-banner {
-                font-size: clamp(1.1rem, 5.5vw, 1.5rem);
-                padding: 10px 14px;
-            }
-
-            .hero-note {
-                font-size: 0.92rem;
-            }
-
-            .panel {
-                padding: 14px 12px;
-                border-radius: 22px;
-            }
-
-            .panel-title {
-                font-size: 1.05rem;
-                margin-bottom: 12px;
-            }
-
-            .phrase {
-                padding: 14px 16px;
-                font-size: 0.95rem;
-                border-radius: 20px;
-            }
-
-            .polaroid {
-                flex-basis: 100%;
-                width: min(100%, 220px);
-                max-width: 220px;
-            }
-
-            .hold-button {
-                width: 96px;
-                height: 96px;
-                font-size: 2.1rem;
-            }
-
-            .timer-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 6px;
-            }
-
-            .timer-unit {
-                padding: 10px 4px;
-                border-radius: 16px;
-            }
-
-            .timer-number {
-                font-size: clamp(1.2rem, 5vw, 1.7rem);
-            }
-
-            .timer-label {
-                font-size: 0.65rem;
-            }
-
-            .greeting-text {
-                font-size: clamp(1.3rem, 6vw, 1.8rem);
-            }
-
-            .greeting-sub {
-                font-size: 0.88rem;
-            }
-
-            .poem-display {
-                min-height: 130px;
-                padding: 14px;
-            }
-
-            .forever-overlay {
-                padding: 16px;
-            }
-
-            .forever-message {
-                padding: 18px 14px;
-                border-radius: 24px;
-            }
-
-            .forever-title {
-                font-size: clamp(2rem, 8vw, 3rem);
-            }
-
-            .forever-text {
-                font-size: 0.92rem;
-            }
-
-            .hug-emoji {
-                font-size: 3rem;
-            }
-
-            .countdown-text {
-                font-size: clamp(1.3rem, 5vw, 1.8rem);
-            }
+            .cursor-trail { display: none; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1387,70 +1014,140 @@
                 scroll-behavior: auto !important;
             }
         }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        @keyframes driftPiece {
+            0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0deg) scale(0.9); }
+            12% { opacity: 0.95; }
+            100% { opacity: 0; transform: translate3d(var(--drift-x), var(--drift-y), 0) rotate(var(--spin)) scale(1.16); }
+        }
+
+        @keyframes twinklePiece {
+            0% { opacity: 0; transform: translateY(12px) scale(0.3); }
+            20% { opacity: 0.85; }
+            80% { opacity: 0.65; }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.1); }
+        }
+
+        @keyframes driftAurora {
+            from { transform: translate3d(0, 0, 0) scale(1); }
+            to { transform: translate3d(6vw, 5vh, 0) scale(1.14); }
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes jarShake {
+            0%, 100% { transform: rotate(0); }
+            20% { transform: rotate(-4deg); }
+            40% { transform: rotate(4deg); }
+            60% { transform: rotate(-3deg); }
+            80% { transform: rotate(2deg); }
+        }
+
+        @keyframes hugSquish {
+            0% { transform: scale(1); }
+            35% { transform: scale(1.3) rotate(-5deg); }
+            65% { transform: scale(1.16) rotate(4deg); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes kissFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.65); }
+            18% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-190px) translateX(var(--kiss-x)) scale(1.15); }
+        }
+
+        @keyframes burstFly {
+            0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.45); }
+            15% { opacity: 1; }
+            100% { opacity: 0; transform: translate3d(var(--burst-x), var(--burst-y), 0) scale(1.25) rotate(var(--burst-rotate)); }
+        }
+
+        @keyframes magicBurst {
+            0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.4); }
+            15% { opacity: 1; }
+            100% { opacity: 0; transform: translate3d(var(--magic-x), var(--magic-y), 0) scale(1.1) rotate(var(--magic-r)); }
+        }
+
+        @keyframes trailFade {
+            0% { opacity: 0.95; transform: translate3d(0, 0, 0) scale(1); }
+            100% { opacity: 0; transform: translate3d(var(--trail-x), var(--trail-y), 0) scale(0.3); }
+        }
     </style>
 </head>
 <body>
-    <div class="sparkles" aria-hidden="true"></div>
-    <div class="heart-stream" aria-hidden="true"></div>
-    <div class="cursor-heart" aria-hidden="true">💖</div>
-
+    <div class="aurora-layer" aria-hidden="true">
+        <span class="aurora-band one"></span>
+        <span class="aurora-band two"></span>
+        <span class="aurora-band three"></span>
+    </div>
+    <div class="background-layer" id="backgroundLayer" aria-hidden="true"></div>
+    <div class="cursor-trail" id="cursorTrail" aria-hidden="true"></div>
+    <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
     <main class="page">
         <section class="card">
             <div class="content">
-                <header class="hero">
+                <header class="hero reveal">
+                    <div class="eyebrow">For the girl who makes distance feel smaller</div>
                     <h1 class="name">Vanessa</h1>
-                    <div class="love-banner"><span>I love you</span></div>
-                    <p class="hero-note">A tiny little corner of the internet made by Habib — because even though the miles keep us apart, nothing in this world could ever keep my heart from yours.</p>
+                    <div class="love-banner"><span>I love you, endlessly</span></div>
+                    <p class="hero-note">A tiny little corner of the internet made by Habib, because even though the miles keep us apart, nothing in this world could ever keep my heart from yours.</p>
                 </header>
-
-                <section class="panel greeting-panel" id="greetingPanel">
+                <section class="panel greeting-panel reveal" id="greetingPanel">
                     <div class="greeting-emoji" id="greetingEmoji">🌸</div>
                     <h2 class="greeting-text" id="greetingText">Good morning, my love</h2>
                     <p class="greeting-sub" id="greetingSub">Hope your day is as beautiful as you are.</p>
                 </section>
-
                 <section class="phrases" aria-label="Romantic phrases">
-                    <article class="phrase accent"><span class="phrase-icon" aria-hidden="true">🌍</span><span>Miles apart, never apart in heart</span></article>
-                    <article class="phrase">Every text from you makes my whole day</article>
-                    <article class="phrase">Same moon, same stars, same love</article>
-                    <article class="phrase">The distance is temporary, but us — we are forever.</article>
+                    <article class="phrase accent reveal"><span class="phrase-icon" aria-hidden="true">🌍</span><span>Miles apart, never apart in heart</span></article>
+                    <article class="phrase reveal">Every text from you makes my whole day</article>
+                    <article class="phrase reveal">Same moon, same stars, same love</article>
+                    <article class="phrase reveal">The distance is temporary, but us, we are forever.</article>
                 </section>
-
                 <section class="interactive-grid">
-                    <article class="panel envelope-wrap" id="letterPanel">
+                    <article class="panel envelope-wrap reveal" id="letterPanel">
                         <h2 class="panel-title">A little love letter</h2>
                         <button class="envelope-button" id="envelopeButton" type="button" aria-expanded="false" aria-controls="loveLetter">
-                            <div class="envelope" aria-hidden="true">
-                                <div class="envelope-heart">❤</div>
+                            <div class="envelope-shell">
+                                <div class="envelope" aria-hidden="true">
+                                    <div class="envelope-letter"></div>
+                                    <div class="envelope-flap"></div>
+                                    <div class="envelope-front"></div>
+                                    <div class="envelope-heart">❤</div>
+                                </div>
                             </div>
                         </button>
-                        <p class="letter-hint">Click the envelope to open something sweet.</p>
+                        <p class="letter-hint">Tap the envelope and let it unfold slowly.</p>
                         <div class="hidden-letter" id="loveLetter">
-                            <p>Vanessa, even though I cannot hold your hand right now, I hold you in my heart every single second. The distance only makes me love you louder. I cannot wait for the day I get to see your face again — until then, every call, every text, every little "I love you" keeps me going. You are worth every mile. 💖</p>
+                            <p>Vanessa, even though I cannot hold your hand right now, I hold you in my heart every single second. The distance only makes me love you louder. I cannot wait for the day I get to see your face again. Until then, every call, every text, every little "I love you" keeps me going. You are worth every mile. 💖</p>
                         </div>
                     </article>
-
-                    <article class="panel meter">
+                    <article class="panel meter reveal">
                         <h2 class="panel-title">Romance Meter</h2>
                         <div class="meter-stats">
-                            <div class="meter-percent" id="meterPercent">0%</div>
+                            <div class="meter-percent" id="meterPercent">12%</div>
                             <p class="meter-message" id="meterMessage">More love every second...</p>
                         </div>
-                        <div class="meter-track" aria-hidden="true">
+                        <div class="meter-track" id="meterTrack" aria-hidden="true">
                             <div class="meter-fill" id="meterFill"></div>
                         </div>
                         <button class="meter-button" id="meterButton" type="button">Add More Romance</button>
                     </article>
                 </section>
-
-                <section class="panel forever-panel">
+                <section class="panel forever-panel reveal">
                     <h2 class="panel-title">A forever little promise</h2>
-                    <p class="forever-copy">The distance between us is just a test of how far love can travel — and ours reaches across everything. My favourite place will always be wherever you are, and one day, the distance will be zero.</p>
+                    <p class="forever-copy">The distance between us is just a test of how far love can travel, and ours reaches across everything. My favourite place will always be wherever you are, and one day, the distance will be zero.</p>
                     <button class="forever-button" id="foreverButton" type="button">Tap for Forever</button>
                     <p class="forever-note">A tiny surprise sent across the miles, just for you.</p>
                 </section>
-
-                <section class="panel reasons-panel">
+                <section class="panel reasons-panel reveal">
                     <h2 class="panel-title">Reasons I Love You</h2>
                     <div class="reason-display">
                         <p class="reason-text" id="reasonText">Press the button and discover something true ✨</p>
@@ -1458,526 +1155,627 @@
                     <p class="reason-counter" id="reasonCounter">0 of 14 reasons revealed</p>
                     <button class="reason-button" id="reasonButton" type="button">Reveal a Reason 💛</button>
                 </section>
-
-                <section class="panel">
+                <section class="panel reveal">
                     <h2 class="panel-title">Little Scrapbook</h2>
                     <div class="scrapbook">
                         <div class="polaroid">
                             <div class="polaroid-scene">📱</div>
-                            <p class="polaroid-caption">Our late-night calls<br><span class="polaroid-date">the best hours</span></p>
+                            <p class="polaroid-caption">Our late-night calls<span class="polaroid-date">the best hours</span></p>
                         </div>
                         <div class="polaroid">
                             <div class="polaroid-scene">🌙</div>
-                            <p class="polaroid-caption">Same moon, different cities<br><span class="polaroid-date">always connected</span></p>
+                            <p class="polaroid-caption">Same moon, different cities<span class="polaroid-date">always connected</span></p>
                         </div>
                         <div class="polaroid">
                             <div class="polaroid-scene">✈️</div>
-                            <p class="polaroid-caption">Counting down to you<br><span class="polaroid-date">soon, my love</span></p>
+                            <p class="polaroid-caption">Counting down to you<span class="polaroid-date">soon, my love</span></p>
                         </div>
                     </div>
                 </section>
-
-                <section class="panel hold-panel">
+                <section class="panel hold-panel reveal">
                     <h2 class="panel-title">Hold for a Moment of Love</h2>
                     <button class="hold-button" id="holdButton" type="button" aria-label="Hold for love">💗</button>
-                    <p class="hold-hint">Press and hold — Habib is sending love across the distance</p>
-                    <p class="hold-tip">Keep holding… every second sends a virtual kiss 🌸</p>
+                    <p class="hold-hint">Press and hold, Habib is sending love across the distance.</p>
+                    <p class="hold-tip">Keep holding. Every second sends another virtual kiss.</p>
                 </section>
-
-                <section class="panel timer-panel">
-                    <h2 class="panel-title">Time Since I Fell For You</h2>
-                    <div class="timer-grid">
-                        <div class="timer-unit">
-                            <span class="timer-number" id="timerDays">0</span>
-                            <span class="timer-label">Days</span>
+                <section class="timers-grid">
+                    <section class="panel timer-panel reveal">
+                        <h2 class="panel-title">Time Since I Fell For You</h2>
+                        <div class="timer-grid">
+                            <div class="timer-unit"><span class="timer-number" id="timerDays">0</span><span class="timer-label">Days</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="timerHours">0</span><span class="timer-label">Hours</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="timerMins">0</span><span class="timer-label">Minutes</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="timerSecs">0</span><span class="timer-label">Seconds</span></div>
                         </div>
-                        <div class="timer-unit">
-                            <span class="timer-number" id="timerHours">0</span>
-                            <span class="timer-label">Hours</span>
+                        <p class="timer-tagline">...and the distance has not stolen a single one. 💕</p>
+                    </section>
+                    <section class="panel countdown-panel reveal">
+                        <div class="countdown-emoji" aria-hidden="true">✈️</div>
+                        <h2 class="countdown-text">Countdown to Next Time We Meet</h2>
+                        <div class="timer-grid">
+                            <div class="timer-unit"><span class="timer-number" id="meetDays">0</span><span class="timer-label">Days</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="meetHours">0</span><span class="timer-label">Hours</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="meetMins">0</span><span class="timer-label">Minutes</span></div>
+                            <div class="timer-unit"><span class="timer-number" id="meetSecs">0</span><span class="timer-label">Seconds</span></div>
                         </div>
-                        <div class="timer-unit">
-                            <span class="timer-number" id="timerMins">0</span>
-                            <span class="timer-label">Minutes</span>
-                        </div>
-                        <div class="timer-unit">
-                            <span class="timer-number" id="timerSecs">0</span>
-                            <span class="timer-label">Seconds</span>
-                        </div>
+                        <p class="countdown-sub" id="countdownSub">Every second apart is a second closer to being together again.</p>
+                    </section>
+                </section>
+                <section class="panel song-panel reveal">
+                    <h2 class="song-title">Our Song 🎵</h2>
+                    <div class="song-frame">
+                        <iframe src="https://www.youtube.com/embed/ysF4Hx14kJg" title="Our Song" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
-                    <p class="timer-tagline">…and the distance has not stolen a single one 💕</p>
+                    <p class="song-caption">Every time this plays, I think of you.</p>
                 </section>
-
-                <section class="panel poem-panel">
+                <section class="panel poem-panel reveal">
                     <h2 class="panel-title">A Poem, Just for You</h2>
                     <div class="poem-display">
                         <p class="poem-text" id="poemText"><span class="poem-cursor"></span></p>
                     </div>
                     <button class="poem-button" id="poemButton" type="button">Read Me a Poem 🌙</button>
                 </section>
-
-                <section class="panel date-jar-panel">
+                <section class="panel date-jar-panel reveal">
                     <h2 class="panel-title">Our Dream Date Jar</h2>
                     <div class="jar-icon" aria-hidden="true">🫙</div>
                     <div class="date-card" id="dateCard">
-                        <p class="date-idea" id="dateIdea">Shake the jar and pick our next long-distance date…</p>
+                        <p class="date-idea" id="dateIdea">Shake the jar and pick our next long-distance date...</p>
                     </div>
                     <button class="date-button" id="dateButton" type="button">Pull a Dream Date 🎲</button>
                 </section>
-
-                <section class="panel hug-panel">
+                <section class="panel hug-panel reveal">
                     <h2 class="panel-title">Send a Virtual Hug</h2>
                     <div class="hug-emoji" id="hugEmoji" aria-hidden="true">🤗</div>
-                    <p class="hug-message" id="hugMessage">Every tap sends a hug across the miles…</p>
+                    <p class="hug-message" id="hugMessage">Every tap sends a hug across the miles...</p>
                     <p class="hug-counter" id="hugCounter">0 hugs sent so far</p>
+                    <div class="hug-milestone">
+                        <p id="hugMilestone">The next hug is waiting for you.</p>
+                    </div>
                     <button class="hug-button" id="hugButton" type="button">Send Vanessa a Hug 💌</button>
                 </section>
-
-                <section class="panel countdown-panel">
-                    <div class="countdown-emoji" aria-hidden="true">✈️</div>
-                    <h2 class="countdown-text" id="countdownText">Missing you always</h2>
-                    <p class="countdown-sub" id="countdownSub">Every second apart is a second closer to being together again.</p>
-                </section>
-
-                <footer class="footer">Made with all my love, sent across the miles, just for you 💕<br><span style="font-size:0.85rem;opacity:0.8;">— Habib, your boyfriend forever, no matter the distance</span></footer>
+                <footer class="footer reveal">
+                    <strong>Made with all my love, sent across the miles, just for you.</strong>
+                    <span class="footer-note">You are my calm place, my favorite thought, and the person I want every ordinary and extraordinary day with. Love always, Habib.</span>
+                </footer>
             </div>
         </section>
     </main>
-
     <div class="forever-overlay" id="foreverOverlay" aria-hidden="true">
         <div class="forever-message" role="dialog" aria-modal="true" aria-labelledby="foreverTitle">
             <h2 class="forever-title" id="foreverTitle">Forever, Vanessa</h2>
-            <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps — even across all this distance — I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I am counting down every single day until I can hold you again. Forever starts the moment we close this gap.</p>
-            <p style="margin:14px 0 0;font-size:0.95rem;color:#a07088;font-weight:700;">— with all of me, Habib 💖</p>
+            <p class="forever-text">In this life, in every soft tomorrow, and in every dream my heart keeps, even across all this distance, I would still choose you. Over and over. You are my once-in-a-lifetime kind of love, and I am counting down every single day until I can hold you again. Forever starts the moment we close this gap.</p>
+            <p class="signature">With all of me, Habib 💖</p>
             <button class="close-forever" id="closeForever" type="button">Keep This Close ❤</button>
         </div>
     </div>
-
     <script>
-        const sparkleContainer = document.querySelector('.sparkles');
-        const heartStream = document.querySelector('.heart-stream');
-        const cursorHeart = document.querySelector('.cursor-heart');
-        const envelopeButton = document.getElementById('envelopeButton');
-        const letterPanel = document.getElementById('letterPanel');
-        const meterButton = document.getElementById('meterButton');
-        const meterFill = document.getElementById('meterFill');
-        const meterPercent = document.getElementById('meterPercent');
-        const meterMessage = document.getElementById('meterMessage');
-        const foreverButton = document.getElementById('foreverButton');
-        const foreverOverlay = document.getElementById('foreverOverlay');
-        const closeForever = document.getElementById('closeForever');
+        const backgroundLayer = document.getElementById("backgroundLayer");
+        const cursorTrail = document.getElementById("cursorTrail");
+        const burstLayer = document.getElementById("burstLayer");
+        const envelopeButton = document.getElementById("envelopeButton");
+        const letterPanel = document.getElementById("letterPanel");
+        const meterButton = document.getElementById("meterButton");
+        const meterFill = document.getElementById("meterFill");
+        const meterTrack = document.getElementById("meterTrack");
+        const meterPercent = document.getElementById("meterPercent");
+        const meterMessage = document.getElementById("meterMessage");
+        const foreverButton = document.getElementById("foreverButton");
+        const foreverOverlay = document.getElementById("foreverOverlay");
+        const closeForever = document.getElementById("closeForever");
+        const reasonButton = document.getElementById("reasonButton");
+        const reasonText = document.getElementById("reasonText");
+        const reasonCounter = document.getElementById("reasonCounter");
+        const holdButton = document.getElementById("holdButton");
+        const hugButton = document.getElementById("hugButton");
+        const hugEmoji = document.getElementById("hugEmoji");
+        const hugMessage = document.getElementById("hugMessage");
+        const hugCounter = document.getElementById("hugCounter");
+        const hugMilestone = document.getElementById("hugMilestone");
 
         const romanceMessages = [
-            'More love every second...',
-            'Your smile makes the stars jealous.',
-            'The sweetness level is rising fast.',
-            'This heart only beats louder for Vanessa.',
-            'Completely full of love now.'
+            "More love every second...",
+            "Your smile makes the stars jealous.",
+            "This is getting dangerously romantic.",
+            "My heart is basically glowing for you now.",
+            "Completely full of love now."
         ];
 
-        let currentLove = 0;
-        let pointerX = window.innerWidth / 2;
-        let pointerY = window.innerHeight / 2;
-        let heartX = pointerX;
-        let heartY = pointerY;
-        let autoDrift = 0;
+        // EDIT THESE REASONS whenever you want to personalize this list.
+        const reasons = [
+            "Your laugh on the phone. It closes every mile between us.",
+            "The way you stay up late just to hear my voice.",
+            "How your eyes light up when we finally video call.",
+            "Your patience. Loving someone far away takes real strength.",
+            "The way you make me feel close even from so far.",
+            "Your voice, the one I replay in my head all day.",
+            "How you never let the distance make you doubt us.",
+            "The little good morning texts that start my whole day.",
+            "How you still make me feel like the luckiest person alive.",
+            "Your heart, brave enough to love across the distance.",
+            "The way you count down the days until we see each other.",
+            "Every version of you I have fallen for, near and far.",
+            "How you turn a simple text into the highlight of my day.",
+            "Simply being mine, even from far away, that is everything."
+        ];
 
-        function createSparkles() {
-            const sparkleCount = 22;
+        const poems = [
+            "The miles between us stretch so wide,\nbut you are always by my side.\nIn every call and every text,\nmy heart beats loud, you are my next\nchapter, my always, my sweetest pride.",
+            "If I could fold the map in two,\nI would bring the world right back to you.\nUntil that day, I send my heart\nacross each mile that keeps us apart.",
+            "They say that distance makes love grow,\nand darling, now I finally know.\nWith every dawn in different skies,\nI fall in love again through your eyes.",
+            "I count the days, I count the hours,\nI send you love like distant flowers.\nAcross the oceans, through the air,\nmy heart is always, always there."
+        ];
 
-            for (let index = 0; index < sparkleCount; index += 1) {
-                const sparkle = document.createElement('span');
-                sparkle.className = 'sparkle';
-                sparkle.textContent = index % 3 === 0 ? '✦' : '✧';
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                sparkle.style.animationDuration = `${4 + Math.random() * 4}s`;
-                sparkle.style.animationDelay = `${Math.random() * 4}s`;
-                sparkleContainer.appendChild(sparkle);
+        const dateIdeas = [
+            "📱 Fall asleep on a video call together",
+            "🎬 Sync a movie and watch it at the same time",
+            "🍳 Cook the same recipe on call together",
+            "🌙 Stargaze from different cities, same sky",
+            "🎮 Play an online game together all night",
+            "📝 Write each other a letter to open next visit",
+            "🎶 Make a shared playlist of songs that remind us of each other",
+            "📸 Send each other a photo every hour for a whole day",
+            "🧁 Bake the same recipe and compare results on call",
+            "🎨 Draw each other on video call, even if terrible",
+            "📖 Read the same book and talk about it at night",
+            "🌅 Watch the sunrise or sunset together on FaceTime",
+            "💌 Send a surprise care package through the mail",
+            "🗺️ Plan our next trip together, detail by detail"
+        ];
+
+        const hugMessages = [
+            "Vanessa just got a warm hug from Habib 💕",
+            "Sending love across the miles... received! 💌",
+            "She felt that one, even from far away 🌍",
+            "Another hug safely delivered to your heart 💖",
+            "The distance just got a little smaller 🤗",
+            "Habib is hugging you right now, virtually 🫶",
+            "That hug traveled thousands of miles for you ✈️",
+            "Your heart just got a little warmer 🌸"
+        ];
+
+        const hugMilestones = {
+            10: "10 hugs. Officially enough to wrap you up all afternoon.",
+            50: "50 hugs. This website is basically a cuddle machine now.",
+            100: "100 hugs. Distance loses, love wins."
+        };
+
+        let currentLove = Number(localStorage.getItem("vanessa-romance-meter")) || 12;
+        let reasonIndex = Number(localStorage.getItem("vanessa-reason-index")) || 0;
+        let lastDateIndex = -1;
+        let holdInterval = null;
+        let typing = false;
+        let lastTrailTime = 0;
+
+        function clamp(value, min, max) {
+            return Math.min(max, Math.max(min, value));
+        }
+
+        function setThemeByTime() {
+            const hour = new Date().getHours();
+            document.body.classList.remove("day-theme", "evening-theme", "night-theme");
+
+            if (hour >= 6 && hour < 17) {
+                document.body.classList.add("day-theme");
+                return "day";
+            }
+            if (hour >= 17 && hour < 21) {
+                document.body.classList.add("evening-theme");
+                return "evening";
+            }
+            document.body.classList.add("night-theme");
+            return "night";
+        }
+
+        function spawnBackgroundPiece(theme) {
+            const piece = document.createElement("span");
+            const left = Math.random() * 100;
+            const driftX = -40 + Math.random() * 80;
+            const driftY = -180 - Math.random() * 220;
+            const duration = 12 + Math.random() * 12;
+
+            if (theme === "night") {
+                piece.className = "sky-piece";
+                const size = 2 + Math.random() * 3.5;
+                piece.style.width = `${size}px`;
+                piece.style.height = `${size}px`;
+            } else {
+                piece.className = "floating-piece";
+                piece.textContent = theme === "evening" ? (Math.random() > 0.5 ? "✦" : "❤") : (Math.random() > 0.5 ? "❀" : "❤");
+                piece.style.fontSize = `${16 + Math.random() * 16}px`;
+                piece.style.color = theme === "evening" ? "rgba(255, 226, 194, 0.8)" : "rgba(255, 214, 226, 0.78)";
+            }
+
+            piece.style.left = `${left}%`;
+            piece.style.bottom = "-40px";
+            piece.style.animationDuration = `${duration}s`;
+            piece.style.setProperty("--drift-x", `${driftX}px`);
+            piece.style.setProperty("--drift-y", `${driftY}px`);
+            piece.style.setProperty("--spin", `${-60 + Math.random() * 120}deg`);
+            backgroundLayer.appendChild(piece);
+            window.setTimeout(() => piece.remove(), duration * 1000);
+        }
+
+        function initBackground() {
+            const theme = setThemeByTime();
+            const initialPieces = theme === "night" ? 30 : 16;
+            for (let index = 0; index < initialPieces; index += 1) {
+                window.setTimeout(() => spawnBackgroundPiece(theme), index * 220);
+            }
+            window.setInterval(() => spawnBackgroundPiece(theme), theme === "night" ? 320 : 900);
+        }
+
+        function initReveal() {
+            const items = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.16 });
+            items.forEach((item) => observer.observe(item));
+        }
+
+        function updateMeterUI() {
+            const displayValue = Math.round(currentLove);
+            meterFill.style.width = `${displayValue}%`;
+            meterPercent.textContent = `${displayValue}%`;
+            meterMessage.textContent = romanceMessages[Math.min(romanceMessages.length - 1, Math.floor(displayValue / 25))];
+            const isFull = displayValue >= 100;
+            meterTrack.classList.toggle("maxed", isFull);
+            meterFill.classList.toggle("full", isFull);
+            if (isFull) {
+                meterButton.textContent = "Overflowing with Love";
+                meterButton.disabled = true;
+                meterButton.style.opacity = "0.82";
+            }
+            localStorage.setItem("vanessa-romance-meter", String(displayValue));
+        }
+
+        function createHeartBurst(x, y, count = 18) {
+            for (let index = 0; index < count; index += 1) {
+                const piece = document.createElement("span");
+                const angle = (Math.PI * 2 * index) / count;
+                const distance = 60 + Math.random() * 110;
+                piece.className = "burst-heart";
+                piece.textContent = Math.random() > 0.5 ? "❤" : "💖";
+                piece.style.left = `${x}px`;
+                piece.style.top = `${y}px`;
+                piece.style.fontSize = `${16 + Math.random() * 18}px`;
+                piece.style.setProperty("--burst-x", `${Math.cos(angle) * distance}px`);
+                piece.style.setProperty("--burst-y", `${Math.sin(angle) * distance - 20}px`);
+                piece.style.setProperty("--burst-rotate", `${-40 + Math.random() * 80}deg`);
+                burstLayer.appendChild(piece);
+                window.setTimeout(() => piece.remove(), 1500);
             }
         }
 
-        function spawnHeart() {
-            const heart = document.createElement('span');
-            heart.className = 'floating-heart';
-            heart.textContent = Math.random() > 0.5 ? '❤' : '♥';
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.bottom = '-40px';
-            heart.style.animationDuration = `${7 + Math.random() * 5}s`;
-            heart.style.animationDelay = `${Math.random() * 1.8}s`;
-            heart.style.fontSize = `${18 + Math.random() * 18}px`;
-            heartStream.appendChild(heart);
+        function createMagicBurst(x, y) {
+            const pieces = ["✦", "✧", "❤", "❀", "•"];
+            for (let index = 0; index < 30; index += 1) {
+                const piece = document.createElement("span");
+                const angle = (Math.PI * 2 * index) / 30;
+                const distance = 70 + Math.random() * 140;
+                piece.className = "magic-piece";
+                piece.textContent = pieces[index % pieces.length];
+                piece.style.left = `${x}px`;
+                piece.style.top = `${y}px`;
+                piece.style.fontSize = `${12 + Math.random() * 20}px`;
+                piece.style.color = index % 2 === 0 ? "rgba(255, 230, 194, 0.95)" : "rgba(255, 194, 218, 0.95)";
+                piece.style.setProperty("--magic-x", `${Math.cos(angle) * distance}px`);
+                piece.style.setProperty("--magic-y", `${Math.sin(angle) * distance - 40}px`);
+                piece.style.setProperty("--magic-r", `${-80 + Math.random() * 160}deg`);
+                burstLayer.appendChild(piece);
+                window.setTimeout(() => piece.remove(), 1400);
+            }
+        }
 
-            window.setTimeout(() => {
-                heart.remove();
-            }, 12500);
+        function increaseRomance(amount) {
+            if (currentLove >= 100) {
+                return;
+            }
+            currentLove = clamp(currentLove + amount, 0, 100);
+            updateMeterUI();
+            if (Math.round(currentLove) === 100) {
+                createHeartBurst(window.innerWidth / 2, window.innerHeight / 2, 24);
+            }
+        }
+
+        function initRomanceMeter() {
+            updateMeterUI();
+            meterButton.addEventListener("click", () => increaseRomance(12));
+            window.setInterval(() => increaseRomance(1), 4800);
         }
 
         function toggleLetter() {
-            const isOpen = letterPanel.classList.toggle('letter-open');
-            envelopeButton.setAttribute('aria-expanded', String(isOpen));
-        }
-
-        function updateRomanceMeter() {
-            currentLove = Math.min(100, currentLove + 10);
-            meterFill.style.width = `${currentLove}%`;
-            meterPercent.textContent = `${currentLove}%`;
-
-            const messageIndex = Math.min(
-                romanceMessages.length - 1,
-                Math.floor(currentLove / 25)
-            );
-
-            meterMessage.textContent = romanceMessages[messageIndex];
-
-            if (currentLove === 100) {
-                meterButton.textContent = 'Overflowing with Love';
-                meterButton.disabled = true;
-                meterButton.style.opacity = '0.88';
-                meterButton.style.cursor = 'default';
-            }
-        }
-
-        function createHeartBurst() {
-            const burstCount = 22;
-
-            for (let index = 0; index < burstCount; index += 1) {
-                const burstHeart = document.createElement('span');
-                const angle = (Math.PI * 2 * index) / burstCount;
-                const distance = 90 + Math.random() * 140;
-                const x = Math.cos(angle) * distance;
-                const y = Math.sin(angle) * distance - 30;
-
-                burstHeart.className = 'burst-heart';
-                burstHeart.textContent = Math.random() > 0.5 ? '❤' : '💖';
-                burstHeart.style.left = '50%';
-                burstHeart.style.top = '50%';
-                burstHeart.style.fontSize = `${18 + Math.random() * 20}px`;
-                burstHeart.style.setProperty('--burst-x', `${x}px`);
-                burstHeart.style.setProperty('--burst-y', `${y}px`);
-                burstHeart.style.setProperty('--burst-rotate', `${-35 + Math.random() * 70}deg`);
-                document.body.appendChild(burstHeart);
-
-                window.setTimeout(() => {
-                    burstHeart.remove();
-                }, 1500);
+            const isOpen = letterPanel.classList.toggle("letter-open");
+            envelopeButton.setAttribute("aria-expanded", String(isOpen));
+            if (isOpen) {
+                increaseRomance(6);
             }
         }
 
         function openForeverMoment() {
-            foreverOverlay.classList.add('show');
-            foreverOverlay.setAttribute('aria-hidden', 'false');
-            createHeartBurst();
+            foreverOverlay.classList.add("show");
+            foreverOverlay.setAttribute("aria-hidden", "false");
+            const rect = foreverButton.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            createHeartBurst(centerX, centerY, 20);
+            createMagicBurst(centerX, centerY);
+            increaseRomance(8);
         }
 
         function closeForeverMoment() {
-            foreverOverlay.classList.remove('show');
-            foreverOverlay.setAttribute('aria-hidden', 'true');
+            foreverOverlay.classList.remove("show");
+            foreverOverlay.setAttribute("aria-hidden", "true");
         }
-
-        function animateCursorHeart() {
-            autoDrift += 0.018;
-            const driftX = Math.cos(autoDrift) * 10;
-            const driftY = Math.sin(autoDrift * 1.25) * 8;
-
-            heartX += (pointerX - heartX) * 0.14;
-            heartY += (pointerY - heartY) * 0.14;
-            cursorHeart.style.transform = `translate3d(${heartX + driftX}px, ${heartY + driftY}px, 0)`;
-
-            requestAnimationFrame(animateCursorHeart);
-        }
-
-        document.addEventListener('pointermove', (event) => {
-            pointerX = event.clientX;
-            pointerY = event.clientY;
-        });
-
-        document.addEventListener('touchmove', (event) => {
-            if (event.touches[0]) {
-                pointerX = event.touches[0].clientX;
-                pointerY = event.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        // ── Reasons I Love You ──
-        const reasonButton = document.getElementById('reasonButton');
-        const reasonText = document.getElementById('reasonText');
-        const reasonCounter = document.getElementById('reasonCounter');
-
-        const reasons = [
-            'Your laugh on the phone — it closes every mile between us.',
-            'The way you stay up late just to hear my voice.',
-            'How your eyes light up when we finally video call.',
-            'Your patience — loving someone far away takes real strength.',
-            'The way you make me feel close even from so far.',
-            'Your voice — the one I replay in my head all day.',
-            'How you never let the distance make you doubt us.',
-            'The little good morning texts that start my whole day.',
-            'How you still make me feel like the luckiest person alive.',
-            'Your heart — brave enough to love across the distance.',
-            'The way you count down the days until we see each other.',
-            'Every version of you I have fallen for, near and far.',
-            'How you turn a simple text into the highlight of my day.',
-            'Simply being mine — even from far away, that is everything.'
-        ];
-
-        let reasonIndex = 0;
 
         function revealReason() {
-            reasonText.classList.add('fading');
+            reasonText.classList.add("fading");
             window.setTimeout(() => {
-                reasonText.textContent = `"${reasons[reasonIndex % reasons.length]}"`;
-                reasonText.classList.remove('fading');
+                reasonText.textContent = `\"${reasons[reasonIndex % reasons.length]}\"`;
+                reasonText.classList.remove("fading");
                 reasonIndex += 1;
                 reasonCounter.textContent = `${Math.min(reasonIndex, reasons.length)} of ${reasons.length} reasons revealed`;
+                localStorage.setItem("vanessa-reason-index", String(reasonIndex));
                 if (reasonIndex >= reasons.length) {
-                    reasonButton.textContent = 'All reasons revealed 💛';
+                    reasonButton.textContent = "All reasons revealed 💛";
                     reasonButton.disabled = true;
-                    reasonButton.style.opacity = '0.85';
-                    reasonButton.style.cursor = 'default';
+                    reasonButton.style.opacity = "0.82";
                 }
-            }, 290);
+                increaseRomance(4);
+            }, 240);
         }
 
-        reasonButton.addEventListener('click', revealReason);
-
-        // ── Hold for Love ──
-        const holdButton = document.getElementById('holdButton');
-        let holdInterval = null;
+        function restoreReasons() {
+            if (reasonIndex > 0) {
+                const shownIndex = Math.min(reasonIndex - 1, reasons.length - 1);
+                reasonText.textContent = `\"${reasons[shownIndex]}\"`;
+                reasonCounter.textContent = `${Math.min(reasonIndex, reasons.length)} of ${reasons.length} reasons revealed`;
+            }
+            if (reasonIndex >= reasons.length) {
+                reasonButton.textContent = "All reasons revealed 💛";
+                reasonButton.disabled = true;
+                reasonButton.style.opacity = "0.82";
+            }
+        }
 
         function spawnKissHeart() {
-            const kissHeart = document.createElement('span');
             const rect = holdButton.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
-            kissHeart.className = 'kiss-heart';
-            kissHeart.textContent = ['💗', '💖', '💕', '❤', '🌸'][Math.floor(Math.random() * 5)];
-            kissHeart.style.left = `${cx + (Math.random() * 44 - 22)}px`;
-            kissHeart.style.top = `${cy}px`;
-            kissHeart.style.fontSize = `${22 + Math.random() * 18}px`;
-            kissHeart.style.setProperty('--kiss-x', `${-35 + Math.random() * 70}px`);
-            document.body.appendChild(kissHeart);
-            window.setTimeout(() => { kissHeart.remove(); }, 1950);
+            const piece = document.createElement("span");
+            piece.className = "kiss-heart";
+            piece.textContent = ["💗", "💖", "💘", "❤", "🌸"][Math.floor(Math.random() * 5)];
+            piece.style.left = `${rect.left + rect.width / 2 + (Math.random() * 42 - 21)}px`;
+            piece.style.top = `${rect.top + rect.height / 2}px`;
+            piece.style.fontSize = `${18 + Math.random() * 18}px`;
+            piece.style.setProperty("--kiss-x", `${-38 + Math.random() * 76}px`);
+            burstLayer.appendChild(piece);
+            window.setTimeout(() => piece.remove(), 1900);
         }
 
         function startHolding() {
-            holdButton.classList.add('pressing');
+            if (holdInterval) {
+                return;
+            }
+            holdButton.classList.add("pressing");
             spawnKissHeart();
-            holdInterval = window.setInterval(spawnKissHeart, 155);
+            increaseRomance(3);
+            holdInterval = window.setInterval(() => {
+                spawnKissHeart();
+                increaseRomance(1);
+            }, 180);
         }
 
         function stopHolding() {
-            holdButton.classList.remove('pressing');
+            holdButton.classList.remove("pressing");
             window.clearInterval(holdInterval);
             holdInterval = null;
         }
 
-        holdButton.addEventListener('pointerdown', (event) => { event.preventDefault(); startHolding(); });
-        holdButton.addEventListener('pointerup', stopHolding);
-        holdButton.addEventListener('pointerleave', stopHolding);
-        holdButton.addEventListener('touchstart', (event) => { event.preventDefault(); startHolding(); }, { passive: false });
-        holdButton.addEventListener('touchend', stopHolding);
+        function initGreeting() {
+            const emoji = document.getElementById("greetingEmoji");
+            const text = document.getElementById("greetingText");
+            const sub = document.getElementById("greetingSub");
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) {
+                emoji.textContent = "☀️";
+                text.textContent = "Good morning, my love";
+                sub.textContent = "I wish I could wake up next to you. Until then, here is a sunrise hug.";
+            } else if (hour >= 12 && hour < 17) {
+                emoji.textContent = "🌤️";
+                text.textContent = "Good afternoon, beautiful";
+                sub.textContent = "Halfway through the day and I am still thinking about you across the miles.";
+            } else if (hour >= 17 && hour < 21) {
+                emoji.textContent = "🌇";
+                text.textContent = "Good evening, my Vanessa";
+                sub.textContent = "Wish I was there to watch the sunset with you tonight.";
+            } else {
+                emoji.textContent = "🌙";
+                text.textContent = "Goodnight, my everything";
+                sub.textContent = "We are under the same sky tonight. Dream of us, I will too.";
+            }
+        }
 
-        envelopeButton.addEventListener('click', toggleLetter);
-        meterButton.addEventListener('click', updateRomanceMeter);
-        foreverButton.addEventListener('click', openForeverMoment);
-        closeForever.addEventListener('click', closeForeverMoment);
-        foreverOverlay.addEventListener('click', (event) => {
+        function startCountUpTimer() {
+            const startDate = new Date(2024, 5, 1);
+            const daysEl = document.getElementById("timerDays");
+            const hoursEl = document.getElementById("timerHours");
+            const minsEl = document.getElementById("timerMins");
+            const secsEl = document.getElementById("timerSecs");
+            function tick() {
+                const diff = Date.now() - startDate.getTime();
+                const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+                daysEl.textContent = Math.floor(totalSeconds / 86400);
+                hoursEl.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
+                minsEl.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+                secsEl.textContent = String(totalSeconds % 60).padStart(2, "0");
+            }
+            tick();
+            window.setInterval(tick, 1000);
+        }
+
+        function startCountdownTimer() {
+            const daysEl = document.getElementById("meetDays");
+            const hoursEl = document.getElementById("meetHours");
+            const minsEl = document.getElementById("meetMins");
+            const secsEl = document.getElementById("meetSecs");
+            const countdownSub = document.getElementById("countdownSub");
+            // EDIT THIS DATE: next time you meet (YYYY, M-1, D, H, M)
+            const nextMeetDate = new Date(2026, 6, 1, 18, 0);
+            function tick() {
+                const diff = nextMeetDate.getTime() - Date.now();
+                if (diff <= 0) {
+                    daysEl.textContent = "0";
+                    hoursEl.textContent = "00";
+                    minsEl.textContent = "00";
+                    secsEl.textContent = "00";
+                    countdownSub.textContent = "The wait is over. You made it back to each other. ❤️";
+                    return;
+                }
+                const totalSeconds = Math.floor(diff / 1000);
+                daysEl.textContent = Math.floor(totalSeconds / 86400);
+                hoursEl.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
+                minsEl.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+                secsEl.textContent = String(totalSeconds % 60).padStart(2, "0");
+                countdownSub.textContent = "Every second apart is a second closer to being together again.";
+            }
+            tick();
+            window.setInterval(tick, 1000);
+        }
+
+        function initPoem() {
+            const poemButton = document.getElementById("poemButton");
+            const poemText = document.getElementById("poemText");
+            function typePoem() {
+                if (typing) {
+                    return;
+                }
+                typing = true;
+                poemButton.disabled = true;
+                poemButton.style.opacity = "0.78";
+                const poem = poems[Math.floor(Math.random() * poems.length)];
+                let index = 0;
+                poemText.innerHTML = '<span class="poem-cursor"></span>';
+                function writeNextCharacter() {
+                    if (index < poem.length) {
+                        poemText.innerHTML = `${poem.slice(0, index + 1)}<span class="poem-cursor"></span>`;
+                        index += 1;
+                        window.setTimeout(writeNextCharacter, 38 + Math.random() * 30);
+                        return;
+                    }
+                    typing = false;
+                    poemButton.disabled = false;
+                    poemButton.style.opacity = "1";
+                    poemButton.textContent = "Another Poem 🌙";
+                    increaseRomance(5);
+                }
+                writeNextCharacter();
+            }
+            poemButton.addEventListener("click", typePoem);
+        }
+
+        function initDateJar() {
+            const dateButton = document.getElementById("dateButton");
+            const dateCard = document.getElementById("dateCard");
+            const dateIdea = document.getElementById("dateIdea");
+            function pullDate() {
+                dateCard.classList.remove("shake");
+                void dateCard.offsetWidth;
+                dateCard.classList.add("shake");
+                let nextIndex;
+                do {
+                    nextIndex = Math.floor(Math.random() * dateIdeas.length);
+                } while (nextIndex === lastDateIndex && dateIdeas.length > 1);
+                lastDateIndex = nextIndex;
+                dateIdea.style.opacity = "0";
+                window.setTimeout(() => {
+                    dateIdea.textContent = dateIdeas[nextIndex];
+                    dateIdea.style.opacity = "1";
+                }, 220);
+                increaseRomance(4);
+            }
+            dateButton.addEventListener("click", pullDate);
+        }
+
+        function updateHugUI(hugCount) {
+            hugCounter.textContent = `${hugCount} hug${hugCount === 1 ? "" : "s"} sent so far`;
+            hugMilestone.textContent = hugMilestones[hugCount] || "The next hug is waiting for you.";
+        }
+
+        function initHugCounter() {
+            let hugCount = Number(localStorage.getItem("vanessa-hug-count")) || 0;
+            updateHugUI(hugCount);
+            hugButton.addEventListener("click", () => {
+                hugCount += 1;
+                localStorage.setItem("vanessa-hug-count", String(hugCount));
+                updateHugUI(hugCount);
+                hugEmoji.classList.remove("hugging");
+                void hugEmoji.offsetWidth;
+                hugEmoji.classList.add("hugging");
+                hugMessage.style.opacity = "0";
+                window.setTimeout(() => {
+                    hugMessage.textContent = hugMilestones[hugCount] || hugMessages[Math.floor(Math.random() * hugMessages.length)];
+                    hugMessage.style.opacity = "1";
+                }, 180);
+                increaseRomance(3);
+            });
+        }
+
+        function initCursorTrail() {
+            if (window.matchMedia("(hover: none)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                return;
+            }
+            document.addEventListener("pointermove", (event) => {
+                const now = Date.now();
+                if (now - lastTrailTime < 40) {
+                    return;
+                }
+                lastTrailTime = now;
+                const heart = document.createElement("span");
+                heart.className = "trail-heart";
+                heart.textContent = Math.random() > 0.5 ? "❤" : "❀";
+                heart.style.left = `${event.clientX}px`;
+                heart.style.top = `${event.clientY}px`;
+                heart.style.setProperty("--trail-x", `${-18 + Math.random() * 36}px`);
+                heart.style.setProperty("--trail-y", `${-12 - Math.random() * 24}px`);
+                cursorTrail.appendChild(heart);
+                window.setTimeout(() => heart.remove(), 980);
+            }, { passive: true });
+        }
+
+        envelopeButton.addEventListener("click", toggleLetter);
+        foreverButton.addEventListener("click", openForeverMoment);
+        closeForever.addEventListener("click", closeForeverMoment);
+        reasonButton.addEventListener("click", revealReason);
+        holdButton.addEventListener("pointerdown", (event) => { event.preventDefault(); startHolding(); });
+        holdButton.addEventListener("pointerup", stopHolding);
+        holdButton.addEventListener("pointerleave", stopHolding);
+        holdButton.addEventListener("touchstart", (event) => { event.preventDefault(); startHolding(); }, { passive: false });
+        holdButton.addEventListener("touchend", stopHolding);
+        foreverOverlay.addEventListener("click", (event) => {
             if (event.target === foreverOverlay) {
                 closeForeverMoment();
             }
         });
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && foreverOverlay.classList.contains('show')) {
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && foreverOverlay.classList.contains("show")) {
                 closeForeverMoment();
             }
         });
 
-        createSparkles();
-        animateCursorHeart();
-        for (let index = 0; index < 14; index += 1) {
-            window.setTimeout(spawnHeart, index * 380);
-        }
-        window.setInterval(spawnHeart, 900);
-
-        // ── Time-Based Greeting ──
-        (function initGreeting() {
-            const emoji = document.getElementById('greetingEmoji');
-            const text = document.getElementById('greetingText');
-            const sub = document.getElementById('greetingSub');
-            const hour = new Date().getHours();
-
-            if (hour >= 5 && hour < 12) {
-                emoji.textContent = '☀️';
-                text.textContent = 'Good morning, my love';
-                sub.textContent = 'I wish I could wake up next to you. Until then, here is a sunrise hug.';
-            } else if (hour >= 12 && hour < 17) {
-                emoji.textContent = '🌤️';
-                text.textContent = 'Good afternoon, beautiful';
-                sub.textContent = 'Halfway through the day and I am still thinking about you across the miles.';
-            } else if (hour >= 17 && hour < 21) {
-                emoji.textContent = '🌅';
-                text.textContent = 'Good evening, my Vanessa';
-                sub.textContent = 'Wish I was there to watch the sunset with you tonight.';
-            } else {
-                emoji.textContent = '🌙';
-                text.textContent = 'Goodnight, my everything';
-                sub.textContent = 'We are under the same sky tonight. Dream of us, I will too.';
-            }
-        })();
-
-        // ── Love Timer ──
-        (function initLoveTimer() {
-            // Set your anniversary / start date here (YYYY, M-1, D)
-            const startDate = new Date(2024, 5, 1); // June 1 2024
-            const daysEl = document.getElementById('timerDays');
-            const hoursEl = document.getElementById('timerHours');
-            const minsEl = document.getElementById('timerMins');
-            const secsEl = document.getElementById('timerSecs');
-
-            function tick() {
-                const diff = Date.now() - startDate.getTime();
-                const totalSeconds = Math.floor(diff / 1000);
-                const days = Math.floor(totalSeconds / 86400);
-                const hours = Math.floor((totalSeconds % 86400) / 3600);
-                const mins = Math.floor((totalSeconds % 3600) / 60);
-                const secs = totalSeconds % 60;
-                daysEl.textContent = days;
-                hoursEl.textContent = String(hours).padStart(2, '0');
-                minsEl.textContent = String(mins).padStart(2, '0');
-                secsEl.textContent = String(secs).padStart(2, '0');
-            }
-
-            tick();
-            window.setInterval(tick, 1000);
-        })();
-
-        // ── Typewriter Love Poem ──
-        (function initPoem() {
-            const poemButton = document.getElementById('poemButton');
-            const poemText = document.getElementById('poemText');
-
-            const poems = [
-                "The miles between us stretch so wide,\nbut you are always by my side.\nIn every call and every text,\nmy heart beats loud — you are my next\nchapter, my always, my sweetest pride.",
-                "If I could fold the map in two,\nI would bring the world right back to you.\nUntil that day, I send my heart\nacross each mile that keeps us apart.",
-                "They say that distance makes love grow,\nand darling, now I finally know.\nWith every dawn in different skies,\nI fall in love again through your eyes.",
-                "I count the days, I count the hours,\nI send you love like distant flowers.\nAcross the oceans, through the air,\nmy heart is always, always there."
-            ];
-
-            let typing = false;
-
-            function typePoem() {
-                if (typing) return;
-                typing = true;
-                poemButton.disabled = true;
-                poemButton.style.opacity = '0.7';
-
-                const poem = poems[Math.floor(Math.random() * poems.length)];
-                poemText.innerHTML = '<span class="poem-cursor"></span>';
-                let i = 0;
-
-                function typeChar() {
-                    if (i < poem.length) {
-                        const char = poem[i] === '\n' ? '\n' : poem[i];
-                        poemText.innerHTML = poem.substring(0, i + 1) + '<span class="poem-cursor"></span>';
-                        i += 1;
-                        window.setTimeout(typeChar, 46 + Math.random() * 32);
-                    } else {
-                        typing = false;
-                        poemButton.disabled = false;
-                        poemButton.style.opacity = '1';
-                        poemButton.textContent = 'Another Poem 🌙';
-                    }
-                }
-
-                typeChar();
-            }
-
-            poemButton.addEventListener('click', typePoem);
-        })();
-
-        // ── Dream Date Jar ──
-        (function initDateJar() {
-            const dateButton = document.getElementById('dateButton');
-            const dateCard = document.getElementById('dateCard');
-            const dateIdea = document.getElementById('dateIdea');
-
-            const dateIdeas = [
-                '📱  Fall asleep on a video call together',
-                '🎬  Sync a movie and watch it at the same time',
-                '🍳  Cook the same recipe on call together',
-                '🌙  Stargaze from different cities, same sky',
-                '🎮  Play an online game together all night',
-                '📝  Write each other a letter to open next visit',
-                '🎶  Make a shared playlist of songs that remind us of each other',
-                '📸  Send each other a photo every hour for a whole day',
-                '🧁  Bake the same recipe and compare results on call',
-                '🎨  Draw each other on video call (even if terrible)',
-                '📖  Read the same book and talk about it at night',
-                '🌅  Watch the sunrise or sunset together on FaceTime',
-                '💌  Send a surprise care package through the mail',
-                '🗺️  Plan our next trip together, detail by detail'
-            ];
-
-            let lastIndex = -1;
-
-            function pullDate() {
-                dateCard.classList.remove('shake');
-                void dateCard.offsetWidth;
-                dateCard.classList.add('shake');
-
-                let idx;
-                do {
-                    idx = Math.floor(Math.random() * dateIdeas.length);
-                } while (idx === lastIndex && dateIdeas.length > 1);
-                lastIndex = idx;
-
-                dateIdea.style.opacity = '0';
-                window.setTimeout(() => {
-                    dateIdea.textContent = dateIdeas[idx];
-                    dateIdea.style.opacity = '1';
-                }, 250);
-            }
-
-            dateButton.addEventListener('click', pullDate);
-        })();
-
-        // ── Virtual Hug ──
-        (function initHug() {
-            const hugButton = document.getElementById('hugButton');
-            const hugEmoji = document.getElementById('hugEmoji');
-            const hugMessage = document.getElementById('hugMessage');
-            const hugCounter = document.getElementById('hugCounter');
-
-            const hugMessages = [
-                'Vanessa just got a warm hug from Habib 💕',
-                'Sending love across the miles… received! 💌',
-                'She felt that one, even from far away 🌍',
-                'Another hug safely delivered to your heart 💗',
-                'The distance just got a little smaller 🤗',
-                'Habib is hugging you right now, virtually 🫶',
-                'That hug traveled thousands of miles for you ✈️',
-                'Your heart just got a little warmer 🌸'
-            ];
-
-            let hugCount = 0;
-
-            function sendHug() {
-                hugCount += 1;
-                hugCounter.textContent = `${hugCount} hug${hugCount === 1 ? '' : 's'} sent so far`;
-
-                hugEmoji.classList.remove('hugging');
-                void hugEmoji.offsetWidth;
-                hugEmoji.classList.add('hugging');
-
-                hugMessage.style.opacity = '0';
-                window.setTimeout(() => {
-                    hugMessage.textContent = hugMessages[Math.floor(Math.random() * hugMessages.length)];
-                    hugMessage.style.opacity = '1';
-                }, 200);
-            }
-
-            hugButton.addEventListener('click', sendHug);
-        })();
+        initBackground();
+        initReveal();
+        initGreeting();
+        initRomanceMeter();
+        restoreReasons();
+        startCountUpTimer();
+        startCountdownTimer();
+        initPoem();
+        initDateJar();
+        initHugCounter();
+        initCursorTrail();
     </script>
 </body>
 </html>
