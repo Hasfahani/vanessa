@@ -1315,6 +1315,194 @@
             font-weight: 600;
             line-height: 1.65;
         }
+
+        /* === CONSTELLATION === */
+        .constellation-panel {
+            background: linear-gradient(175deg, #12082a 0%, #1e0d38 45%, #2a1040 100%);
+            border: 1px solid rgba(200, 160, 255, 0.12);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .constellation-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(120, 60, 180, 0.2), transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(180, 80, 140, 0.15), transparent 50%);
+            pointer-events: none;
+        }
+        .constellation-panel .panel-title {
+            color: rgba(255, 240, 220, 0.94);
+            position: relative;
+            z-index: 2;
+        }
+        .constellation-sub {
+            margin: -8px 0 16px;
+            color: rgba(200, 170, 220, 0.75);
+            font-size: 0.92rem;
+            font-weight: 600;
+            line-height: 1.65;
+            position: relative;
+            z-index: 2;
+        }
+        .constellation-field {
+            position: relative;
+            width: 100%;
+            padding-bottom: 64%;
+            margin-bottom: 16px;
+            border-radius: 20px;
+            background: radial-gradient(ellipse at 50% 40%, rgba(50, 20, 80, 0.9), rgba(8, 4, 18, 0.97));
+            overflow: hidden;
+            box-shadow: inset 0 0 60px rgba(80, 20, 120, 0.3);
+        }
+        .constellation-field::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.65) 0%, transparent 100%),
+                radial-gradient(1px 1px at 18% 6%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 28% 22%, rgba(255,255,255,0.55) 0%, transparent 100%),
+                radial-gradient(1px 1px at 44% 4%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 58% 9%, rgba(255,255,255,0.45) 0%, transparent 100%),
+                radial-gradient(1px 1px at 72% 16%, rgba(255,255,255,0.55) 0%, transparent 100%),
+                radial-gradient(1px 1px at 86% 7%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 92% 24%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 4% 42%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 14% 60%, rgba(255,255,255,0.35) 0%, transparent 100%),
+                radial-gradient(1px 1px at 88% 48%, rgba(255,255,255,0.45) 0%, transparent 100%),
+                radial-gradient(1px 1px at 96% 68%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 6% 82%, rgba(255,255,255,0.38) 0%, transparent 100%),
+                radial-gradient(1px 1px at 38% 90%, rgba(255,255,255,0.42) 0%, transparent 100%),
+                radial-gradient(1px 1px at 76% 85%, rgba(255,255,255,0.48) 0%, transparent 100%),
+                radial-gradient(1px 1px at 52% 94%, rgba(255,255,255,0.38) 0%, transparent 100%),
+                radial-gradient(1px 1px at 22% 78%, rgba(255,255,255,0.35) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .constellation-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .constellation-line {
+            fill: none;
+            stroke: rgba(255, 225, 160, 0.0);
+            stroke-width: 0.7;
+            stroke-linecap: round;
+            transition: stroke 0.7s ease, stroke-opacity 0.7s ease;
+        }
+        .constellation-line.drawn {
+            stroke: rgba(255, 225, 160, 0.3);
+        }
+        .constellation-line.all-found {
+            stroke: rgba(255, 215, 120, 0.6);
+            stroke-width: 0.9;
+            filter: drop-shadow(0 0 2px rgba(255, 200, 80, 0.4));
+        }
+        .star-btn {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 3;
+            padding: 8px;
+            border-radius: 50%;
+            border: none;
+            background: none;
+            transition: transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .star-btn:hover {
+            transform: translate(-50%, -50%) scale(1.4);
+        }
+        .star-btn:focus-visible {
+            outline: 1px solid rgba(255, 220, 140, 0.6);
+            outline-offset: 3px;
+        }
+        .star-core {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 248, 210, 0.45);
+            box-shadow: 0 0 5px 1px rgba(255, 245, 200, 0.2);
+            transition: all 0.45s ease;
+            animation: starIdleTwinkle 3.5s ease-in-out infinite;
+            animation-delay: var(--s-delay, 0s);
+        }
+        .star-btn.discovered .star-core {
+            width: 13px;
+            height: 13px;
+            background: rgba(255, 235, 140, 0.95);
+            box-shadow: 0 0 10px 3px rgba(255, 220, 100, 0.6), 0 0 22px 7px rgba(255, 190, 80, 0.28);
+            animation: starFoundPulse 2.6s ease-in-out infinite;
+        }
+        .star-btn.active .star-core {
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 250, 220, 1);
+            box-shadow: 0 0 16px 5px rgba(255, 230, 110, 0.8), 0 0 36px 12px rgba(255, 195, 70, 0.4);
+            animation: none;
+        }
+        .constellation-all-found .star-btn .star-core {
+            animation: starAllFoundGlow 2s ease-in-out infinite;
+        }
+        @keyframes starIdleTwinkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.2); }
+        }
+        @keyframes starFoundPulse {
+            0%, 100% { box-shadow: 0 0 10px 3px rgba(255, 220, 100, 0.6), 0 0 22px 7px rgba(255, 190, 80, 0.28); }
+            50% { box-shadow: 0 0 16px 5px rgba(255, 230, 130, 0.8), 0 0 34px 10px rgba(255, 200, 90, 0.42); }
+        }
+        @keyframes starAllFoundGlow {
+            0%, 100% { box-shadow: 0 0 14px 4px rgba(255, 230, 100, 0.75), 0 0 30px 9px rgba(255, 190, 70, 0.35); }
+            50% { box-shadow: 0 0 22px 7px rgba(255, 240, 140, 1), 0 0 48px 14px rgba(255, 200, 80, 0.55); }
+        }
+        .constellation-msg-wrap {
+            padding: 16px 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            min-height: 72px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        .constellation-msg-wrap.all-found-glow {
+            background: rgba(255, 220, 80, 0.07);
+            border-color: rgba(255, 210, 100, 0.28);
+            box-shadow: 0 0 40px rgba(255, 190, 60, 0.12), inset 0 0 30px rgba(255, 200, 80, 0.07);
+        }
+        .constellation-msg-text {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(0.95rem, 3.5vw, 1.14rem);
+            color: rgba(255, 238, 218, 0.88);
+            line-height: 1.72;
+            font-style: italic;
+            transition: opacity 0.28s ease;
+            text-align: center;
+        }
+        .constellation-msg-text.fading { opacity: 0; }
+        .constellation-hint {
+            margin: 0;
+            color: rgba(180, 150, 210, 0.65);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 2;
+        }
+        .constellation-count { color: rgba(255, 215, 120, 0.92); }
     </style>
 </head>
 <body>
@@ -1432,28 +1620,26 @@
                     <p class="hold-hint">Press and hold, Habib is sending love across the distance.</p>
                     <p class="hold-tip">Keep holding. Every second sends another virtual kiss.</p>
                 </section>
-                <section class="timers-grid">
-                    <section class="panel timer-panel reveal">
-                        <h2 class="panel-title">Time Since I Fell For You</h2>
-                        <div class="timer-grid">
-                            <div class="timer-unit"><span class="timer-number" id="timerDays">0</span><span class="timer-label">Days</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="timerHours">0</span><span class="timer-label">Hours</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="timerMins">0</span><span class="timer-label">Minutes</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="timerSecs">0</span><span class="timer-label">Seconds</span></div>
-                        </div>
-                        <p class="timer-tagline">...and the distance has not stolen a single one. 💕</p>
-                    </section>
-                    <section class="panel countdown-panel reveal">
-                        <div class="countdown-emoji" aria-hidden="true">✈️</div>
-                        <h2 class="countdown-text">Countdown to Next Time We Meet</h2>
-                        <div class="timer-grid">
-                            <div class="timer-unit"><span class="timer-number" id="meetDays">0</span><span class="timer-label">Days</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="meetHours">0</span><span class="timer-label">Hours</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="meetMins">0</span><span class="timer-label">Minutes</span></div>
-                            <div class="timer-unit"><span class="timer-number" id="meetSecs">0</span><span class="timer-label">Seconds</span></div>
-                        </div>
-                        <p class="countdown-sub" id="countdownSub">Every second apart is a second closer to being together again.</p>
-                    </section>
+                <section class="panel timer-panel reveal">
+                    <h2 class="panel-title">Time Since I Fell For You</h2>
+                    <div class="timer-grid">
+                        <div class="timer-unit"><span class="timer-number" id="timerDays">0</span><span class="timer-label">Days</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="timerHours">0</span><span class="timer-label">Hours</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="timerMins">0</span><span class="timer-label">Minutes</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="timerSecs">0</span><span class="timer-label">Seconds</span></div>
+                    </div>
+                    <p class="timer-tagline">...and the distance has not stolen a single one. 💕</p>
+                </section>
+                <section class="panel constellation-panel reveal" id="constellationSection">
+                    <h2 class="panel-title">Written in the Stars</h2>
+                    <p class="constellation-sub">We share the same sky tonight. Tap each star to read what I placed there for you.</p>
+                    <div class="constellation-field" id="constellationField">
+                        <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 100 64" preserveAspectRatio="none" aria-hidden="true"></svg>
+                    </div>
+                    <div class="constellation-msg-wrap" id="constellationCard">
+                        <p class="constellation-msg-text" id="constellationMsgText">✦ Tap any star above...</p>
+                    </div>
+                    <p class="constellation-hint">✦ <span class="constellation-count" id="constellationCount">0</span> of 12 stars discovered</p>
                 </section>
                 <section class="panel song-panel reveal">
                     <h2 class="song-title">Our Song 🎵</h2>
@@ -1920,33 +2106,109 @@
             window.setInterval(tick, 1000);
         }
 
-        function startCountdownTimer() {
-            const daysEl = document.getElementById("meetDays");
-            const hoursEl = document.getElementById("meetHours");
-            const minsEl = document.getElementById("meetMins");
-            const secsEl = document.getElementById("meetSecs");
-            const countdownSub = document.getElementById("countdownSub");
-            // EDIT THIS DATE: next time you meet (YYYY, M-1, D, H, M)
-            const nextMeetDate = new Date(2026, 6, 1, 18, 0);
-            function tick() {
-                const diff = nextMeetDate.getTime() - Date.now();
-                if (diff <= 0) {
-                    daysEl.textContent = "0";
-                    hoursEl.textContent = "00";
-                    minsEl.textContent = "00";
-                    secsEl.textContent = "00";
-                    countdownSub.textContent = "The wait is over. You made it back to each other. ❤️";
-                    return;
-                }
-                const totalSeconds = Math.floor(diff / 1000);
-                daysEl.textContent = Math.floor(totalSeconds / 86400);
-                hoursEl.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
-                minsEl.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
-                secsEl.textContent = String(totalSeconds % 60).padStart(2, "0");
-                countdownSub.textContent = "Every second apart is a second closer to being together again.";
+        function initConstellation() {
+            const field = document.getElementById("constellationField");
+            const svg = document.getElementById("constellationSvg");
+            const card = document.getElementById("constellationCard");
+            const msgText = document.getElementById("constellationMsgText");
+            const countEl = document.getElementById("constellationCount");
+
+            // 12 stars arranged in a heart shape — positions as [left%, top%] within the field
+            const starData = [
+                { x: 30, y: 28, msg: "You are the reason I look up at the sky and feel less alone." },
+                { x: 40, y: 14, msg: "I fell for you in the softest, most certain way." },
+                { x: 50, y: 20, msg: "Our love is the kind people write constellations about." },
+                { x: 60, y: 14, msg: "Every light in this sky made me think of you." },
+                { x: 70, y: 28, msg: "You are brighter than anything else up here." },
+                { x: 78, y: 43, msg: "I mapped my whole heart and found you at the centre of it." },
+                { x: 74, y: 59, msg: "The stars move slowly. My love for you never waits." },
+                { x: 63, y: 73, msg: "You make even the longest nights feel warm." },
+                { x: 50, y: 84, msg: "Everything points here — back to you, always." },
+                { x: 37, y: 73, msg: "I wrote your name in every constellation I know." },
+                { x: 26, y: 59, msg: "Distance is just space. You fill all of mine." },
+                { x: 22, y: 43, msg: "Under this same sky, I am always, always thinking of you." }
+            ];
+
+            // Heart connection order (clockwise loop: 0→1→...→11→0)
+            const lineSeq = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0];
+
+            const STORAGE_KEY = "vanessa-constellation";
+            let discovered = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+            let activeIdx = -1;
+
+            // Build SVG lines
+            const lineEls = lineSeq.slice(0, -1).map((fromIdx, i) => {
+                const toIdx = lineSeq[i + 1];
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.classList.add("constellation-line");
+                line.setAttribute("x1", starData[fromIdx].x);
+                line.setAttribute("y1", starData[fromIdx].y);
+                line.setAttribute("x2", starData[toIdx].x);
+                line.setAttribute("y2", starData[toIdx].y);
+                svg.appendChild(line);
+                return { el: line, from: fromIdx, to: toIdx };
+            });
+
+            // Build star buttons
+            const starBtns = starData.map((s, i) => {
+                const btn = document.createElement("button");
+                btn.className = "star-btn" + (discovered.has(i) ? " discovered" : "");
+                btn.style.left = `${s.x}%`;
+                btn.style.top = `${s.y}%`;
+                btn.style.setProperty("--s-delay", `${((i * 0.41) % 3.2).toFixed(2)}s`);
+                btn.setAttribute("aria-label", `Star ${i + 1}`);
+                btn.type = "button";
+                const core = document.createElement("span");
+                core.className = "star-core";
+                btn.appendChild(core);
+                btn.addEventListener("click", () => selectStar(i));
+                field.appendChild(btn);
+                return btn;
+            });
+
+            function refreshLines() {
+                const allFound = discovered.size === starData.length;
+                lineEls.forEach(({ el, from, to }) => {
+                    const lit = discovered.has(from) && discovered.has(to);
+                    el.classList.toggle("drawn", lit);
+                    el.classList.toggle("all-found", allFound && lit);
+                });
             }
-            tick();
-            window.setInterval(tick, 1000);
+
+            function selectStar(i) {
+                if (activeIdx >= 0) starBtns[activeIdx].classList.remove("active");
+                activeIdx = i;
+                starBtns[i].classList.add("active", "discovered");
+                discovered.add(i);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([...discovered]));
+                countEl.textContent = discovered.size;
+                refreshLines();
+
+                msgText.classList.add("fading");
+                const allFound = discovered.size === starData.length;
+                window.setTimeout(() => {
+                    msgText.classList.remove("fading");
+                    if (allFound) {
+                        msgText.textContent = "✦ You found them all. The stars spell it out — I love you, Vanessa. Always and forever. ✦";
+                        card.classList.add("all-found-glow");
+                        field.classList.add("constellation-all-found");
+                        createHeartBurst(window.innerWidth / 2, window.innerHeight / 2, 26);
+                        createMagicBurst(window.innerWidth / 2, window.innerHeight / 2);
+                    } else {
+                        msgText.textContent = `"${starData[i].msg}"`;
+                    }
+                }, 240);
+                increaseRomance(4);
+            }
+
+            // Restore saved state
+            countEl.textContent = discovered.size;
+            refreshLines();
+            if (discovered.size === starData.length) {
+                card.classList.add("all-found-glow");
+                field.classList.add("constellation-all-found");
+                msgText.textContent = "✦ You found them all. The stars spell it out — I love you, Vanessa. Always and forever. ✦";
+            }
         }
 
         function initPoem() {
@@ -2157,7 +2419,6 @@
         initRomanceMeter();
         restoreReasons();
         startCountUpTimer();
-        startCountdownTimer();
         initPoem();
         initDateJar();
         initHugCounter();
@@ -2165,6 +2426,7 @@
         initDailyNote();
         initScrollProgress();
         initSplash();
+        initConstellation();
     </script>
 </body>
 </html>
