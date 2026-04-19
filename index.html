@@ -1350,7 +1350,7 @@
         .constellation-field {
             position: relative;
             width: 100%;
-            padding-bottom: 64%;
+            aspect-ratio: 25 / 16;
             margin-bottom: 16px;
             border-radius: 20px;
             background: radial-gradient(ellipse at 50% 40%, rgba(50, 20, 80, 0.9), rgba(8, 4, 18, 0.97));
@@ -1634,7 +1634,7 @@
                     <h2 class="panel-title">Written in the Stars</h2>
                     <p class="constellation-sub">We share the same sky tonight. Tap each star to read what I placed there for you.</p>
                     <div class="constellation-field" id="constellationField">
-                        <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 100 64" preserveAspectRatio="none" aria-hidden="true"></svg>
+                        <svg class="constellation-svg" id="constellationSvg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
                     </div>
                     <div class="constellation-msg-wrap" id="constellationCard">
                         <p class="constellation-msg-text" id="constellationMsgText">✦ Tap any star above...</p>
