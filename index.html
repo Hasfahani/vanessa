@@ -1080,9 +1080,256 @@
             0% { opacity: 0.95; transform: translate3d(0, 0, 0) scale(1); }
             100% { opacity: 0; transform: translate3d(var(--trail-x), var(--trail-y), 0) scale(0.3); }
         }
+
+        /* === SPLASH SCREEN === */
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #2f1221 0%, #4a1930 35%, #5a2137 65%, #a85070 100%);
+            transition: opacity 1s ease, visibility 1s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        #splashScreen.splash-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-bg-hearts {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .splash-float-heart {
+            position: absolute;
+            bottom: -40px;
+            opacity: 0;
+            animation: splashFloat linear forwards;
+        }
+        .splash-inner {
+            position: relative;
+            text-align: center;
+            padding: 0 24px;
+            z-index: 1;
+        }
+        .splash-main-heart {
+            font-size: 3.8rem;
+            display: block;
+            margin-bottom: 18px;
+            animation: splashHeartbeat 1.6s ease-in-out infinite;
+        }
+        .splash-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(3rem, 15vw, 6rem);
+            color: rgba(255, 245, 235, 0.97);
+            text-shadow: 0 0 50px rgba(255, 214, 230, 0.65);
+            margin: 0 0 14px;
+            line-height: 1.05;
+        }
+        .splash-sub {
+            color: rgba(244, 215, 201, 0.82);
+            font-family: "Manrope", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 34px;
+            letter-spacing: 0.03em;
+        }
+        .splash-tap {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.13);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 245, 235, 0.9);
+            font-family: "Manrope", sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+            animation: splashTapPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes splashHeartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.18); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+        @keyframes splashTapPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.65; }
+        }
+        @keyframes splashFloat {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.8); }
+            15% { opacity: 0.7; }
+            100% { opacity: 0; transform: translateY(-110vh) rotate(var(--sf-spin)) scale(1.2); }
+        }
+
+        /* === SCROLL PROGRESS === */
+        #scrollProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #d34d78 0%, #f4d28a 55%, #f18ea5 100%);
+            z-index: 60;
+            box-shadow: 0 0 10px rgba(244, 210, 138, 0.5);
+            pointer-events: none;
+        }
+
+        /* === DAILY LOVE NOTE === */
+        .daily-note-panel {
+            background: linear-gradient(145deg, rgba(255, 246, 240, 0.94), rgba(248, 214, 203, 0.76));
+            text-align: center;
+        }
+        .daily-note-date-badge {
+            display: inline-block;
+            margin-bottom: 14px;
+            padding: 6px 18px;
+            border-radius: 999px;
+            background: rgba(199, 57, 104, 0.1);
+            color: var(--rose-deep);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+        .daily-note-text {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.1rem, 4vw, 1.42rem);
+            color: var(--heading);
+            line-height: 1.78;
+            font-style: italic;
+            margin: 0 auto 12px;
+            max-width: 700px;
+        }
+        .daily-note-from {
+            margin: 0;
+            color: #a07080;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* === TIMELINE === */
+        .timeline-wrap {
+            margin-top: 10px;
+            position: relative;
+        }
+        .timeline-wrap::before {
+            content: "";
+            position: absolute;
+            left: 19px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            border-radius: 2px;
+            background: linear-gradient(180deg, rgba(211, 77, 120, 0.55), rgba(211, 77, 120, 0.08));
+            pointer-events: none;
+        }
+        @media (min-width: 700px) {
+            .timeline-wrap::before {
+                left: calc(50% - 1px);
+            }
+        }
+        .timeline-entry {
+            position: relative;
+            padding: 0 0 22px 52px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .timeline-entry.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-entry:last-child {
+            padding-bottom: 0;
+        }
+        @media (min-width: 700px) {
+            .timeline-entry {
+                width: 46%;
+                padding: 0 0 26px 0;
+                text-align: right;
+            }
+            .timeline-entry:nth-child(even) {
+                margin-left: 54%;
+                text-align: left;
+            }
+            .timeline-entry .timeline-entry-dot {
+                left: auto;
+                right: -13px;
+            }
+            .timeline-entry:nth-child(even) .timeline-entry-dot {
+                left: -13px;
+                right: auto;
+            }
+        }
+        .timeline-entry-dot {
+            position: absolute;
+            left: 9px;
+            top: 8px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d34d78, #9d264f);
+            box-shadow: 0 0 0 4px rgba(211, 77, 120, 0.15), 0 4px 12px rgba(157, 38, 79, 0.2);
+            display: grid;
+            place-items: center;
+            font-size: 0.68rem;
+            z-index: 2;
+        }
+        .timeline-entry-card {
+            padding: 14px 16px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(255, 252, 248, 0.94), rgba(252, 232, 222, 0.72));
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 0 6px 18px rgba(100, 30, 60, 0.09);
+        }
+        .timeline-entry-date {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: var(--rose);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+        .timeline-entry-title {
+            margin: 0 0 5px;
+            font-family: "Playfair Display", serif;
+            font-size: 1rem;
+            color: var(--heading);
+        }
+        .timeline-entry-desc {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-soft);
+            font-weight: 600;
+            line-height: 1.65;
+        }
     </style>
 </head>
 <body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" role="presentation" aria-hidden="true">
+        <div class="splash-bg-hearts" id="splashHearts"></div>
+        <div class="splash-inner">
+            <span class="splash-main-heart">💗</span>
+            <h1 class="splash-title">Vanessa</h1>
+            <p class="splash-sub">A little corner of the internet, made just for you.</p>
+            <span class="splash-tap">Tap to open ❤</span>
+        </div>
+    </div>
+    <!-- Scroll Progress -->
+    <div id="scrollProgress" aria-hidden="true"></div>
     <div class="aurora-layer" aria-hidden="true">
         <span class="aurora-band one"></span>
         <span class="aurora-band two"></span>
@@ -1104,6 +1351,13 @@
                     <div class="greeting-emoji" id="greetingEmoji">🌸</div>
                     <h2 class="greeting-text" id="greetingText">Good morning, my love</h2>
                     <p class="greeting-sub" id="greetingSub">Hope your day is as beautiful as you are.</p>
+                </section>
+                <!-- Daily Love Note -->
+                <section class="panel daily-note-panel reveal" id="dailyNotePanel">
+                    <h2 class="panel-title">Today's Love Note</h2>
+                    <span class="daily-note-date-badge" id="dailyNoteDateBadge">Loading...</span>
+                    <p class="daily-note-text" id="dailyNoteText">Loading today's note...</p>
+                    <p class="daily-note-from">— From Habib, always 💖</p>
                 </section>
                 <section class="phrases" aria-label="Romantic phrases">
                     <article class="phrase accent reveal"><span class="phrase-icon" aria-hidden="true">🌍</span><span>Miles apart, never apart in heart</span></article>
@@ -1233,6 +1487,52 @@
                     </div>
                     <button class="hug-button" id="hugButton" type="button">Send Vanessa a Hug 💌</button>
                 </section>
+                <!-- Our Story Timeline -->
+                <section class="panel reveal" id="timelineSection">
+                    <h2 class="panel-title">Our Story</h2>
+                    <div class="timeline-wrap">
+                        <div class="timeline-entry reveal">
+                            <div class="timeline-entry-dot">❤</div>
+                            <div class="timeline-entry-card">
+                                <span class="timeline-entry-date">June 2024</span>
+                                <h3 class="timeline-entry-title">The Beginning</h3>
+                                <p class="timeline-entry-desc">The moment everything changed. The day I knew you were different from anyone I had ever met.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-entry reveal">
+                            <div class="timeline-entry-dot">📱</div>
+                            <div class="timeline-entry-card">
+                                <span class="timeline-entry-date">First Call</span>
+                                <h3 class="timeline-entry-title">I Heard Your Voice</h3>
+                                <p class="timeline-entry-desc">That first call that lasted way too long and not nearly long enough. I replayed it for days.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-entry reveal">
+                            <div class="timeline-entry-dot">🌍</div>
+                            <div class="timeline-entry-card">
+                                <span class="timeline-entry-date">Every Day Since</span>
+                                <h3 class="timeline-entry-title">Miles Apart, Never Apart</h3>
+                                <p class="timeline-entry-desc">We chose each other even when the distance made it hard. That choice means everything to me.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-entry reveal">
+                            <div class="timeline-entry-dot">💌</div>
+                            <div class="timeline-entry-card">
+                                <span class="timeline-entry-date">Now</span>
+                                <h3 class="timeline-entry-title">This Website</h3>
+                                <p class="timeline-entry-desc">A tiny corner of the internet where my love for you lives, because you deserve somewhere that proves it.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-entry reveal">
+                            <div class="timeline-entry-dot">✈️</div>
+                            <div class="timeline-entry-card">
+                                <span class="timeline-entry-date">Coming Soon</span>
+                                <h3 class="timeline-entry-title">The Distance Closes</h3>
+                                <p class="timeline-entry-desc">One day soon, this countdown hits zero, and I get to hold you for real. I cannot wait for that chapter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <footer class="footer reveal">
                     <strong>Made with all my love, sent across the miles, just for you.</strong>
                     <span class="footer-note">You are my calm place, my favorite thought, and the person I want every ordinary and extraordinary day with. Love always, Habib.</span>
@@ -1302,7 +1602,11 @@
             "The miles between us stretch so wide,\nbut you are always by my side.\nIn every call and every text,\nmy heart beats loud, you are my next\nchapter, my always, my sweetest pride.",
             "If I could fold the map in two,\nI would bring the world right back to you.\nUntil that day, I send my heart\nacross each mile that keeps us apart.",
             "They say that distance makes love grow,\nand darling, now I finally know.\nWith every dawn in different skies,\nI fall in love again through your eyes.",
-            "I count the days, I count the hours,\nI send you love like distant flowers.\nAcross the oceans, through the air,\nmy heart is always, always there."
+            "I count the days, I count the hours,\nI send you love like distant flowers.\nAcross the oceans, through the air,\nmy heart is always, always there.",
+            "A thousand miles sit between our hands,\nbut love does not obey such small demands.\nIt travels faster than the speed of light,\nand finds you softly every single night.",
+            "You are my morning thought, my evening prayer,\nthe quiet feeling that says someone cares.\nAcross whatever distance, wind or rain,\nI would choose this love over and over again.",
+            "One day I will not need a screen to see\nthe face that holds the whole world dear to me.\nUntil that morning when I hold you near,\nmy heart will keep on sending love from here.",
+            "The clocks tick differently when you are far,\neach second stretched between us like a star.\nYet even stars — impossibly apart —\nstill cast their light upon a waiting heart."
         ];
 
         const dateIdeas = [
@@ -1765,6 +2069,88 @@
             }
         });
 
+        // One note per day of the month (cycles through 30-day blocks)
+        const dailyNotes = [
+            "You are the first thought that makes my morning beautiful.",
+            "Every day without you reminds me how extraordinary it will be when we are finally together.",
+            "The distance is real, but so is every single thing I feel for you.",
+            "You make loving someone easy, even across the miles.",
+            "I keep a mental photo album of you. It is my favourite one.",
+            "Tonight I will think of you before I sleep. Like every night.",
+            "No timezone can stop how loudly my heart feels for you.",
+            "You are the kind of person I would travel any distance for.",
+            "Every text from you is a small miracle in my day.",
+            "I am proud of us for making this work. It is not easy. We are.",
+            "The sun rose today and you are still my favourite thing in this world.",
+            "Missing you is a reminder of how lucky I am to have someone worth missing.",
+            "One day the distance will just be a story we tell.",
+            "You are my favourite 'what if' that became a 'this is real'.",
+            "The hardest part of every day is not being able to hold you.",
+            "You deserve every love song ever written and a thousand more.",
+            "I love the way your voice sounds when you are happy. It is everything.",
+            "Being loved by you is the best thing that has ever happened to me.",
+            "Even on the hardest days, knowing you exist makes everything softer.",
+            "You are the home I am always trying to get back to.",
+            "Every mile between us is proof of how strong what we have really is.",
+            "I have never wanted time to pass faster than when I am counting down to you.",
+            "You are worth every sacrifice, every wait, every long night.",
+            "The way you love me makes me want to be better every single day.",
+            "I am so glad this world is one where you and I exist at the same time.",
+            "Missing you today a little more than yesterday. But I would not change a thing.",
+            "You are my favourite kind of constant in this unpredictable world.",
+            "One day soon, the distance will close. Until then, all of this is yours.",
+            "You turned the distance into proof of how real we are.",
+            "The next time I see you, I am not going to let go for a very long time."
+        ];
+
+        const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+        function initDailyNote() {
+            const now = new Date();
+            const dayIndex = (now.getDate() - 1) % dailyNotes.length;
+            const badge = document.getElementById("dailyNoteDateBadge");
+            const text = document.getElementById("dailyNoteText");
+            badge.textContent = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+            text.textContent = `"${dailyNotes[dayIndex]}"`;
+        }
+
+        function initScrollProgress() {
+            const bar = document.getElementById("scrollProgress");
+            document.addEventListener("scroll", () => {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                bar.style.width = docHeight > 0 ? `${(scrollTop / docHeight) * 100}%` : "0%";
+            }, { passive: true });
+        }
+
+        function initSplash() {
+            const splash = document.getElementById("splashScreen");
+            const heartsContainer = document.getElementById("splashHearts");
+            const emojis = ["❤", "💗", "💖", "❀", "✦", "💕"];
+
+            for (let i = 0; i < 22; i++) {
+                const h = document.createElement("span");
+                h.className = "splash-float-heart";
+                h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                h.style.left = `${Math.random() * 100}%`;
+                h.style.fontSize = `${14 + Math.random() * 22}px`;
+                h.style.color = Math.random() > 0.5 ? "rgba(255, 214, 226, 0.72)" : "rgba(255, 238, 210, 0.65)";
+                const dur = 7 + Math.random() * 9;
+                h.style.animationDuration = `${dur}s`;
+                h.style.animationDelay = `${Math.random() * 5}s`;
+                h.style.setProperty("--sf-spin", `${-120 + Math.random() * 240}deg`);
+                heartsContainer.appendChild(h);
+            }
+
+            function dismiss() {
+                splash.classList.add("splash-hidden");
+                splash.addEventListener("transitionend", () => splash.remove(), { once: true });
+            }
+
+            splash.addEventListener("click", dismiss);
+            window.setTimeout(dismiss, 3200);
+        }
+
         initBackground();
         initReveal();
         initGreeting();
@@ -1776,6 +2162,9 @@
         initDateJar();
         initHugCounter();
         initCursorTrail();
+        initDailyNote();
+        initScrollProgress();
+        initSplash();
     </script>
 </body>
 </html>
