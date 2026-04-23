@@ -353,6 +353,188 @@
             font-size: 1.45rem;
         }
 
+        .apology-panel {
+            position: relative;
+            overflow: hidden;
+            padding: 30px 22px;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.38), transparent 34%),
+                radial-gradient(circle at bottom right, rgba(199, 57, 104, 0.18), transparent 32%),
+                linear-gradient(145deg, rgba(255, 248, 244, 0.96), rgba(244, 223, 214, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.62);
+            box-shadow: 0 26px 60px rgba(92, 24, 52, 0.2);
+            isolation: isolate;
+        }
+
+        .apology-panel::before,
+        .apology-panel::after {
+            content: "";
+            position: absolute;
+            inset: auto;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .apology-panel::before {
+            top: -40px;
+            right: -10px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 221, 230, 0.62), transparent 70%);
+        }
+
+        .apology-panel::after {
+            left: 26px;
+            bottom: 22px;
+            width: 90px;
+            height: 90px;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), transparent 55%),
+                radial-gradient(circle at 70% 70%, rgba(199, 57, 104, 0.12), transparent 58%);
+            opacity: 0.8;
+        }
+
+        .apology-shell {
+            display: grid;
+            gap: 18px;
+            position: relative;
+        }
+
+        .apology-kicker {
+            display: inline-flex;
+            width: fit-content;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: rgba(143, 33, 68, 0.08);
+            color: var(--rose-deep);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .apology-heading {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.2rem, 8vw, 4.5rem);
+            line-height: 0.98;
+            color: var(--heading);
+            text-shadow: 0 8px 24px rgba(255, 225, 235, 0.75);
+        }
+
+        .apology-intro {
+            margin: 0;
+            max-width: 720px;
+            color: var(--text-soft);
+            font-size: 1.04rem;
+            line-height: 1.9;
+            font-weight: 700;
+        }
+
+        .apology-layout {
+            display: grid;
+            gap: 18px;
+        }
+
+        .apology-letter,
+        .apology-affirmations {
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.66);
+            background: rgba(255, 252, 248, 0.72);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+
+        .apology-letter {
+            padding: 22px 20px;
+        }
+
+        .apology-copy {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.95;
+            font-weight: 600;
+        }
+
+        .apology-copy + .apology-copy {
+            margin-top: 14px;
+        }
+
+        .apology-affirmations {
+            display: grid;
+            gap: 12px;
+            padding: 18px;
+            align-content: start;
+        }
+
+        .apology-affirmation {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(250, 235, 227, 0.84));
+            color: var(--text-soft);
+            font-weight: 700;
+            line-height: 1.65;
+        }
+
+        .apology-affirmation strong {
+            color: var(--rose-deep);
+        }
+
+        .apology-mark {
+            flex: 0 0 auto;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: rgba(199, 57, 104, 0.12);
+            color: var(--rose);
+            font-size: 0.92rem;
+            box-shadow: 0 0 0 1px rgba(199, 57, 104, 0.08);
+        }
+
+        .apology-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .apology-button {
+            min-height: 52px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #c24e73, #842547);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 18px 36px rgba(132, 37, 71, 0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+
+        .apology-button:hover,
+        .apology-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 24px 44px rgba(132, 37, 71, 0.26);
+        }
+
+        .apology-button.is-sent {
+            background: linear-gradient(135deg, #bf835c, #99503d);
+            box-shadow: 0 18px 34px rgba(153, 80, 61, 0.22);
+        }
+
+        .apology-note {
+            margin: 0;
+            color: #946d7d;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
         .greeting-panel,
         .reasons-panel,
         .hold-panel,
@@ -989,6 +1171,7 @@
             .card { padding: 24px; }
             .phrases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .interactive-grid { grid-template-columns: 1.1fr 0.9fr; }
+            .apology-layout { grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr); }
             .timers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .scrapbook { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .timer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -1547,6 +1730,33 @@
                     <p class="daily-note-text" id="dailyNoteText">Loading today's note...</p>
                     <p class="daily-note-from">— From Habib, always 💖</p>
                 </section>
+                <section class="panel apology-panel reveal" id="apologySection" aria-labelledby="apologyTitle">
+                    <div class="apology-shell">
+                        <span class="apology-kicker">A message from my heart</span>
+                        <h2 class="apology-heading" id="apologyTitle">I'm Sorry</h2>
+                        <p class="apology-intro">This needed its own space, because what I feel for you deserves honesty, tenderness, and the kind of care you have always given me.</p>
+                        <div class="apology-layout">
+                            <div class="apology-letter">
+                                <p class="apology-copy">I am truly sorry. I did not mean to hurt you, and I hate that my actions made you carry pain that should never have come from me.</p>
+                                <p class="apology-copy">You have every right to feel the way you feel. I never want to dismiss that, because your heart matters to me more than my pride ever could.</p>
+                                <p class="apology-copy">I love you deeply, more than I know how to put into perfect words, and I cannot imagine my life without you in it. You mean so much to me, and I want to make this right with patience, honesty, and real change.</p>
+                                <p class="apology-copy">If there is a way forward, I want it to be one where I make you feel safe, cherished, and able to smile again. That is what my heart is asking for.</p>
+                            </div>
+                            <div class="apology-affirmations" aria-label="What I need you to know">
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">❤</span><span><strong>I'm sorry.</strong> No softening it, no excuses.</span></div>
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">✦</span><span><strong>I didn't mean to hurt you,</strong> even though I understand that I did.</span></div>
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">❤</span><span><strong>You have every right to feel upset,</strong> and I respect your feelings completely.</span></div>
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">✦</span><span><strong>I love you deeply,</strong> and that love is why I want to do better.</span></div>
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">❤</span><span><strong>I cannot imagine my life without you,</strong> because you are woven into my heart.</span></div>
+                                <div class="apology-affirmation"><span class="apology-mark" aria-hidden="true">✦</span><span><strong>I want to make things right,</strong> gently, sincerely, and for real.</span></div>
+                            </div>
+                        </div>
+                        <div class="apology-actions">
+                            <button class="apology-button" id="apologyButton" type="button">Please forgive me</button>
+                            <p class="apology-note" id="apologyNote">From my heart, with love and accountability.</p>
+                        </div>
+                    </div>
+                </section>
                 <section class="phrases" aria-label="Romantic phrases">
                     <article class="phrase accent reveal"><span class="phrase-icon" aria-hidden="true">🌍</span><span>Miles apart, never apart in heart</span></article>
                     <article class="phrase reveal">Every text from you makes my whole day</article>
@@ -1745,6 +1955,9 @@
         const meterTrack = document.getElementById("meterTrack");
         const meterPercent = document.getElementById("meterPercent");
         const meterMessage = document.getElementById("meterMessage");
+        const apologyPanel = document.getElementById("apologySection");
+        const apologyButton = document.getElementById("apologyButton");
+        const apologyNote = document.getElementById("apologyNote");
         const foreverButton = document.getElementById("foreverButton");
         const foreverOverlay = document.getElementById("foreverOverlay");
         const closeForever = document.getElementById("closeForever");
@@ -1984,6 +2197,32 @@
             if (isOpen) {
                 increaseRomance(6);
             }
+        }
+
+        function initApologySection() {
+            if (!apologyButton || !apologyPanel) {
+                return;
+            }
+            apologyButton.addEventListener("click", () => {
+                const rect = apologyButton.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                apologyButton.classList.add("is-sent");
+                apologyButton.textContent = "Thank you for hearing me";
+                apologyButton.disabled = true;
+                apologyButton.setAttribute("aria-disabled", "true");
+                apologyNote.textContent = "I mean every word. The rest of this page is yours too.";
+                apologyPanel.classList.add("is-visible");
+                createHeartBurst(centerX, centerY, 14);
+                createMagicBurst(centerX, centerY);
+                increaseRomance(8);
+                if (!letterPanel.classList.contains("letter-open")) {
+                    toggleLetter();
+                }
+                window.setTimeout(() => {
+                    letterPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 240);
+            }, { once: true });
         }
 
         function openForeverMoment() {
@@ -2427,6 +2666,7 @@
         initScrollProgress();
         initSplash();
         initConstellation();
+        initApologySection();
     </script>
 </body>
 </html>
