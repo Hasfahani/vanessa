@@ -188,10 +188,112 @@
             gap: 18px;
         }
 
+        .quick-nav {
+            display: grid;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(255, 250, 246, 0.9), rgba(249, 225, 214, 0.72));
+            border: 1px solid rgba(255, 255, 255, 0.52);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(16px);
+        }
+
+        .quick-nav-title {
+            margin: 0;
+            color: var(--rose-deep);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .quick-nav-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .quick-nav a {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 900;
+            box-shadow: inset 0 0 0 1px rgba(199, 57, 104, 0.08);
+        }
+
+        .quick-nav a:focus-visible {
+            outline: 3px solid rgba(199, 57, 104, 0.24);
+            outline-offset: 2px;
+        }
+
+        .mobile-note {
+            display: grid;
+            gap: 10px;
+            padding: 18px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(255, 252, 248, 0.94), rgba(255, 238, 229, 0.78));
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-note h2 {
+            margin: 0;
+            color: var(--rose-deep);
+            font-family: "Playfair Display", serif;
+            font-size: 1.45rem;
+            line-height: 1.15;
+        }
+
+        .mobile-note p {
+            margin: 0;
+            color: var(--text-soft);
+            font-weight: 700;
+            line-height: 1.65;
+        }
+
+        .mobile-note-list {
+            display: grid;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mobile-note-list li {
+            display: flex;
+            gap: 9px;
+            align-items: flex-start;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.62);
+            color: var(--text-soft);
+            font-size: 0.94rem;
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .mobile-note-list li::before {
+            content: "♥";
+            flex: 0 0 auto;
+            color: var(--rose);
+        }
+
         .hero,
         .panel,
         .phrase,
-        .footer {
+        .footer,
+        .mobile-note {
             opacity: 0;
             transform: translateY(24px);
             transition: opacity 0.7s ease, transform 0.7s ease;
@@ -200,7 +302,8 @@
         .hero.is-visible,
         .panel.is-visible,
         .phrase.is-visible,
-        .footer.is-visible {
+        .footer.is-visible,
+        .mobile-note.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1166,9 +1269,307 @@
             color: #9c7181;
         }
 
+        :where(.panel, .phrase, .hero, .mobile-note, .quick-nav, .footer)[id] {
+            scroll-margin-top: 92px;
+        }
+
+        @media (max-width: 699px) {
+            :root {
+                --radius-xl: 26px;
+                --radius-lg: 20px;
+                --shadow-lg: 0 18px 44px rgba(84, 22, 47, 0.2);
+                --shadow-md: 0 10px 26px rgba(120, 39, 76, 0.14);
+            }
+
+            body {
+                background:
+                    linear-gradient(180deg, rgba(47, 18, 33, 0.86), rgba(90, 33, 55, 0.58) 42%, rgba(244, 215, 201, 0.92)),
+                    var(--bg-3);
+            }
+
+            body::before,
+            .aurora-layer {
+                opacity: 0.55;
+            }
+
+            .page {
+                padding: 10px 8px 28px;
+            }
+
+            .card {
+                padding: 10px;
+                border-radius: 28px;
+            }
+
+            .content {
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 24px 14px;
+                min-height: calc(100svh - 44px);
+                display: grid;
+                align-content: center;
+            }
+
+            .hero::after {
+                width: 120px;
+                height: 120px;
+            }
+
+            .eyebrow {
+                justify-self: center;
+                max-width: 100%;
+                padding: 8px 12px;
+                font-size: 0.68rem;
+                line-height: 1.35;
+                letter-spacing: 0.06em;
+                text-align: center;
+            }
+
+            .name {
+                font-size: clamp(3.2rem, 21vw, 5rem);
+                line-height: 0.98;
+            }
+
+            .love-banner {
+                width: 100%;
+                padding: 12px 14px;
+                border-radius: 20px;
+                font-size: clamp(1.08rem, 6vw, 1.45rem);
+                line-height: 1.2;
+            }
+
+            .hero-note,
+            .apology-intro,
+            .apology-copy,
+            .forever-copy,
+            .forever-text,
+            .greeting-sub,
+            .hidden-letter p,
+            .poem-text,
+            .date-idea,
+            .hug-message,
+            .timeline-entry-desc,
+            .constellation-msg-text {
+                line-height: 1.62;
+            }
+
+            .quick-nav {
+                top: 6px;
+                padding: 12px;
+                border-radius: 22px;
+            }
+
+            .quick-nav-title {
+                text-align: center;
+            }
+
+            .panel,
+            .phrase,
+            .footer {
+                padding: 18px 14px;
+                border-radius: 20px;
+            }
+
+            .panel-title {
+                margin-bottom: 12px;
+                font-size: 1.28rem;
+                line-height: 1.15;
+            }
+
+            .apology-panel {
+                padding: 22px 14px;
+            }
+
+            .apology-kicker {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                font-size: 0.68rem;
+                line-height: 1.35;
+            }
+
+            .apology-heading {
+                font-size: clamp(2.2rem, 14vw, 3.5rem);
+            }
+
+            .apology-letter,
+            .apology-affirmations {
+                border-radius: 18px;
+            }
+
+            .apology-letter {
+                padding: 16px 14px;
+            }
+
+            .apology-affirmations {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .apology-affirmation {
+                padding: 10px;
+                border-radius: 14px;
+                gap: 9px;
+                font-size: 0.92rem;
+                line-height: 1.45;
+            }
+
+            .apology-actions {
+                display: grid;
+            }
+
+            .apology-button,
+            .meter-button,
+            .forever-button,
+            .reason-button,
+            .poem-button,
+            .date-button,
+            .hug-button,
+            .close-forever {
+                width: 100%;
+                min-height: 52px;
+                padding: 13px 14px;
+            }
+
+            .phrase {
+                text-align: left;
+            }
+
+            .phrase.accent {
+                justify-content: flex-start;
+            }
+
+            .envelope-button {
+                width: min(100%, 260px);
+            }
+
+            .letter-open .hidden-letter {
+                max-height: 520px;
+            }
+
+            .meter-stats {
+                display: grid;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .timer-grid {
+                gap: 8px;
+            }
+
+            .timer-unit {
+                padding: 12px 8px;
+                border-radius: 14px;
+            }
+
+            .timer-number {
+                font-size: clamp(1.45rem, 10vw, 2.2rem);
+            }
+
+            .scrapbook {
+                gap: 10px;
+            }
+
+            .polaroid {
+                display: grid;
+                grid-template-columns: 74px minmax(0, 1fr);
+                gap: 12px;
+                align-items: center;
+                padding: 10px;
+                text-align: left;
+            }
+
+            .polaroid-scene {
+                margin: 0;
+                padding: 14px 0;
+                font-size: 2rem;
+            }
+
+            .hold-button {
+                width: 104px;
+                height: 104px;
+            }
+
+            .poem-display {
+                min-height: 150px;
+                padding: 14px;
+            }
+
+            .song-frame {
+                padding: 6px;
+                border-radius: 18px;
+            }
+
+            .song-frame iframe {
+                border-radius: 12px;
+            }
+
+            .constellation-field {
+                aspect-ratio: 1 / 1;
+                border-radius: 16px;
+            }
+
+            .star-btn {
+                padding: 12px;
+            }
+
+            .timeline-entry {
+                padding-left: 44px;
+            }
+
+            .timeline-wrap::before {
+                left: 15px;
+            }
+
+            .timeline-entry-dot {
+                left: 5px;
+            }
+
+            .timeline-entry-card {
+                padding: 12px;
+                border-radius: 16px;
+            }
+
+            .forever-overlay {
+                padding: 12px;
+            }
+
+            .forever-message {
+                max-height: calc(100svh - 24px);
+                overflow: auto;
+                padding: 24px 16px;
+                border-radius: 24px;
+            }
+
+            .splash-inner {
+                padding: 0 18px;
+            }
+
+            .splash-title {
+                font-size: clamp(3.2rem, 22vw, 5.2rem);
+            }
+
+            .splash-sub {
+                margin-bottom: 24px;
+                line-height: 1.55;
+            }
+        }
+
         @media (min-width: 700px) {
             .page { padding: 28px 18px 56px; }
             .card { padding: 24px; }
+            .quick-nav {
+                position: static;
+                padding: 16px;
+            }
+            .quick-nav-links {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+            .mobile-note {
+                padding: 22px;
+            }
             .phrases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .interactive-grid { grid-template-columns: 1.1fr 0.9fr; }
             .apology-layout { grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr); }
@@ -1718,6 +2119,29 @@
                     <div class="love-banner"><span>I love you, endlessly</span></div>
                     <p class="hero-note">A tiny little corner of the internet made by Habib, because even though the miles keep us apart, nothing in this world could ever keep my heart from yours.</p>
                 </header>
+                <nav class="quick-nav reveal" aria-label="Quick love sections">
+                    <p class="quick-nav-title">Quick path for Vanessa</p>
+                    <div class="quick-nav-links">
+                        <a href="#dailyNotePanel">Today</a>
+                        <a href="#apologySection">I'm Sorry</a>
+                        <a href="#letterPanel">Letter</a>
+                        <a href="#reasonsSection">Reasons</a>
+                        <a href="#scrapbookSection">Memories</a>
+                        <a href="#constellationSection">Stars</a>
+                        <a href="#countdownSection">Countdown</a>
+                        <a href="#songSection">Song</a>
+                        <a href="#timelineSection">Story</a>
+                    </div>
+                </nav>
+                <section class="mobile-note reveal" id="startHere">
+                    <h2>Start here, my love</h2>
+                    <p>I made this easier to open on your phone, so every little piece has its own calm place.</p>
+                    <ul class="mobile-note-list">
+                        <li>Tap a shortcut when you only want one sweet thing fast.</li>
+                        <li>Scroll slowly when you want the full little journey.</li>
+                        <li>Come back anytime. The notes, reasons, and surprises are waiting for you.</li>
+                    </ul>
+                </section>
                 <section class="panel greeting-panel reveal" id="greetingPanel">
                     <div class="greeting-emoji" id="greetingEmoji">🌸</div>
                     <h2 class="greeting-text" id="greetingText">Good morning, my love</h2>
@@ -1799,7 +2223,7 @@
                     <button class="forever-button" id="foreverButton" type="button">Tap for Forever</button>
                     <p class="forever-note">A tiny surprise sent across the miles, just for you.</p>
                 </section>
-                <section class="panel reasons-panel reveal">
+                <section class="panel reasons-panel reveal" id="reasonsSection">
                     <h2 class="panel-title">Reasons I Love You</h2>
                     <div class="reason-display">
                         <p class="reason-text" id="reasonText">Press the button and discover something true ✨</p>
@@ -1807,7 +2231,7 @@
                     <p class="reason-counter" id="reasonCounter">0 of 14 reasons revealed</p>
                     <button class="reason-button" id="reasonButton" type="button">Reveal a Reason 💛</button>
                 </section>
-                <section class="panel reveal">
+                <section class="panel reveal" id="scrapbookSection">
                     <h2 class="panel-title">Little Scrapbook</h2>
                     <div class="scrapbook">
                         <div class="polaroid">
@@ -1830,7 +2254,7 @@
                     <p class="hold-hint">Press and hold, Habib is sending love across the distance.</p>
                     <p class="hold-tip">Keep holding. Every second sends another virtual kiss.</p>
                 </section>
-                <section class="panel timer-panel reveal">
+                <section class="panel timer-panel reveal" id="timerSection">
                     <h2 class="panel-title">Time Since I Fell For You</h2>
                     <div class="timer-grid">
                         <div class="timer-unit"><span class="timer-number" id="timerDays">0</span><span class="timer-label">Days</span></div>
@@ -1839,6 +2263,17 @@
                         <div class="timer-unit"><span class="timer-number" id="timerSecs">0</span><span class="timer-label">Seconds</span></div>
                     </div>
                     <p class="timer-tagline">...and the distance has not stolen a single one. 💕</p>
+                </section>
+                <section class="panel countdown-panel reveal" id="countdownSection">
+                    <div class="countdown-emoji" aria-hidden="true">✈️</div>
+                    <h2 class="countdown-text">Countdown to Next Time We Meet</h2>
+                    <div class="timer-grid">
+                        <div class="timer-unit"><span class="timer-number" id="meetDays">0</span><span class="timer-label">Days</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="meetHours">0</span><span class="timer-label">Hours</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="meetMins">0</span><span class="timer-label">Minutes</span></div>
+                        <div class="timer-unit"><span class="timer-number" id="meetSecs">0</span><span class="timer-label">Seconds</span></div>
+                    </div>
+                    <p class="countdown-sub" id="countdownSub">Every second apart is a second closer to being together again.</p>
                 </section>
                 <section class="panel constellation-panel reveal" id="constellationSection">
                     <h2 class="panel-title">Written in the Stars</h2>
@@ -1851,21 +2286,21 @@
                     </div>
                     <p class="constellation-hint">✦ <span class="constellation-count" id="constellationCount">0</span> of 12 stars discovered</p>
                 </section>
-                <section class="panel song-panel reveal">
+                <section class="panel song-panel reveal" id="songSection">
                     <h2 class="song-title">Our Song 🎵</h2>
                     <div class="song-frame">
-                        <iframe src="https://www.youtube.com/embed/ysF4Hx14kJg" title="Our Song" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/ysF4Hx14kJg" title="Our Song" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                     <p class="song-caption">Every time this plays, I think of you.</p>
                 </section>
-                <section class="panel poem-panel reveal">
+                <section class="panel poem-panel reveal" id="poemSection">
                     <h2 class="panel-title">A Poem, Just for You</h2>
                     <div class="poem-display">
                         <p class="poem-text" id="poemText"><span class="poem-cursor"></span></p>
                     </div>
                     <button class="poem-button" id="poemButton" type="button">Read Me a Poem 🌙</button>
                 </section>
-                <section class="panel date-jar-panel reveal">
+                <section class="panel date-jar-panel reveal" id="dateSection">
                     <h2 class="panel-title">Our Dream Date Jar</h2>
                     <div class="jar-icon" aria-hidden="true">🫙</div>
                     <div class="date-card" id="dateCard">
@@ -1873,13 +2308,13 @@
                     </div>
                     <button class="date-button" id="dateButton" type="button">Pull a Dream Date 🎲</button>
                 </section>
-                <section class="panel hug-panel reveal">
+                <section class="panel hug-panel reveal" id="hugSection">
                     <h2 class="panel-title">Send a Virtual Hug</h2>
                     <div class="hug-emoji" id="hugEmoji" aria-hidden="true">🤗</div>
                     <p class="hug-message" id="hugMessage">Every tap sends a hug across the miles...</p>
                     <p class="hug-counter" id="hugCounter">0 hugs sent so far</p>
                     <div class="hug-milestone">
-                        <p id="hugMilestone">The next hug is waiting for you.</p>
+                        <p id="hugMilestone">10 hugs until the first little milestone.</p>
                     </div>
                     <button class="hug-button" id="hugButton" type="button">Send Vanessa a Hug 💌</button>
                 </section>
@@ -1890,7 +2325,7 @@
                         <div class="timeline-entry reveal">
                             <div class="timeline-entry-dot">❤</div>
                             <div class="timeline-entry-card">
-                                <span class="timeline-entry-date">June 2024</span>
+                                <span class="timeline-entry-date">May 16, 2026</span>
                                 <h3 class="timeline-entry-title">The Beginning</h3>
                                 <p class="timeline-entry-desc">The moment everything changed. The day I knew you were different from anyone I had ever met.</p>
                             </div>
@@ -1971,6 +2406,12 @@
         const hugCounter = document.getElementById("hugCounter");
         const hugMilestone = document.getElementById("hugMilestone");
 
+        const siteConfig = {
+            // Update these two lines if your real dates change.
+            relationshipStart: "2026-05-16T00:00:00",
+            nextMeet: "2026-07-01T18:00:00"
+        };
+
         const romanceMessages = [
             "More love every second...",
             "Your smile makes the stars jealous.",
@@ -2048,9 +2489,15 @@
         let holdInterval = null;
         let typing = false;
         let lastTrailTime = 0;
+        const isCompactPhone = window.matchMedia("(max-width: 699px)").matches;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         function clamp(value, min, max) {
             return Math.min(max, Math.max(min, value));
+        }
+
+        function configDate(key) {
+            return new Date(siteConfig[key]);
         }
 
         function setThemeByTime() {
@@ -2100,11 +2547,15 @@
 
         function initBackground() {
             const theme = setThemeByTime();
-            const initialPieces = theme === "night" ? 30 : 16;
+            if (prefersReducedMotion) {
+                return;
+            }
+            const initialPieces = isCompactPhone ? (theme === "night" ? 12 : 7) : (theme === "night" ? 30 : 16);
+            const intervalDelay = isCompactPhone ? (theme === "night" ? 900 : 1800) : (theme === "night" ? 320 : 900);
             for (let index = 0; index < initialPieces; index += 1) {
                 window.setTimeout(() => spawnBackgroundPiece(theme), index * 220);
             }
-            window.setInterval(() => spawnBackgroundPiece(theme), theme === "night" ? 320 : 900);
+            window.setInterval(() => spawnBackgroundPiece(theme), intervalDelay);
         }
 
         function initReveal() {
@@ -2328,7 +2779,7 @@
         }
 
         function startCountUpTimer() {
-            const startDate = new Date(2024, 5, 1);
+            const startDate = configDate("relationshipStart");
             const daysEl = document.getElementById("timerDays");
             const hoursEl = document.getElementById("timerHours");
             const minsEl = document.getElementById("timerMins");
@@ -2336,6 +2787,33 @@
             function tick() {
                 const diff = Date.now() - startDate.getTime();
                 const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+                daysEl.textContent = Math.floor(totalSeconds / 86400);
+                hoursEl.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
+                minsEl.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+                secsEl.textContent = String(totalSeconds % 60).padStart(2, "0");
+            }
+            tick();
+            window.setInterval(tick, 1000);
+        }
+
+        function startCountdownTimer() {
+            const nextMeet = configDate("nextMeet");
+            const daysEl = document.getElementById("meetDays");
+            const hoursEl = document.getElementById("meetHours");
+            const minsEl = document.getElementById("meetMins");
+            const secsEl = document.getElementById("meetSecs");
+            const subEl = document.getElementById("countdownSub");
+            function tick() {
+                const diff = nextMeet.getTime() - Date.now();
+                if (diff <= 0) {
+                    daysEl.textContent = "0";
+                    hoursEl.textContent = "00";
+                    minsEl.textContent = "00";
+                    secsEl.textContent = "00";
+                    subEl.textContent = "The wait is over. You made it back to each other. ❤";
+                    return;
+                }
+                const totalSeconds = Math.floor(diff / 1000);
                 daysEl.textContent = Math.floor(totalSeconds / 86400);
                 hoursEl.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
                 minsEl.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
@@ -2506,7 +2984,19 @@
 
         function updateHugUI(hugCount) {
             hugCounter.textContent = `${hugCount} hug${hugCount === 1 ? "" : "s"} sent so far`;
-            hugMilestone.textContent = hugMilestones[hugCount] || "The next hug is waiting for you.";
+            hugMilestone.textContent = getHugMilestoneText(hugCount);
+        }
+
+        function getHugMilestoneText(hugCount) {
+            if (hugMilestones[hugCount]) {
+                return hugMilestones[hugCount];
+            }
+            const next = Object.keys(hugMilestones).map(Number).find((value) => value > hugCount);
+            if (!next) {
+                return "Every hug after 100 is extra proof that distance never stood a chance.";
+            }
+            const remaining = next - hugCount;
+            return `${remaining} hug${remaining === 1 ? "" : "s"} until the next little milestone.`;
         }
 
         function initHugCounter() {
@@ -2629,7 +3119,8 @@
             const heartsContainer = document.getElementById("splashHearts");
             const emojis = ["❤", "💗", "💖", "❀", "✦", "💕"];
 
-            for (let i = 0; i < 22; i++) {
+            const splashHeartCount = isCompactPhone ? 11 : 22;
+            for (let i = 0; i < splashHeartCount; i++) {
                 const h = document.createElement("span");
                 h.className = "splash-float-heart";
                 h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -2658,6 +3149,7 @@
         initRomanceMeter();
         restoreReasons();
         startCountUpTimer();
+        startCountdownTimer();
         initPoem();
         initDateJar();
         initHugCounter();
