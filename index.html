@@ -3080,6 +3080,208 @@
             }
         }
     </style>
+
+    <!-- ✨ CREATIVE DESIGN UPGRADE ✨ -->
+    <style>
+        /* ── GLOBAL ADORABLE VIBE ── */
+        :root {
+            --bubblegum: #ff6eb4;
+            --peach: #ffb347;
+            --lavender: #c084fc;
+            --mint-pop: #34d399;
+            --sky: #60c5f8;
+            --cream-pop: #fff8f0;
+        }
+
+        @keyframes float-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes heartbeat-btn { 0%,100% { transform: scale(1); } 14% { transform: scale(1.06); } 28% { transform: scale(0.97); } 42% { transform: scale(1.04); } }
+        @keyframes shimmer-sweep { 0% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+        @keyframes border-dance { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 18px rgba(255,110,180,0.35), 0 8px 28px rgba(10,7,15,0.2); } 50% { box-shadow: 0 0 34px rgba(255,110,180,0.6), 0 14px 38px rgba(10,7,15,0.28); } }
+
+        /* ── HERO ── */
+        .name {
+            background: linear-gradient(135deg, #fff8f0 0%, #ffb8c6 40%, #ffddaa 70%, #c8f5e8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 4px 24px rgba(255,110,180,0.35));
+        }
+
+        .love-banner {
+            background: linear-gradient(90deg, var(--mint-pop), var(--bubblegum), var(--peach), var(--sky)) !important;
+            background-size: 300% 300% !important;
+            animation: float-bob 3.5s ease-in-out infinite, border-dance 4s ease infinite !important;
+        }
+
+        /* ── BUTTONS ── */
+        .meter-button, .forever-button, .reason-button, .poem-button,
+        .date-button, .hug-button, .close-forever, .apology-button,
+        .wish-button, .pinky-button {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px !important;
+            font-weight: 900 !important;
+            font-size: 0.97rem !important;
+            padding: 16px 28px !important;
+            border: 1.5px solid rgba(255,255,255,0.25) !important;
+            transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s ease, filter 0.22s ease !important;
+        }
+
+        .meter-button, .forever-button, .reason-button, .hug-button, .pinky-button {
+            background: linear-gradient(135deg, #ff6eb4 0%, #c84fd8 48%, #7b3fdb 100%) !important;
+            box-shadow: 0 6px 28px rgba(200,79,216,0.38), 0 2px 8px rgba(0,0,0,0.18) !important;
+        }
+
+        .poem-button, .date-button, .apology-button {
+            background: linear-gradient(135deg, #ff8c42 0%, #ff4f43 50%, #d4366e 100%) !important;
+            box-shadow: 0 6px 28px rgba(255,79,67,0.38), 0 2px 8px rgba(0,0,0,0.18) !important;
+        }
+
+        .close-forever {
+            background: linear-gradient(135deg, #34d399 0%, #20b2c9 50%, #6366f1 100%) !important;
+            box-shadow: 0 6px 28px rgba(52,211,153,0.38), 0 2px 8px rgba(0,0,0,0.18) !important;
+        }
+
+        .meter-button::after, .forever-button::after, .reason-button::after,
+        .poem-button::after, .date-button::after, .hug-button::after,
+        .close-forever::after, .apology-button::after, .wish-button::after, .pinky-button::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.38) 50%, transparent 80%);
+            transform: translateX(-130%);
+            transition: transform 0s;
+        }
+
+        .meter-button:hover::after, .forever-button:hover::after, .reason-button:hover::after,
+        .poem-button:hover::after, .date-button:hover::after, .hug-button:hover::after,
+        .close-forever:hover::after, .apology-button:hover::after, .wish-button:hover::after, .pinky-button:hover::after {
+            transform: translateX(130%);
+            transition: transform 0.52s ease;
+        }
+
+        .meter-button:hover, .forever-button:hover, .reason-button:hover,
+        .poem-button:hover, .date-button:hover, .hug-button:hover,
+        .close-forever:hover, .apology-button:hover, .wish-button:hover, .pinky-button:hover {
+            transform: translateY(-4px) scale(1.03) !important;
+            filter: brightness(1.08);
+        }
+
+        .meter-button:active, .forever-button:active, .reason-button:active,
+        .poem-button:active, .date-button:active, .hug-button:active,
+        .close-forever:active, .apology-button:active { transform: translateY(1px) scale(0.97) !important; }
+
+        /* ── QUICK NAV ── */
+        .quick-nav {
+            border-radius: 20px !important;
+            border: 2px solid rgba(255,110,180,0.22) !important;
+        }
+
+        .quick-nav a {
+            border-radius: 12px !important;
+            font-weight: 900 !important;
+            border: 1.5px solid rgba(255,110,180,0.16) !important;
+            transition: all 0.2s cubic-bezier(.34,1.56,.64,1) !important;
+        }
+
+        .quick-nav a:hover {
+            background: linear-gradient(135deg, #ff6eb4, #c084fc) !important;
+            color: white !important;
+            border-color: transparent !important;
+            transform: translateY(-2px) scale(1.04) !important;
+            box-shadow: 0 8px 20px rgba(192,132,252,0.34) !important;
+        }
+
+        /* ── PANELS ── */
+        .panel {
+            border-radius: 22px !important;
+            transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease !important;
+        }
+
+        .panel:hover { transform: translateY(-4px) !important; }
+
+        .panel-title {
+            font-size: clamp(1.45rem, 3.5vw, 2.2rem) !important;
+        }
+
+        /* ── HOLD BUTTON ── */
+        .hold-button {
+            width: 138px !important;
+            height: 138px !important;
+            background: radial-gradient(circle at 35% 35%, #ffaac6, #ff3f78 60%, #c41e5a) !important;
+            box-shadow: 0 0 0 8px rgba(255,63,120,0.12), 0 20px 50px rgba(196,30,90,0.34) !important;
+            animation: glow-pulse 2.4s ease-in-out infinite !important;
+        }
+
+        .hold-button.pressing {
+            transform: scale(0.91) !important;
+            animation: none !important;
+        }
+
+        /* ── TIMERS ── */
+        .timer-unit {
+            border-radius: 16px !important;
+            transition: transform 0.2s ease !important;
+        }
+
+        .timer-unit:hover { transform: translateY(-3px) !important; }
+
+        .timer-number {
+            color: var(--bubblegum) !important;
+            font-family: "Playfair Display", serif !important;
+        }
+
+        /* ── POLAROIDS ── */
+        .polaroid {
+            border-radius: 14px !important;
+            transition: transform 0.32s cubic-bezier(.34,1.56,.64,1), box-shadow 0.32s ease !important;
+        }
+
+        .polaroid:nth-child(odd):hover { transform: translateY(-8px) rotate(2deg) !important; }
+        .polaroid:nth-child(even):hover { transform: translateY(-8px) rotate(-2deg) !important; }
+
+        /* ── METER ── */
+        .meter-fill {
+            background: linear-gradient(90deg, var(--mint-pop), var(--sky), var(--bubblegum), var(--peach)) !important;
+            box-shadow: 0 0 24px rgba(255,110,180,0.5) !important;
+        }
+
+        /* ── PHRASES ── */
+        .phrase {
+            border-radius: 18px !important;
+            transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease !important;
+        }
+
+        .phrase:hover {
+            transform: translateY(-5px) scale(1.02) !important;
+        }
+
+        /* ── SCROLL PROGRESS ── */
+        #scrollProgress {
+            height: 4px !important;
+            background: linear-gradient(90deg, var(--mint-pop), var(--bubblegum), var(--peach), var(--sky)) !important;
+            background-size: 300% 100% !important;
+            animation: border-dance 3s ease infinite !important;
+            box-shadow: 0 0 18px rgba(255,110,180,0.55) !important;
+        }
+
+        /* ── FOOTER ── */
+        .footer { border-radius: 22px !important; }
+
+        /* ── GREETING EMOJI ── */
+        .greeting-emoji { animation: float-bob 3s ease-in-out infinite !important; display: inline-block; }
+
+        @media (max-width: 699px) {
+            .panel, .phrase, .footer { border-radius: 18px !important; }
+            .meter-button, .forever-button, .reason-button, .poem-button,
+            .date-button, .hug-button, .close-forever, .apology-button {
+                border-radius: 14px !important;
+                padding: 15px 20px !important;
+            }
+            .hold-button { width: 120px !important; height: 120px !important; }
+        }
+    </style>
 </head>
 <body>
     <!-- Splash Screen -->
