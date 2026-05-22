@@ -2087,6 +2087,998 @@
             z-index: 2;
         }
         .constellation-count { color: rgba(255, 215, 120, 0.92); }
+        /* === MODERN REDESIGN OVERRIDE === */
+        :root {
+            --bg-1: #09070f;
+            --bg-2: #20111e;
+            --bg-3: #f2ede3;
+            --surface: rgba(255, 252, 244, 0.88);
+            --surface-strong: rgba(255, 255, 250, 0.96);
+            --line: rgba(39, 28, 39, 0.12);
+            --text: #241b24;
+            --text-soft: #645864;
+            --heading: #171018;
+            --rose: #ef5f73;
+            --rose-deep: #9b2943;
+            --gold: #d5a84e;
+            --glow: 0 0 42px rgba(239, 95, 115, 0.22);
+            --shadow-lg: 0 28px 70px rgba(10, 7, 15, 0.34);
+            --shadow-md: 0 18px 44px rgba(26, 18, 30, 0.16);
+            --shadow-sm: 0 10px 26px rgba(26, 18, 30, 0.1);
+            --radius-xl: 8px;
+            --radius-lg: 8px;
+            --ink: #171018;
+            --cream: #fffaf0;
+            --blush: #ff8b8f;
+            --coral: #ff6b5f;
+            --mint: #75e3c4;
+            --blue: #83c5ff;
+            --violet: #a98bff;
+        }
+
+        body {
+            background:
+                linear-gradient(135deg, rgba(117, 227, 196, 0.1) 0 1px, transparent 1px 22px),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 28px),
+                linear-gradient(160deg, #08070c 0%, #1a1018 36%, #4b2028 68%, #f0cdbd 100%);
+            color: var(--text);
+        }
+
+        body::before {
+            background:
+                linear-gradient(90deg, rgba(255, 107, 95, 0.16), transparent 34%, rgba(117, 227, 196, 0.12) 68%, transparent),
+                linear-gradient(180deg, rgba(255, 250, 240, 0.04), rgba(8, 7, 12, 0.34));
+            mix-blend-mode: screen;
+        }
+
+        body::after {
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 120px),
+                linear-gradient(180deg, rgba(8, 7, 12, 0), rgba(8, 7, 12, 0.22));
+            z-index: -2;
+        }
+
+        body.day-theme {
+            --bg-1: #231417;
+            --bg-2: #7a3038;
+            --bg-3: #f5d6c6;
+        }
+
+        body.evening-theme {
+            --bg-1: #120f1a;
+            --bg-2: #392133;
+            --bg-3: #f1c5b3;
+        }
+
+        body.night-theme {
+            --bg-1: #07070c;
+            --bg-2: #17111e;
+            --bg-3: #7b3944;
+        }
+
+        .aurora-band {
+            border-radius: 0;
+            filter: blur(26px);
+            opacity: 0.18;
+            transform: rotate(-10deg);
+        }
+
+        .aurora-band.one,
+        .aurora-band.two,
+        .aurora-band.three {
+            width: 110vw;
+            height: 18vh;
+            left: -5vw;
+            right: auto;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 95, 0.48), rgba(117, 227, 196, 0.24), transparent);
+        }
+
+        .aurora-band.two {
+            top: 38vh;
+            background: linear-gradient(90deg, transparent, rgba(169, 139, 255, 0.34), rgba(255, 210, 129, 0.28), transparent);
+        }
+
+        .aurora-band.three {
+            top: auto;
+            bottom: 6vh;
+            background: linear-gradient(90deg, transparent, rgba(131, 197, 255, 0.28), rgba(255, 139, 143, 0.3), transparent);
+        }
+
+        #scrollProgress {
+            background: linear-gradient(90deg, var(--mint), var(--coral), var(--gold));
+            box-shadow: 0 0 20px rgba(255, 107, 95, 0.42);
+        }
+
+        .page {
+            padding: 18px clamp(10px, 2vw, 24px) 54px;
+        }
+
+        .card {
+            width: min(100%, 1160px);
+            padding: clamp(10px, 2vw, 18px);
+            border-radius: 8px;
+            background: rgba(255, 250, 240, 0.08);
+            border: 1px solid rgba(255, 250, 240, 0.14);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(20px) saturate(130%);
+        }
+
+        .content {
+            gap: 14px;
+        }
+
+        .hero,
+        .panel,
+        .phrase,
+        .footer,
+        .mobile-note,
+        .quick-nav {
+            border-radius: 8px;
+            border: 1px solid rgba(255, 250, 240, 0.16);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 250, 0.94), rgba(255, 246, 232, 0.86));
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero {
+            min-height: clamp(420px, 62vh, 680px);
+            padding: clamp(34px, 7vw, 84px) clamp(22px, 6vw, 76px);
+            display: grid;
+            align-content: end;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(8, 7, 12, 0.08), rgba(8, 7, 12, 0.68)),
+                linear-gradient(120deg, rgba(255, 250, 240, 0.1), transparent 42%),
+                linear-gradient(135deg, #130d18 0%, #321827 42%, #a43d45 76%, #ffd0aa 100%);
+            color: var(--cream);
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 16px;
+            border: 1px solid rgba(255, 250, 240, 0.24);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "V";
+            position: absolute;
+            right: clamp(18px, 5vw, 64px);
+            top: clamp(18px, 4vw, 46px);
+            width: clamp(86px, 18vw, 210px);
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 250, 240, 0.22);
+            border-radius: 50%;
+            color: rgba(255, 250, 240, 0.22);
+            font-family: "Playfair Display", serif;
+            font-size: clamp(4.6rem, 13vw, 12rem);
+            line-height: 1;
+            background: rgba(255, 250, 240, 0.05);
+            backdrop-filter: blur(8px);
+        }
+
+        .eyebrow,
+        .apology-kicker,
+        .quick-nav-title,
+        .timeline-entry-date,
+        .timer-label,
+        .reason-counter,
+        .song-caption,
+        .constellation-hint {
+            letter-spacing: 0.12em;
+        }
+
+        .eyebrow {
+            color: rgba(255, 250, 240, 0.82);
+            background: rgba(255, 250, 240, 0.1);
+            border-color: rgba(255, 250, 240, 0.18);
+            width: fit-content;
+            padding: 8px 12px;
+            border-radius: 999px;
+        }
+
+        .name {
+            color: var(--cream);
+            text-shadow: 0 12px 38px rgba(0, 0, 0, 0.3);
+            font-size: clamp(4.1rem, 16vw, 12rem);
+            line-height: 0.82;
+            letter-spacing: 0;
+            margin-top: 18px;
+        }
+
+        .love-banner {
+            width: fit-content;
+            border-radius: 999px;
+            padding: 7px;
+            background: linear-gradient(90deg, var(--mint), var(--coral), var(--gold));
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+        }
+
+        .love-banner span {
+            display: block;
+            border-radius: 999px;
+            padding: 9px 16px;
+            color: var(--cream);
+            background: rgba(8, 7, 12, 0.82);
+        }
+
+        .hero-note {
+            max-width: 760px;
+            color: rgba(255, 250, 240, 0.88);
+            font-size: clamp(1rem, 2vw, 1.28rem);
+        }
+
+        .quick-nav {
+            position: sticky;
+            top: 12px;
+            z-index: 20;
+            padding: 12px;
+            background: rgba(255, 250, 240, 0.88);
+            border-color: rgba(255, 255, 255, 0.34);
+        }
+
+        .quick-nav-title {
+            color: var(--ink);
+        }
+
+        .quick-nav-links {
+            grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+        }
+
+        .quick-nav a {
+            border-radius: 999px;
+            color: var(--ink);
+            background: rgba(23, 16, 24, 0.06);
+            border: 1px solid rgba(23, 16, 24, 0.08);
+        }
+
+        .quick-nav a:hover,
+        .quick-nav a:focus-visible {
+            color: var(--cream);
+            background: #171018;
+            border-color: #171018;
+        }
+
+        .panel,
+        .phrase,
+        .mobile-note,
+        .footer {
+            padding: clamp(18px, 3vw, 30px);
+        }
+
+        .panel-title,
+        .greeting-text,
+        .countdown-text,
+        .song-title,
+        .apology-heading,
+        .forever-title {
+            color: var(--heading);
+            font-family: "Playfair Display", serif;
+            letter-spacing: 0;
+        }
+
+        .panel-title {
+            font-size: clamp(1.55rem, 4vw, 2.5rem);
+            margin-bottom: 14px;
+        }
+
+        .panel-title::after,
+        .song-title::after,
+        .apology-heading::after {
+            content: "";
+            display: block;
+            width: 58px;
+            height: 3px;
+            margin-top: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--coral), var(--gold), var(--mint));
+        }
+
+        .phrases {
+            gap: 12px;
+        }
+
+        .phrase {
+            min-height: 112px;
+            align-items: end;
+            background:
+                linear-gradient(135deg, rgba(23, 16, 24, 0.95), rgba(55, 30, 40, 0.92));
+            color: var(--cream);
+            border-color: rgba(255, 250, 240, 0.14);
+        }
+
+        .phrase.accent {
+            background:
+                linear-gradient(135deg, rgba(239, 95, 115, 0.94), rgba(255, 184, 94, 0.9));
+            color: #1f1215;
+        }
+
+        .apology-panel {
+            background:
+                linear-gradient(135deg, rgba(255, 250, 240, 0.96), rgba(255, 235, 219, 0.88));
+            overflow: hidden;
+        }
+
+        .apology-panel::before,
+        .apology-panel::after {
+            border-radius: 0;
+            filter: none;
+            opacity: 1;
+            background:
+                linear-gradient(90deg, transparent, rgba(255, 107, 95, 0.18), transparent);
+        }
+
+        .apology-shell {
+            position: relative;
+            z-index: 1;
+        }
+
+        .apology-letter,
+        .apology-affirmations,
+        .reason-display,
+        .date-card,
+        .constellation-msg-wrap,
+        .timeline-entry-card,
+        .hidden-letter,
+        .song-frame,
+        .poem-display,
+        .hug-milestone {
+            border-radius: 8px;
+            background: rgba(255, 255, 250, 0.76);
+            border: 1px solid rgba(23, 16, 24, 0.1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .apology-affirmation {
+            border-radius: 8px;
+            background: rgba(23, 16, 24, 0.04);
+            border: 1px solid rgba(23, 16, 24, 0.08);
+        }
+
+        .apology-mark {
+            color: var(--coral);
+            background: rgba(255, 107, 95, 0.12);
+        }
+
+        button,
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .apology-button,
+        .poem-button,
+        .date-button,
+        .hug-button,
+        .close-forever {
+            border-radius: 999px;
+            color: var(--cream);
+            background: linear-gradient(135deg, #171018, #3d2633);
+            border: 1px solid rgba(255, 250, 240, 0.2);
+            box-shadow: 0 14px 30px rgba(23, 16, 24, 0.2);
+        }
+
+        button:hover,
+        button:focus-visible,
+        .meter-button:hover,
+        .forever-button:hover,
+        .reason-button:hover,
+        .apology-button:hover,
+        .poem-button:hover,
+        .date-button:hover,
+        .hug-button:hover,
+        .close-forever:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 42px rgba(23, 16, 24, 0.28), 0 0 0 4px rgba(117, 227, 196, 0.12);
+        }
+
+        .meter-track {
+            background: rgba(23, 16, 24, 0.08);
+            border-radius: 999px;
+            border: 1px solid rgba(23, 16, 24, 0.08);
+        }
+
+        .meter-fill {
+            background: linear-gradient(90deg, var(--mint), var(--blue), var(--coral), var(--gold));
+            box-shadow: 0 0 24px rgba(255, 107, 95, 0.34);
+        }
+
+        .meter-percent,
+        .timer-number {
+            color: var(--ink);
+            font-family: "Playfair Display", serif;
+        }
+
+        .timer-grid {
+            gap: 10px;
+        }
+
+        .timer-unit {
+            border-radius: 8px;
+            background: linear-gradient(180deg, rgba(23, 16, 24, 0.94), rgba(61, 38, 51, 0.94));
+            color: var(--cream);
+            border: 1px solid rgba(255, 250, 240, 0.12);
+        }
+
+        .timer-unit .timer-number,
+        .timer-unit .timer-label {
+            color: var(--cream);
+        }
+
+        .scrapbook {
+            gap: 12px;
+        }
+
+        .polaroid {
+            border-radius: 8px;
+            background: #fffaf0;
+            border: 1px solid rgba(23, 16, 24, 0.1);
+            box-shadow: var(--shadow-sm);
+            transform: none;
+        }
+
+        .polaroid:hover {
+            transform: translateY(-4px);
+        }
+
+        .polaroid-scene {
+            border-radius: 6px;
+            background:
+                linear-gradient(135deg, rgba(117, 227, 196, 0.28), rgba(255, 107, 95, 0.24)),
+                #20111e;
+        }
+
+        .hold-button,
+        .hug-emoji,
+        .jar-icon,
+        .countdown-emoji,
+        .greeting-emoji {
+            filter: drop-shadow(0 14px 24px rgba(23, 16, 24, 0.16));
+        }
+
+        .hold-button {
+            background: linear-gradient(135deg, var(--coral), var(--gold));
+            color: #1f1215;
+        }
+
+        .envelope-button {
+            background: transparent;
+            box-shadow: none;
+            border: 0;
+        }
+
+        .envelope-button:hover,
+        .envelope-button:focus-visible,
+        .star-btn,
+        .star-btn:hover,
+        .star-btn:focus-visible {
+            box-shadow: none;
+        }
+
+        .envelope {
+            filter: drop-shadow(0 18px 24px rgba(23, 16, 24, 0.18));
+        }
+
+        .forever-panel,
+        .countdown-panel,
+        .song-panel {
+            background:
+                linear-gradient(135deg, rgba(23, 16, 24, 0.96), rgba(68, 35, 46, 0.94));
+            color: var(--cream);
+            border-color: rgba(255, 250, 240, 0.12);
+        }
+
+        .forever-panel .panel-title,
+        .countdown-panel .countdown-text,
+        .song-panel .song-title,
+        .forever-copy,
+        .forever-note,
+        .countdown-sub,
+        .song-caption {
+            color: var(--cream);
+        }
+
+        .constellation-panel {
+            background:
+                linear-gradient(180deg, rgba(5, 6, 13, 0.95), rgba(22, 18, 35, 0.98));
+            border-color: rgba(131, 197, 255, 0.18);
+        }
+
+        .constellation-field {
+            border-radius: 8px;
+            border: 1px solid rgba(131, 197, 255, 0.16);
+            background:
+                linear-gradient(135deg, rgba(117, 227, 196, 0.08), transparent 42%),
+                linear-gradient(180deg, #080a14, #151224);
+        }
+
+        .star-btn.discovered .star-core,
+        .star-btn.active .star-core {
+            background: rgba(117, 227, 196, 0.96);
+            box-shadow: 0 0 14px 4px rgba(117, 227, 196, 0.56), 0 0 32px 8px rgba(255, 107, 95, 0.16);
+        }
+
+        .timeline-wrap::before {
+            background: linear-gradient(180deg, var(--mint), var(--coral), transparent);
+        }
+
+        .timeline-entry-dot {
+            background: linear-gradient(135deg, var(--coral), var(--gold));
+            color: #1f1215;
+            box-shadow: 0 0 0 5px rgba(255, 107, 95, 0.14);
+        }
+
+        .footer {
+            background: rgba(8, 7, 12, 0.82);
+            color: var(--cream);
+            border-color: rgba(255, 250, 240, 0.16);
+        }
+
+        .footer strong,
+        .footer-note {
+            color: var(--cream);
+        }
+
+        #splashScreen {
+            background:
+                linear-gradient(135deg, rgba(117, 227, 196, 0.12), transparent 38%),
+                linear-gradient(160deg, #08070c, #2a1723 54%, #a43d45);
+        }
+
+        .splash-inner {
+            border-radius: 8px;
+            background: rgba(255, 250, 240, 0.1);
+            border: 1px solid rgba(255, 250, 240, 0.18);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.34);
+        }
+
+        .splash-title,
+        .splash-sub,
+        .splash-tap {
+            color: var(--cream);
+        }
+
+        .forever-overlay {
+            background: rgba(8, 7, 12, 0.78);
+            backdrop-filter: blur(18px);
+        }
+
+        .forever-message {
+            border-radius: 8px;
+            background:
+                linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(255, 240, 226, 0.96));
+            border: 1px solid rgba(255, 250, 240, 0.4);
+            box-shadow: 0 32px 88px rgba(0, 0, 0, 0.36);
+        }
+
+        @media (min-width: 760px) {
+            .interactive-grid,
+            .phrases {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .quick-nav {
+                grid-template-columns: auto 1fr;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                min-height: 520px;
+                padding: 32px 20px;
+            }
+
+            .hero::before {
+                inset: 10px;
+            }
+
+            .name {
+                font-size: clamp(4.2rem, 24vw, 6.8rem);
+            }
+
+            .quick-nav-links {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .quick-nav a {
+                min-height: 40px;
+                padding-inline: 8px;
+            }
+        }
+        /* === CREATIVE REDESIGN V2 === */
+        :root {
+            --ink: #08070a;
+            --cream: #fff7e8;
+            --paper: #fffaf0;
+            --flame: #ff4f43;
+            --pink-hot: #ff3f78;
+            --sun: #f8c15c;
+            --aqua: #59e0cf;
+            --night: #121017;
+        }
+
+        body {
+            background:
+                linear-gradient(115deg, rgba(89, 224, 207, 0.12) 0 1px, transparent 1px 34px),
+                linear-gradient(25deg, rgba(255, 247, 232, 0.05) 0 1px, transparent 1px 26px),
+                linear-gradient(160deg, #050407 0%, #111018 28%, #32141c 58%, #ffb079 100%);
+        }
+
+        body.love-dream {
+            background:
+                linear-gradient(115deg, rgba(248, 193, 92, 0.16) 0 1px, transparent 1px 34px),
+                linear-gradient(25deg, rgba(89, 224, 207, 0.13) 0 1px, transparent 1px 26px),
+                linear-gradient(160deg, #040507 0%, #0f1a1c 30%, #482332 62%, #ffdb9c 100%);
+        }
+
+        body.love-dream .hero {
+            background:
+                linear-gradient(180deg, rgba(5, 4, 7, 0.02), rgba(5, 4, 7, 0.68)),
+                linear-gradient(120deg, rgba(89, 224, 207, 0.22), transparent 44%),
+                linear-gradient(135deg, #071113 0%, #1b2630 34%, #a92c4e 70%, #ffd37c 100%);
+        }
+
+        .card {
+            background: rgba(255, 247, 232, 0.065);
+            border-color: rgba(255, 247, 232, 0.22);
+        }
+
+        .hero {
+            min-height: clamp(520px, 74vh, 820px);
+            isolation: isolate;
+            background:
+                linear-gradient(180deg, rgba(5, 4, 7, 0.02), rgba(5, 4, 7, 0.72)),
+                linear-gradient(120deg, rgba(255, 79, 67, 0.12), transparent 48%),
+                linear-gradient(135deg, #070509 0%, #1b1119 35%, #7d2631 70%, #ffc181 100%);
+        }
+
+        .hero::before {
+            inset: 18px;
+            border-color: rgba(255, 247, 232, 0.34);
+        }
+
+        .hero::after {
+            content: "Vanessa";
+            right: clamp(-10px, 3vw, 54px);
+            top: clamp(18px, 5vw, 62px);
+            width: auto;
+            height: auto;
+            aspect-ratio: auto;
+            border: 0;
+            border-radius: 0;
+            background: none;
+            color: rgba(255, 247, 232, 0.1);
+            font-size: clamp(4.2rem, 13vw, 11rem);
+            transform: rotate(-7deg);
+            pointer-events: none;
+        }
+
+        .name {
+            max-width: 7ch;
+            font-size: clamp(5.5rem, 18vw, 15rem);
+            line-height: 0.76;
+        }
+
+        .love-banner {
+            background: linear-gradient(90deg, var(--aqua), var(--sun), var(--flame), var(--pink-hot));
+        }
+
+        .hero-note {
+            font-size: clamp(1.05rem, 2.2vw, 1.38rem);
+            max-width: 700px;
+        }
+
+        .quick-nav {
+            top: 10px;
+            background: rgba(255, 250, 240, 0.78);
+            box-shadow: 0 18px 54px rgba(8, 7, 10, 0.18);
+        }
+
+        .quick-nav a {
+            min-height: 42px;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+        }
+
+        .love-command {
+            display: grid;
+            grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.25fr);
+            gap: clamp(16px, 3vw, 34px);
+            padding: clamp(20px, 4vw, 38px);
+            border-radius: 8px;
+            background:
+                linear-gradient(135deg, rgba(255, 247, 232, 0.98), rgba(255, 235, 209, 0.88)),
+                linear-gradient(90deg, rgba(255, 79, 67, 0.16), rgba(89, 224, 207, 0.16));
+            border: 1px solid rgba(255, 247, 232, 0.55);
+            box-shadow: 0 24px 64px rgba(8, 7, 10, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-command::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(100deg, transparent 0 26%, rgba(255, 255, 255, 0.55) 31%, transparent 38%),
+                repeating-linear-gradient(90deg, rgba(8, 7, 10, 0.045) 0 1px, transparent 1px 86px);
+            transform: translateX(-42%);
+            animation: commandSweep 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .command-copy,
+        .command-actions,
+        .secret-strip {
+            position: relative;
+            z-index: 1;
+        }
+
+        .command-kicker {
+            display: inline-grid;
+            place-items: center;
+            width: fit-content;
+            min-height: 30px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            color: var(--paper);
+            background: var(--ink);
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .command-copy h2 {
+            margin: 14px 0 10px;
+            color: var(--ink);
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.1rem, 5vw, 4rem);
+            line-height: 0.95;
+        }
+
+        .command-copy p {
+            margin: 0;
+            color: #564b50;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.7;
+        }
+
+        .command-actions {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .command-btn {
+            min-height: 132px;
+            padding: 14px 10px;
+            border-radius: 8px;
+            display: grid;
+            align-content: space-between;
+            justify-items: start;
+            color: var(--paper);
+            background:
+                linear-gradient(145deg, rgba(8, 7, 10, 0.98), rgba(43, 24, 31, 0.96));
+            border: 1px solid rgba(8, 7, 10, 0.12);
+            box-shadow: 0 16px 36px rgba(8, 7, 10, 0.22);
+            text-align: left;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .command-btn::after {
+            content: "";
+            position: absolute;
+            inset: auto -20% -45% -20%;
+            height: 80%;
+            background: linear-gradient(90deg, rgba(89, 224, 207, 0.26), rgba(255, 79, 67, 0.32), rgba(248, 193, 92, 0.3));
+            transform: rotate(-8deg);
+            transition: transform 0.32s ease, opacity 0.32s ease;
+            opacity: 0.72;
+        }
+
+        .command-btn:hover::after,
+        .command-btn:focus-visible::after {
+            transform: translateY(-18px) rotate(-8deg);
+            opacity: 1;
+        }
+
+        .command-btn.primary {
+            background:
+                linear-gradient(145deg, #ff4f43, #ff3f78 52%, #171018);
+        }
+
+        .btn-glyph {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: "Playfair Display", serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .command-btn span:last-child {
+            position: relative;
+            z-index: 1;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .secret-strip {
+            grid-column: 1 / -1;
+            min-height: 0;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.35s ease, transform 0.35s ease, max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 16px;
+            border-radius: 8px;
+            color: var(--paper);
+            background: linear-gradient(90deg, var(--ink), #3a1726);
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            line-height: 1.4;
+        }
+
+        .secret-strip.show {
+            max-height: 140px;
+            opacity: 1;
+            transform: translateY(0);
+            padding: 16px;
+        }
+
+        .love-pulse-ring,
+        .love-spark {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .love-pulse-ring {
+            left: 50%;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            border: 2px solid rgba(89, 224, 207, 0.75);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: lovePulseRing 1.25s ease-out forwards;
+        }
+
+        .love-spark {
+            left: var(--x);
+            top: var(--y);
+            color: var(--c);
+            font-weight: 900;
+            transform: translate(-50%, -50%);
+            animation: loveSparkFly 1.25s ease-out forwards;
+        }
+
+        .panel,
+        .phrase,
+        .mobile-note,
+        .footer {
+            box-shadow: 0 20px 52px rgba(8, 7, 10, 0.18);
+        }
+
+        .panel:hover,
+        .phrase:hover {
+            transform: translateY(-2px);
+        }
+
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .apology-button,
+        .poem-button,
+        .date-button,
+        .hug-button,
+        .close-forever {
+            min-height: 48px;
+            padding-inline: 22px;
+            background: linear-gradient(135deg, var(--ink), #341925 48%, var(--flame));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meter-button::before,
+        .forever-button::before,
+        .reason-button::before,
+        .apology-button::before,
+        .poem-button::before,
+        .date-button::before,
+        .hug-button::before,
+        .close-forever::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.45s ease;
+        }
+
+        .meter-button:hover::before,
+        .forever-button:hover::before,
+        .reason-button:hover::before,
+        .apology-button:hover::before,
+        .poem-button:hover::before,
+        .date-button:hover::before,
+        .hug-button:hover::before,
+        .close-forever:hover::before {
+            transform: translateX(100%);
+        }
+
+        @keyframes commandSweep {
+            0%, 70%, 100% { transform: translateX(-45%); }
+            40% { transform: translateX(45%); }
+        }
+
+        @keyframes lovePulseRing {
+            0% { opacity: 0.9; transform: translate(-50%, -50%) scale(0.2); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(24); }
+        }
+
+        @keyframes loveSparkFly {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6) rotate(0deg); }
+            15% { opacity: 1; }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.35) rotate(var(--rot));
+            }
+        }
+
+        @media (max-width: 860px) {
+            .love-command {
+                grid-template-columns: 1fr;
+            }
+
+            .command-actions {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .command-btn.primary {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                min-height: 590px;
+            }
+
+            .name {
+                font-size: clamp(5rem, 27vw, 7.4rem);
+            }
+
+            .command-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .command-btn,
+            .command-btn.primary {
+                min-height: 72px;
+                grid-template-columns: 42px 1fr;
+                align-content: center;
+                align-items: center;
+                gap: 12px;
+                grid-column: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2119,6 +3111,21 @@
                     <div class="love-banner"><span>I love you, endlessly</span></div>
                     <p class="hero-note">A tiny little corner of the internet made by Habib, because even though the miles keep us apart, nothing in this world could ever keep my heart from yours.</p>
                 </header>
+                <section class="love-command reveal" id="loveCommand">
+                    <div class="command-copy">
+                        <span class="command-kicker">Love control room</span>
+                        <h2>Press something beautiful.</h2>
+                        <p id="commandMessage">This page can glow, send a pulse, rain stars, open a secret, and take Vanessa straight to the letter.</p>
+                    </div>
+                    <div class="command-actions" aria-label="Creative love controls">
+                        <button class="command-btn primary" type="button" data-love-action="dream"><span class="btn-glyph">D</span><span>Dream Mode</span></button>
+                        <button class="command-btn" type="button" data-love-action="pulse"><span class="btn-glyph">P</span><span>Send Pulse</span></button>
+                        <button class="command-btn" type="button" data-love-action="stars"><span class="btn-glyph">S</span><span>Star Rain</span></button>
+                        <button class="command-btn" type="button" data-love-action="secret"><span class="btn-glyph">V</span><span>Secret Note</span></button>
+                        <button class="command-btn" type="button" data-love-action="letter"><span class="btn-glyph">L</span><span>Open Letter</span></button>
+                    </div>
+                    <div class="secret-strip" id="secretStrip" aria-live="polite">Vanessa, you are the softest part of every day.</div>
+                </section>
                 <nav class="quick-nav reveal" aria-label="Quick love sections">
                     <p class="quick-nav-title">Quick path for Vanessa</p>
                     <div class="quick-nav-links">
@@ -3159,6 +4166,117 @@
         initSplash();
         initConstellation();
         initApologySection();
+    </script>
+    <script>
+        (() => {
+            const command = document.getElementById("loveCommand");
+            if (!command) return;
+
+            const message = document.getElementById("commandMessage");
+            const secret = document.getElementById("secretStrip");
+            const letterPanelEl = document.getElementById("letterPanel");
+            const envelopeBtn = document.getElementById("envelopeButton");
+            const notes = [
+                "Vanessa, you are the reason ordinary moments feel golden.",
+                "If distance had a sound, my love would still be louder.",
+                "Every version of tomorrow looks better with you in it.",
+                "This page is small, but my love for you is not.",
+                "One day this screen becomes a real hug. I am counting on it."
+            ];
+            let noteIndex = 0;
+
+            function setMessage(text) {
+                if (message) message.textContent = text;
+            }
+
+            function spark(x, y, amount = 34) {
+                const colors = ["#ff4f43", "#ff3f78", "#f8c15c", "#59e0cf", "#fff7e8"];
+                for (let i = 0; i < amount; i += 1) {
+                    const piece = document.createElement("span");
+                    const angle = (Math.PI * 2 * i) / amount;
+                    const distance = 70 + Math.random() * 170;
+                    piece.className = "love-spark";
+                    piece.textContent = i % 3 === 0 ? "+" : i % 3 === 1 ? "*" : "V";
+                    piece.style.setProperty("--x", `${x}px`);
+                    piece.style.setProperty("--y", `${y}px`);
+                    piece.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+                    piece.style.setProperty("--dy", `${Math.sin(angle) * distance - 30}px`);
+                    piece.style.setProperty("--rot", `${-160 + Math.random() * 320}deg`);
+                    piece.style.setProperty("--c", colors[i % colors.length]);
+                    document.body.appendChild(piece);
+                    window.setTimeout(() => piece.remove(), 1300);
+                }
+            }
+
+            function pulse() {
+                for (let i = 0; i < 4; i += 1) {
+                    window.setTimeout(() => {
+                        const ring = document.createElement("span");
+                        ring.className = "love-pulse-ring";
+                        document.body.appendChild(ring);
+                        window.setTimeout(() => ring.remove(), 1300);
+                    }, i * 130);
+                }
+                spark(window.innerWidth / 2, window.innerHeight / 2, 42);
+            }
+
+            function buttonCenter(button) {
+                const rect = button.getBoundingClientRect();
+                return {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2
+                };
+            }
+
+            command.addEventListener("click", (event) => {
+                const button = event.target.closest("[data-love-action]");
+                if (!button) return;
+
+                const action = button.dataset.loveAction;
+                const center = buttonCenter(button);
+
+                if (action === "dream") {
+                    document.body.classList.toggle("love-dream");
+                    const isDream = document.body.classList.contains("love-dream");
+                    setMessage(isDream ? "Dream mode is on. The whole page is glowing softer for Vanessa." : "Dream mode is off. Back to the midnight love letter look.");
+                    spark(center.x, center.y, 30);
+                    return;
+                }
+
+                if (action === "pulse") {
+                    pulse();
+                    setMessage("Pulse sent. Imagine it travelling across every mile until it reaches her.");
+                    return;
+                }
+
+                if (action === "stars") {
+                    spark(center.x, center.y, 64);
+                    setMessage("Star rain launched. A tiny sky just opened for Vanessa.");
+                    return;
+                }
+
+                if (action === "secret") {
+                    if (secret) {
+                        secret.textContent = notes[noteIndex % notes.length];
+                        secret.classList.add("show");
+                        noteIndex += 1;
+                    }
+                    spark(center.x, center.y, 24);
+                    setMessage("A secret note appeared. Press it again and it changes.");
+                    return;
+                }
+
+                if (action === "letter") {
+                    if (letterPanelEl) {
+                        letterPanelEl.scrollIntoView({ behavior: "smooth", block: "center" });
+                        if (envelopeBtn && !letterPanelEl.classList.contains("letter-open")) {
+                            window.setTimeout(() => envelopeBtn.click(), 450);
+                        }
+                    }
+                    setMessage("Taking Vanessa straight to the letter.");
+                }
+            });
+        })();
     </script>
 </body>
 </html>
