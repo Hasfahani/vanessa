@@ -2089,44 +2089,44 @@
         .constellation-count { color: rgba(255, 215, 120, 0.92); }
         /* === MODERN REDESIGN OVERRIDE === */
         :root {
-            --bg-1: #09070f;
-            --bg-2: #20111e;
-            --bg-3: #f2ede3;
-            --surface: rgba(255, 252, 244, 0.88);
-            --surface-strong: rgba(255, 255, 250, 0.96);
-            --line: rgba(39, 28, 39, 0.12);
-            --text: #241b24;
-            --text-soft: #645864;
-            --heading: #171018;
-            --rose: #ef5f73;
-            --rose-deep: #9b2943;
-            --gold: #d5a84e;
-            --glow: 0 0 42px rgba(239, 95, 115, 0.22);
-            --shadow-lg: 0 28px 70px rgba(10, 7, 15, 0.34);
-            --shadow-md: 0 18px 44px rgba(26, 18, 30, 0.16);
-            --shadow-sm: 0 10px 26px rgba(26, 18, 30, 0.1);
+            --bg-1: #2a111c;
+            --bg-2: #5d2638;
+            --bg-3: #f4ddd1;
+            --surface: rgba(255, 250, 246, 0.9);
+            --surface-strong: rgba(255, 253, 250, 0.97);
+            --line: rgba(66, 32, 46, 0.14);
+            --text: #2f1a25;
+            --text-soft: #6f4a59;
+            --heading: #3f1425;
+            --rose: #cc4b70;
+            --rose-deep: #8a2445;
+            --gold: #c99752;
+            --glow: 0 0 42px rgba(204, 75, 112, 0.22);
+            --shadow-lg: 0 28px 70px rgba(42, 17, 28, 0.34);
+            --shadow-md: 0 18px 44px rgba(52, 20, 35, 0.16);
+            --shadow-sm: 0 10px 26px rgba(52, 20, 35, 0.1);
             --radius-xl: 8px;
             --radius-lg: 8px;
-            --ink: #171018;
+            --ink: #2f1a25;
             --cream: #fffaf0;
-            --blush: #ff8b8f;
-            --coral: #ff6b5f;
-            --mint: #75e3c4;
-            --blue: #83c5ff;
-            --violet: #a98bff;
+            --blush: #f0a5b8;
+            --coral: #cf5c7a;
+            --mint: #e4b39f;
+            --blue: #d59bb1;
+            --violet: #b86d8c;
         }
 
         body {
             background:
-                linear-gradient(135deg, rgba(117, 227, 196, 0.1) 0 1px, transparent 1px 22px),
+                linear-gradient(135deg, rgba(240, 165, 184, 0.09) 0 1px, transparent 1px 22px),
                 linear-gradient(45deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 28px),
-                linear-gradient(160deg, #08070c 0%, #1a1018 36%, #4b2028 68%, #f0cdbd 100%);
+                linear-gradient(160deg, #160a12 0%, #2e1320 36%, #6d2e45 68%, #f4d1bf 100%);
             color: var(--text);
         }
 
         body::before {
             background:
-                linear-gradient(90deg, rgba(255, 107, 95, 0.16), transparent 34%, rgba(117, 227, 196, 0.12) 68%, transparent),
+                linear-gradient(90deg, rgba(207, 92, 122, 0.18), transparent 34%, rgba(228, 179, 159, 0.14) 68%, transparent),
                 linear-gradient(180deg, rgba(255, 250, 240, 0.04), rgba(8, 7, 12, 0.34));
             mix-blend-mode: screen;
         }
@@ -2170,23 +2170,23 @@
             height: 18vh;
             left: -5vw;
             right: auto;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 95, 0.48), rgba(117, 227, 196, 0.24), transparent);
+            background: linear-gradient(90deg, transparent, rgba(207, 92, 122, 0.42), rgba(240, 165, 184, 0.28), transparent);
         }
 
         .aurora-band.two {
             top: 38vh;
-            background: linear-gradient(90deg, transparent, rgba(169, 139, 255, 0.34), rgba(255, 210, 129, 0.28), transparent);
+            background: linear-gradient(90deg, transparent, rgba(184, 109, 140, 0.34), rgba(201, 151, 82, 0.3), transparent);
         }
 
         .aurora-band.three {
             top: auto;
             bottom: 6vh;
-            background: linear-gradient(90deg, transparent, rgba(131, 197, 255, 0.28), rgba(255, 139, 143, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(213, 155, 177, 0.28), rgba(207, 92, 122, 0.3), transparent);
         }
 
         #scrollProgress {
             background: linear-gradient(90deg, var(--mint), var(--coral), var(--gold));
-            box-shadow: 0 0 20px rgba(255, 107, 95, 0.42);
+            box-shadow: 0 0 20px rgba(207, 92, 122, 0.42);
         }
 
         .page {
@@ -2197,10 +2197,10 @@
             width: min(100%, 1160px);
             padding: clamp(10px, 2vw, 18px);
             border-radius: 8px;
-            background: rgba(255, 250, 240, 0.08);
+            background: rgba(255, 250, 240, 0.94);
             border: 1px solid rgba(255, 250, 240, 0.14);
             box-shadow: var(--shadow-lg);
-            backdrop-filter: blur(20px) saturate(130%);
+            backdrop-filter: none;
         }
 
         .content {
@@ -2340,8 +2340,8 @@
         .quick-nav a:hover,
         .quick-nav a:focus-visible {
             color: var(--cream);
-            background: #171018;
-            border-color: #171018;
+            background: var(--rose-deep);
+            border-color: var(--rose-deep);
         }
 
         .panel,
@@ -2376,7 +2376,7 @@
             height: 3px;
             margin-top: 10px;
             border-radius: 999px;
-            background: linear-gradient(90deg, var(--coral), var(--gold), var(--mint));
+            background: linear-gradient(90deg, var(--rose), var(--gold), var(--blush));
         }
 
         .phrases {
@@ -2483,7 +2483,7 @@
 
         .meter-fill {
             background: linear-gradient(90deg, var(--mint), var(--blue), var(--coral), var(--gold));
-            box-shadow: 0 0 24px rgba(255, 107, 95, 0.34);
+            box-shadow: 0 0 24px rgba(207, 92, 122, 0.34);
         }
 
         .meter-percent,
@@ -2584,31 +2584,31 @@
         .constellation-panel {
             background:
                 linear-gradient(180deg, rgba(5, 6, 13, 0.95), rgba(22, 18, 35, 0.98));
-            border-color: rgba(131, 197, 255, 0.18);
+            border-color: rgba(213, 155, 177, 0.2);
         }
 
         .constellation-field {
             border-radius: 8px;
-            border: 1px solid rgba(131, 197, 255, 0.16);
+            border: 1px solid rgba(213, 155, 177, 0.16);
             background:
-                linear-gradient(135deg, rgba(117, 227, 196, 0.08), transparent 42%),
-                linear-gradient(180deg, #080a14, #151224);
+                linear-gradient(135deg, rgba(240, 165, 184, 0.1), transparent 42%),
+                linear-gradient(180deg, #130d1b, #26162e);
         }
 
         .star-btn.discovered .star-core,
         .star-btn.active .star-core {
-            background: rgba(117, 227, 196, 0.96);
-            box-shadow: 0 0 14px 4px rgba(117, 227, 196, 0.56), 0 0 32px 8px rgba(255, 107, 95, 0.16);
+            background: rgba(240, 165, 184, 0.96);
+            box-shadow: 0 0 14px 4px rgba(240, 165, 184, 0.56), 0 0 32px 8px rgba(207, 92, 122, 0.2);
         }
 
         .timeline-wrap::before {
-            background: linear-gradient(180deg, var(--mint), var(--coral), transparent);
+            background: linear-gradient(180deg, var(--blush), var(--coral), transparent);
         }
 
         .timeline-entry-dot {
             background: linear-gradient(135deg, var(--coral), var(--gold));
             color: #1f1215;
-            box-shadow: 0 0 0 5px rgba(255, 107, 95, 0.14);
+            box-shadow: 0 0 0 5px rgba(207, 92, 122, 0.16);
         }
 
         .footer {
@@ -2624,8 +2624,8 @@
 
         #splashScreen {
             background:
-                linear-gradient(135deg, rgba(117, 227, 196, 0.12), transparent 38%),
-                linear-gradient(160deg, #08070c, #2a1723 54%, #a43d45);
+                linear-gradient(135deg, rgba(240, 165, 184, 0.14), transparent 38%),
+                linear-gradient(160deg, #120911, #3a1829 54%, #9c3d5f);
         }
 
         .splash-inner {
@@ -2723,7 +2723,7 @@
         }
 
         .card {
-            background: rgba(255, 247, 232, 0.065);
+            background: rgba(255, 247, 232, 0.94);
             border-color: rgba(255, 247, 232, 0.22);
         }
 
@@ -3101,11 +3101,11 @@
 
         /* ── HERO ── */
         .name {
-            background: linear-gradient(135deg, #fff8f0 0%, #ffb8c6 40%, #ffddaa 70%, #c8f5e8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 4px 24px rgba(255,110,180,0.35));
+            color: #fff8f0;
+            -webkit-text-fill-color: currentColor;
+            background: none;
+            filter: none;
+            text-shadow: none;
         }
 
         .love-banner {
@@ -3281,6 +3281,317 @@
             }
             .hold-button { width: 120px !important; height: 120px !important; }
         }
+
+        /* Final color and hero cleanup */
+        :root {
+            --ink: #21151b;
+            --paper: #fff7ec;
+            --cream: #fff7ec;
+            --text: #3a2830;
+            --text-soft: #6d5360;
+            --heading: #4b1729;
+            --rose: #a83255;
+            --rose-deep: #651c34;
+            --blush: #e7a6b4;
+            --coral: #bf5a67;
+            --gold: #c99a55;
+            --mint: #8fb8a8;
+            --blue: #9db8c6;
+            --violet: #9a7891;
+            --bubblegum: #b63a61;
+            --peach: #d8a463;
+            --lavender: #9b7892;
+            --mint-pop: #8fb8a8;
+            --sky: #9db8c6;
+            --cream-pop: #fff7ec;
+            --shadow-lg: 0 28px 70px rgba(33, 21, 27, 0.28);
+            --shadow-md: 0 16px 42px rgba(33, 21, 27, 0.14);
+        }
+
+        body {
+            background:
+                linear-gradient(135deg, rgba(255, 247, 236, 0.05) 0 1px, transparent 1px 28px),
+                linear-gradient(160deg, #120a10 0%, #2b111c 38%, #5d2337 70%, #e5b890 100%) !important;
+            color: var(--text) !important;
+            overflow-x: hidden;
+        }
+
+        .card,
+        .quick-nav,
+        .panel,
+        .phrase,
+        .mobile-note {
+            background: linear-gradient(180deg, rgba(255, 247, 236, 0.97), rgba(250, 232, 218, 0.92)) !important;
+            border-color: rgba(101, 28, 52, 0.12) !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+
+        .hero {
+            min-height: clamp(460px, 68vh, 760px) !important;
+            background:
+                linear-gradient(180deg, rgba(18, 10, 16, 0.06), rgba(18, 10, 16, 0.62)),
+                linear-gradient(135deg, #130b11 0%, #351722 44%, #773047 76%, #df9f72 100%) !important;
+            filter: none !important;
+            -webkit-filter: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            color: var(--cream) !important;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        .hero::before {
+            border-color: rgba(255, 247, 236, 0.34) !important;
+        }
+
+        .name,
+        .splash-title {
+            color: var(--cream) !important;
+            -webkit-text-fill-color: var(--cream) !important;
+            background: none !important;
+            filter: none !important;
+            -webkit-filter: none !important;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+            letter-spacing: 0 !important;
+        }
+
+        .love-banner,
+        .meter-fill,
+        #scrollProgress {
+            background: linear-gradient(90deg, var(--rose-deep), var(--rose), var(--gold)) !important;
+            box-shadow: 0 0 18px rgba(168, 50, 85, 0.26) !important;
+        }
+
+        .love-banner span,
+        .command-kicker {
+            background: #120a10 !important;
+            color: var(--cream) !important;
+        }
+
+        .command-btn,
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .poem-button,
+        .date-button,
+        .hug-button,
+        .close-forever,
+        .apology-button,
+        .wish-button,
+        .pinky-button {
+            background: linear-gradient(135deg, #651c34 0%, #a83255 62%, #c99a55 100%) !important;
+            border-color: rgba(255, 247, 236, 0.2) !important;
+            box-shadow: 0 14px 32px rgba(101, 28, 52, 0.24) !important;
+            color: var(--cream) !important;
+        }
+
+        .command-btn::after {
+            background: linear-gradient(90deg, rgba(201, 154, 85, 0.34), rgba(231, 166, 180, 0.28)) !important;
+        }
+
+        .quick-nav a:hover {
+            background: linear-gradient(135deg, var(--rose-deep), var(--rose)) !important;
+            box-shadow: 0 8px 20px rgba(101, 28, 52, 0.22) !important;
+        }
+
+        #splashScreen {
+            background:
+                linear-gradient(160deg, #120a10 0%, #351722 58%, #8a3b54 100%) !important;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+
+        .splash-inner {
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .splash-sub,
+        .splash-tap,
+        .hero-note,
+        .eyebrow {
+            color: rgba(255, 247, 236, 0.9) !important;
+        }
+
+        .splash-tap {
+            background: rgba(255, 247, 236, 0.12) !important;
+            border-color: rgba(255, 247, 236, 0.28) !important;
+        }
+
+        .panel-title,
+        .mobile-note h2,
+        .daily-note-text,
+        .greeting-text,
+        .forever-title {
+            color: var(--heading) !important;
+            -webkit-text-fill-color: currentColor !important;
+            background: none !important;
+        }
+
+        .love-book {
+            display: grid;
+            gap: 18px;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(255, 247, 236, 0.98), rgba(244, 219, 204, 0.92)) !important;
+        }
+
+        .book-cover {
+            display: grid;
+            gap: 10px;
+            padding: clamp(18px, 4vw, 34px);
+            border-radius: 8px;
+            color: var(--cream);
+            background:
+                linear-gradient(135deg, rgba(18, 10, 16, 0.72), rgba(101, 28, 52, 0.86)),
+                linear-gradient(90deg, var(--rose-deep), var(--rose), var(--gold));
+            box-shadow: 0 18px 44px rgba(33, 21, 27, 0.18);
+        }
+
+        .book-cover .panel-title,
+        .book-intro,
+        .book-kicker {
+            color: var(--cream) !important;
+        }
+
+        .book-kicker {
+            width: fit-content;
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: rgba(255, 247, 236, 0.12);
+            border: 1px solid rgba(255, 247, 236, 0.22);
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .book-intro {
+            max-width: 680px;
+            margin: 0;
+            font-weight: 800;
+            line-height: 1.7;
+        }
+
+        .book-pages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .book-page {
+            min-height: 190px;
+            padding: 18px;
+            border-radius: 8px;
+            background: rgba(255, 250, 244, 0.88);
+            border: 1px solid rgba(101, 28, 52, 0.12);
+            box-shadow: 0 12px 28px rgba(33, 21, 27, 0.08);
+        }
+
+        .book-page.main-page {
+            grid-column: span 2;
+            background:
+                linear-gradient(135deg, rgba(255, 250, 244, 0.96), rgba(239, 211, 196, 0.82));
+        }
+
+        .book-page h3,
+        .book-page summary {
+            color: var(--heading);
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.3rem, 3vw, 1.85rem);
+            font-weight: 800;
+            line-height: 1.05;
+        }
+
+        .book-page h3,
+        .book-page p {
+            margin: 0;
+        }
+
+        .book-page p {
+            margin-top: 12px;
+            color: var(--text-soft);
+            font-weight: 700;
+            line-height: 1.75;
+        }
+
+        .page-number {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--rose);
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .book-page summary {
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .book-page summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .book-page summary span {
+            display: inline;
+            background-image: linear-gradient(transparent 64%, rgba(201, 154, 85, 0.32) 64%);
+        }
+
+        .book-page[open] {
+            background: rgba(255, 250, 244, 0.98);
+        }
+
+        .letter-open .hidden-letter {
+            max-height: 620px !important;
+        }
+
+        @media (max-width: 680px) {
+            .book-page.main-page {
+                grid-column: auto;
+            }
+
+            .book-page {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                min-height: 520px !important;
+                padding-inline: 14px !important;
+            }
+
+            .eyebrow,
+            .love-banner,
+            .hero-note,
+            .command-copy p,
+            .quick-nav a {
+                max-width: 100%;
+                min-width: 0;
+                overflow-wrap: anywhere;
+                white-space: normal;
+            }
+
+            .name {
+                font-size: clamp(3rem, 16vw, 4.25rem) !important;
+                max-width: 100%;
+            }
+
+            .love-banner span,
+            .command-btn span:last-child {
+                min-width: 0;
+                overflow-wrap: anywhere;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3334,6 +3645,7 @@
                         <a href="#dailyNotePanel">Today</a>
                         <a href="#apologySection">For You, Hayete</a>
                         <a href="#letterPanel">Letter</a>
+                        <a href="#littleBookSection">Book</a>
                         <a href="#reasonsSection">Reasons</a>
                         <a href="#scrapbookSection">Memories</a>
                         <a href="#constellationSection">Stars</a>
@@ -3371,6 +3683,8 @@
                         <div class="apology-layout">
                             <div class="apology-letter">
                                 <p class="apology-copy">I adore you with all my heart, Vanessa. You are my hayete, my rouhi, my albi, and the one person I want in every chapter of my life.</p>
+                                <p class="apology-copy">I love you so much, more than I know how to explain sometimes. I am sorry for every moment I have ever made your heart feel heavy, even for a second.</p>
+                                <p class="apology-copy">If I ever make you sad, I want you to know I never want to be the reason your smile disappears. I want to learn you better, love you softer, and protect the peace between us.</p>
                                 <p class="apology-copy">I cannot live without you. You are my life, my calm, and my home even when we are far apart.</p>
                                 <p class="apology-copy">Every day, I choose you. Every night, I think of you. Every dream I have includes you beside me.</p>
                                 <p class="apology-copy">إنتِ حياتي يا عمري، وما بقدر عيش بلاكِ. بحبّك قدّ الدنيا وكل شي فيها.</p>
@@ -3411,7 +3725,7 @@
                         </button>
                         <p class="letter-hint">Tap the envelope and let it unfold slowly.</p>
                         <div class="hidden-letter" id="loveLetter">
-                            <p>Vanessa, even though I cannot hold your hand right now, I hold you in my heart every single second. The distance only makes me love you louder. I cannot wait for the day I get to see your face again. Until then, every call, every text, every little "I love you" keeps me going. You are worth every mile. 💖</p>
+                            <p>Vanessa, even though I cannot hold your hand right now, I hold you in my heart every single second. I love you so much, and I am sorry for every time I made you sad when all I ever wanted was to make you feel safe, chosen, and adored. The distance only makes me love you louder. Until I can see your face again, every call, every text, and every little "I love you" keeps me going. You are worth every mile.</p>
                         </div>
                     </article>
                     <article class="panel meter reveal">
@@ -3425,6 +3739,44 @@
                         </div>
                         <button class="meter-button" id="meterButton" type="button">Add More Romance</button>
                     </article>
+                </section>
+                <section class="panel love-book reveal" id="littleBookSection" aria-labelledby="littleBookTitle">
+                    <div class="book-cover">
+                        <span class="book-kicker">A tiny book inside this website</span>
+                        <h2 class="panel-title" id="littleBookTitle">Little Book of Us</h2>
+                        <p class="book-intro">For Vanessa, from Habib. Open any page when your heart needs me close.</p>
+                    </div>
+                    <div class="book-pages">
+                        <article class="book-page main-page">
+                            <span class="page-number">Page 01</span>
+                            <h3>How I feel about you</h3>
+                            <p>I feel lucky that your name belongs in my life. Loving you feels like having a home in a person: soft, warm, safe, and impossible to replace. You are my favorite thought in the morning and the person my heart looks for at night.</p>
+                        </article>
+                        <details class="book-page" open>
+                            <summary><span>Read me when you need me</span></summary>
+                            <p>I am here, my love. Even if I am not beside you physically, I am with you in every way I can be. Take a breath and remember this: you are not too much, you are not alone, and you are deeply loved by me.</p>
+                        </details>
+                        <details class="book-page">
+                            <summary><span>Read me when I do something wrong</span></summary>
+                            <p>I am sorry, Vanessa. I never want my words, my mood, or my mistakes to hurt you. You matter more to me than my pride. I want to understand, fix what I can, and love you in the way your heart deserves.</p>
+                        </details>
+                        <details class="book-page">
+                            <summary><span>Read me when you feel sad</span></summary>
+                            <p>My sweet girl, I wish I could sit beside you and make the world quieter. Until then, please remember that your sadness does not make you hard to love. I love every version of you, including the tired and quiet ones.</p>
+                        </details>
+                        <details class="book-page">
+                            <summary><span>Read me when you miss me</span></summary>
+                            <p>I miss you too. I miss your voice, your face, your little ways, and the feeling of being close to you. The distance is real, but so are we. One day, there will be no screen between us.</p>
+                        </details>
+                        <details class="book-page">
+                            <summary><span>Read me when you need reassurance</span></summary>
+                            <p>I choose you. I choose you on easy days, on confusing days, on days when we need patience, and on days when love feels effortless. You are not a maybe to me. You are my person.</p>
+                        </details>
+                        <details class="book-page">
+                            <summary><span>Read me before you sleep</span></summary>
+                            <p>Close your eyes knowing you are loved beyond distance. I hope your dreams are gentle, your heart feels calm, and you wake up remembering that someone in this world is completely thankful for you.</p>
+                        </details>
+                    </div>
                 </section>
                 <section class="panel forever-panel reveal">
                     <h2 class="panel-title">A forever little promise</h2>
