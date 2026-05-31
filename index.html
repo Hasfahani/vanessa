@@ -76,6 +76,25 @@
             visibility: hidden;
         }
 
+        body.gate-locked {
+            overflow: hidden;
+        }
+
+        body.gate-locked .site,
+        body.gate-locked .secret-lock,
+        body.gate-locked .memory-fab,
+        body.gate-locked .audio-toggle {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        body.gate-unlocked .gate-lock {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
         h1,
         h2,
         h3,
@@ -128,6 +147,45 @@
             height: 1px;
             margin: 22px auto 0;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .gate-lock {
+            position: fixed;
+            inset: 0;
+            z-index: 19000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background:
+                radial-gradient(circle at center, rgba(201,168,76,0.14), transparent 28rem),
+                radial-gradient(circle at 20% 20%, rgba(139,0,0,0.34), transparent 22rem),
+                linear-gradient(145deg, #070202 0%, var(--wine) 52%, #33090b 100%);
+            transition: opacity 700ms ease, visibility 700ms ease;
+        }
+
+        .gate-card {
+            width: min(560px, 100%);
+            padding: clamp(28px, 7vw, 56px);
+            border: 1px solid rgba(201,168,76,0.84);
+            color: var(--ink);
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.45), transparent 32%),
+                linear-gradient(180deg, rgba(253,246,236,0.98), rgba(245,230,200,0.93));
+            box-shadow: var(--shadow), var(--gold-glow), inset 0 0 0 1px rgba(255,255,255,0.48);
+            text-align: center;
+        }
+
+        .gate-title {
+            margin: 0;
+            color: var(--crimson);
+            font: italic 700 clamp(3.2rem, 14vw, 7rem) / 0.9 "Cormorant Garamond", Georgia, serif;
+        }
+
+        .gate-copy {
+            margin: 16px auto 22px;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
         .scroll-progress {
@@ -1081,13 +1139,26 @@
         }
     </style>
 </head>
-<body>
+<body class="gate-locked">
     <div class="loader" id="loader" aria-hidden="true">
         <div class="loader-inner">
             <p class="loader-title">For Vanessa 💖</p>
             <div class="loader-line"></div>
         </div>
     </div>
+
+    <section class="gate-lock" id="websiteGate" aria-label="Password required">
+        <div class="gate-card">
+            <p class="eyebrow">For Vanessa only</p>
+            <h1 class="gate-title">Unlock Love</h1>
+            <p class="gate-copy">Enter the password to open Habib's anniversary letter.</p>
+            <form class="memory-form" id="websiteGateForm">
+                <input class="password-input" id="websiteGateInput" type="password" autocomplete="off" placeholder="Password" required>
+                <button class="gold-button" type="submit">Unlock website</button>
+                <div class="password-error" id="websiteGateError" aria-live="polite"></div>
+            </form>
+        </div>
+    </section>
 
     <canvas class="particle-canvas" id="particleCanvas" aria-hidden="true"></canvas>
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -1381,6 +1452,7 @@
         const canvas = $("#particleCanvas");
         const context = canvas.getContext("2d");
         const scrollProgress = $("#scrollProgress");
+        const websiteGate = $("#websiteGate");
         const heroTitle = $("#heroTitle");
         const secretLock = $("#secretLock");
         const passwordModal = $("#passwordModal");
@@ -1844,6 +1916,32 @@
             update();
         }
 
+        function initWebsiteGate() {
+            const input = $("#websiteGateInput");
+            const error = $("#websiteGateError");
+            const unlock = () => {
+                document.body.classList.remove("gate-locked");
+                document.body.classList.add("gate-unlocked");
+                websiteGate.setAttribute("aria-hidden", "true");
+                fullScreenBurst();
+            };
+
+            $("#websiteGateForm").addEventListener("submit", (event) => {
+                event.preventDefault();
+                if (input.value.trim().toLowerCase() !== SECRET_PASSWORD.toLowerCase()) {
+                    error.textContent = "Not quite. The password is the promise word.";
+                    input.classList.remove("shake");
+                    void input.offsetWidth;
+                    input.classList.add("shake");
+                    return;
+                }
+                error.textContent = "";
+                unlock();
+            });
+
+            window.setTimeout(() => input.focus(), 900);
+        }
+
         window.addEventListener("load", () => {
             window.setTimeout(() => document.body.classList.add("loaded"), 650);
         });
@@ -1872,6 +1970,7 @@
         initMemories();
         initAudio();
         initScroll();
+        initWebsiteGate();
     </script>
 </body>
 </html>
