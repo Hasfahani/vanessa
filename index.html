@@ -2018,12 +2018,10 @@
         }
 
         function initSecret() {
-            if (localStorage.getItem("vanessa-secret-lock-found") === "true") secretLock.classList.add("show");
             heroTitle.addEventListener("click", () => {
                 titleTaps += 1;
                 if (titleTaps === 5) {
                     secretLock.classList.add("show");
-                    localStorage.setItem("vanessa-secret-lock-found", "true");
                     createBurst(window.innerWidth - 42, 44, 40);
                 }
             });
