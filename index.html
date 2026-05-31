@@ -1326,6 +1326,279 @@
             70%, 100% { transform: translateX(55%) rotate(8deg); opacity: 0; }
         }
     </style>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ADORABLE EXTRAS — styles for all new features
+         ═══════════════════════════════════════════════════════ -->
+    <style>
+        /* Typewriter cursor */
+        .poem-cursor {
+            display: inline-block; width: 2px; height: 1.1em;
+            background: var(--gold); margin-left: 2px;
+            animation: cursorBlink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes cursorBlink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        @keyframes pop-in { from{opacity:0;transform:translateX(-50%) scale(0.7);}to{opacity:1;transform:translateX(-50%) scale(1);} }
+        @keyframes heart-pop { 0%{transform:scale(1);opacity:0.9;}50%{transform:scale(1.8);opacity:0.5;}100%{transform:scale(0.5);opacity:0;} }
+
+        /* Rain button */
+        .rain-btn {
+            position: fixed; bottom: 22px; left: 18px;
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(135deg, #c9a84c, #f3db91);
+            border: 2px solid rgba(245,230,200,0.55);
+            font-size: 1.45rem; cursor: pointer; z-index: 62;
+            box-shadow: 0 6px 22px rgba(201,168,76,0.42), 0 0 0 0 rgba(201,168,76,0);
+            animation: rain-glow 2.5s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        @keyframes rain-glow {
+            0%,100% { box-shadow: 0 6px 22px rgba(201,168,76,0.42), 0 0 0 0 rgba(201,168,76,0); }
+            50%      { box-shadow: 0 8px 28px rgba(201,168,76,0.52), 0 0 0 8px rgba(201,168,76,0.16); }
+        }
+        .rain-note {
+            position: fixed; pointer-events: none; z-index: 102;
+            background: rgba(253,246,236,0.97);
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 14px; padding: 10px 14px;
+            max-width: 185px; font-size: 0.79rem; font-weight: 700;
+            color: #8B0000; text-align: center; line-height: 1.5;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+            animation: note-rain var(--note-dur,6s) linear forwards;
+        }
+        @keyframes note-rain {
+            0%   { opacity:0; transform:translateY(-50px) rotate(var(--note-rot,0deg)); }
+            6%   { opacity:1; }
+            90%  { opacity:0.88; }
+            100% { opacity:0; transform:translateY(calc(100vh + 60px)) rotate(var(--note-rot2,5deg)); }
+        }
+
+        /* Hidden hearts */
+        .hidden-heart {
+            position: absolute; font-size: 1rem; cursor: pointer; z-index: 42;
+            opacity: 0.28; filter: drop-shadow(0 0 5px rgba(201,168,76,0.7));
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            user-select: none; -webkit-user-select: none;
+            touch-action: manipulation; padding: 10px;
+            -webkit-tap-highlight-color: transparent;
+            animation: hh-pulse 3.8s ease-in-out infinite;
+        }
+        .hidden-heart:hover, .hidden-heart:active { transform: scale(1.6) !important; opacity: 0.9 !important; }
+        .hidden-heart.found { animation: heart-pop 0.5s ease both; pointer-events: none; opacity: 0 !important; }
+        @keyframes hh-pulse { 0%,100%{opacity:0.22;} 50%{opacity:0.38;} }
+
+        .hearts-counter {
+            position: fixed; bottom: 84px; left: 18px;
+            background: rgba(26,10,10,0.92);
+            border: 1.5px solid rgba(201,168,76,0.5);
+            border-radius: 999px; padding: 6px 13px;
+            font-size: 0.73rem; font-weight: 900; color: var(--gold);
+            z-index: 62; pointer-events: none;
+            box-shadow: 0 5px 16px rgba(0,0,0,0.4);
+            white-space: nowrap;
+        }
+        .hearts-counter.bump { animation: hc-bump 0.4s ease; }
+        @keyframes hc-bump { 0%,100%{transform:scale(1);} 50%{transform:scale(1.22);} }
+
+        .heart-tooltip {
+            position: fixed; z-index: 135;
+            background: rgba(253,246,236,0.99);
+            border: 1.5px solid rgba(201,168,76,0.5);
+            border-radius: 18px; padding: 13px 17px;
+            max-width: 230px; font-size: 0.85rem; font-weight: 700;
+            color: #8B0000; text-align: center; line-height: 1.55;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+            pointer-events: none;
+            animation: pop-in 0.35s cubic-bezier(.34,1.56,.64,1) both;
+        }
+
+        .all-hearts-overlay {
+            position: fixed; inset: 0; z-index: 215;
+            display: grid; place-items: center; padding: 20px;
+            background: rgba(8,2,2,0.88); backdrop-filter: blur(18px);
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+        }
+        .all-hearts-overlay.show { opacity:1; visibility:visible; }
+        .all-hearts-inner {
+            max-width: 520px; width: 100%; padding: 34px 26px;
+            border: 1px solid rgba(201,168,76,0.82);
+            background: linear-gradient(180deg, #fff9ea, #efd9ac);
+            text-align: center;
+            box-shadow: var(--shadow), var(--gold-glow);
+        }
+        .all-hearts-inner h2 {
+            font: italic 700 clamp(1.7rem,6vw,2.4rem)/1.1 "Cormorant Garamond",Georgia,serif;
+            color: var(--crimson); margin: 0 0 12px;
+        }
+        .all-hearts-inner p {
+            color: var(--muted); font-weight: 700; line-height: 1.8;
+            margin: 0 0 20px; font-size: 0.95rem;
+        }
+        .all-hearts-inner button {
+            min-height: 48px; padding: 13px 24px;
+            background: linear-gradient(135deg, #8B0000, #C9A84C);
+            color: white; font-weight: 900; border: none; cursor: pointer;
+            box-shadow: 0 12px 28px rgba(139,0,0,0.3); font-size: 0.95rem;
+        }
+
+        /* Shooting star */
+        .shooting-star {
+            position: fixed; pointer-events: auto; z-index: 82; cursor: pointer;
+            font-size: 1.5rem;
+            animation: shoot-fly var(--star-dur,3.5s) linear forwards;
+            filter: drop-shadow(0 0 10px rgba(255,220,80,0.95));
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes shoot-fly {
+            0%   { opacity:0; transform:translate(0,0) rotate(-35deg); }
+            7%   { opacity:1; }
+            93%  { opacity:0.85; }
+            100% { opacity:0; transform:translate(var(--sdx),var(--sdy)) rotate(-35deg); }
+        }
+        .star-caught-msg {
+            position: fixed; z-index: 128; left:50%; top:32%;
+            transform: translateX(-50%) scale(0.85);
+            background: linear-gradient(180deg, #fff9ea, #efd9ac);
+            border: 1px solid rgba(201,168,76,0.82);
+            padding: 22px; max-width: 288px; width: 88vw; text-align: center;
+            box-shadow: var(--shadow), var(--gold-glow);
+            color: var(--crimson); font-weight: 700; line-height: 1.7;
+            font: italic 700 0.95rem/1.7 "Cormorant Garamond",Georgia,serif;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.34,1.56,.64,1);
+        }
+        .star-caught-msg.show { opacity:1; transform:translateX(-50%) scale(1); }
+
+        /* Heartbeat */
+        .heartbeat-btn {
+            width: 110px; height: 110px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffaac6, #c81e55);
+            box-shadow: 0 0 0 8px rgba(200,30,85,0.12), 0 18px 42px rgba(200,30,85,0.28);
+            font-size: 2.8rem; cursor: pointer; border: none;
+            margin: 0 auto 14px; display: block;
+            animation: hb-idle 1.8s ease-in-out infinite;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes hb-idle { 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+        @keyframes hb-beat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.26);} 28%{transform:scale(0.93);} 42%{transform:scale(1.18);} 56%{transform:scale(0.97);} }
+        .heartbeat-btn.beating { animation: hb-beat 0.75s ease-in-out infinite !important; }
+        .heartbeat-label { color: var(--gold); font: italic 600 1.05rem/1 "Cormorant Garamond",Georgia,serif; margin: 0 0 8px; text-align: center; }
+        .heartbeat-msg { margin:0; color: var(--champagne); font-weight:700; min-height:26px; transition:opacity 0.3s ease; text-align:center; }
+
+        /* Compliment display */
+        .compliment-display {
+            min-height: 68px; padding: 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--champagne);
+            font: italic 600 1rem/1.8 "Cormorant Garamond",Georgia,serif;
+            transition: opacity 0.3s ease; margin-bottom: 14px;
+        }
+
+        /* Constellation */
+        .constellation-field {
+            width: 100%; aspect-ratio: 16/9; max-height: 248px;
+            position: relative;
+            border: 1px solid rgba(131,197,255,0.16);
+            background: linear-gradient(180deg, #060810, #11102a);
+            margin: 14px 0; overflow: hidden;
+        }
+        .constellation-hint { color: rgba(200,180,255,0.72); font-size: 0.87rem; font-weight: 600; margin: 8px 0; text-align: center; }
+        .const-star-btn {
+            position: absolute; width: 30px; height: 30px;
+            border-radius: 50%; background: none; border: none;
+            cursor: pointer; padding: 0;
+            transform: translate(-50%, -50%);
+            display: grid; place-items: center;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+            z-index: 2;
+        }
+        .const-star-btn:hover .const-star-core { transform: scale(1.7); }
+        .const-star-core {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(220,210,255,0.45);
+            box-shadow: 0 0 5px 2px rgba(200,180,255,0.18);
+            transition: all 0.28s ease;
+        }
+        .const-star-btn.lit .const-star-core {
+            background: rgba(117,227,196,0.95);
+            box-shadow: 0 0 12px 4px rgba(117,227,196,0.58), 0 0 22px rgba(117,227,196,0.25);
+            transform: scale(1.5);
+        }
+        .constellation-svg { position:absolute; inset:0; pointer-events:none; width:100%; height:100%; }
+        .constellation-msg {
+            min-height: 44px; padding: 14px 18px;
+            background: rgba(255,255,250,0.06); border: 1px solid rgba(200,180,255,0.18);
+            color: rgba(240,230,255,0.88); font-weight: 700; line-height: 1.65;
+            text-align: center; transition: opacity 0.3s ease; margin: 0;
+        }
+
+        /* Typewriter display */
+        .tw-display {
+            min-height: 200px; padding: 22px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--champagne); font-weight: 600; line-height: 1.95;
+            font: italic 600 0.97rem/1.95 "Cormorant Garamond",Georgia,serif;
+            white-space: pre-wrap; word-break: break-word;
+            margin-bottom: 14px; overflow-y: auto; max-height: 320px;
+        }
+
+        /* Floating pet */
+        .floating-pet {
+            position: fixed; z-index: 72; cursor: pointer;
+            pointer-events: auto; user-select: none; -webkit-user-select: none;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+            transition: right 0.55s cubic-bezier(.34,1.56,.64,1), bottom 0.55s cubic-bezier(.34,1.56,.64,1);
+        }
+        .pet-bubble {
+            position: fixed; z-index: 74;
+            background: rgba(253,246,236,0.97);
+            border: 1.5px solid rgba(201,168,76,0.5);
+            padding: 9px 14px;
+            font-size: 0.82rem; font-weight: 700; color: #8B0000;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+            pointer-events: none; max-width: 186px; text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Idle float */
+        .idle-float {
+            position: fixed; bottom: 92px; left: 50%;
+            transform: translateX(-50%) translateY(24px);
+            background: rgba(26,10,10,0.96);
+            border: 1px solid rgba(201,168,76,0.5);
+            border-radius: 999px; padding: 11px 24px;
+            font-size: 0.87rem; font-weight: 800; color: var(--gold);
+            z-index: 88; box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            white-space: nowrap; max-width: 90vw;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .idle-float.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+        /* Scroll hearts */
+        .scroll-heart {
+            position: fixed; pointer-events: none; z-index: 32;
+            font-size: 0.88rem; opacity: 0.9;
+            animation: scroll-heart-anim 1s ease-out forwards;
+        }
+        @keyframes scroll-heart-anim {
+            0%   { opacity:0.9; transform:translateY(0) scale(1); }
+            100% { opacity:0;   transform:translateY(-72px) scale(0.4); }
+        }
+
+        @media (max-width: 699px) {
+            .rain-btn { width: 46px; height: 46px; font-size: 1.3rem; bottom: 18px; left: 14px; }
+            .hearts-counter { bottom: 74px; left: 14px; font-size: 0.7rem; }
+            .heartbeat-btn { width: 96px; height: 96px; font-size: 2.5rem; }
+            .constellation-field { max-height: 210px; }
+        }
+    </style>
 </head>
 <body class="gate-locked">
     <div class="loader" id="loader" aria-hidden="true">
@@ -1517,6 +1790,63 @@
                     <div class="quiz-message" id="quizMessage"></div>
                 </div>
             </section>
+
+            <div class="flourish" aria-hidden="true">
+                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="7" fill="currentColor"/></svg>
+            </div>
+
+            <!-- 💗 TAP TO HEAR MY HEARTBEAT -->
+            <section class="section card reveal" id="heartbeatSection">
+                <p class="eyebrow">Beating for one person only</p>
+                <h2 class="section-title">Tap to Hear My Heartbeat</h2>
+                <div style="text-align:center;padding:14px 0 4px">
+                    <button class="heartbeat-btn" id="heartbeatBtn" type="button" aria-label="Tap to hear heartbeat">💗</button>
+                    <p class="heartbeat-label">Tap me</p>
+                    <p class="heartbeat-msg" id="heartbeatMsg">This beats for you.</p>
+                </div>
+            </section>
+
+            <div class="flourish" aria-hidden="true">
+                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 8l9 9-9 17-9-17 9-9Z" fill="currentColor"/></svg>
+            </div>
+
+            <!-- ✦ OUR CONSTELLATION -->
+            <section class="section card reveal" id="constellationSection">
+                <p class="eyebrow">Written in the night sky for you</p>
+                <h2 class="section-title">Our Constellation ✦</h2>
+                <p class="constellation-hint">Tap each star to light it up — follow the shape they make together.</p>
+                <div class="constellation-field" id="constellationField"><!-- stars injected by JS --></div>
+                <p class="constellation-msg" id="constellationMsg">The stars are waiting for you... ✦</p>
+            </section>
+
+            <div class="flourish" aria-hidden="true">
+                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M308 12h24v18h-24z" fill="currentColor"/></svg>
+            </div>
+
+            <!-- 🖊️ TYPEWRITER LOVE LETTER -->
+            <section class="section card reveal" id="typewriterSection">
+                <p class="eyebrow">Written just for you, live</p>
+                <h2 class="section-title">A Letter, Written Live</h2>
+                <div class="tw-display" id="twLetterDisplay"><span class="poem-cursor"></span></div>
+                <div class="controls">
+                    <button class="gold-button" id="twLetterBtn" type="button">Begin the letter 🖊️</button>
+                </div>
+            </section>
+
+            <div class="flourish" aria-hidden="true">
+                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="9" fill="currentColor"/></svg>
+            </div>
+
+            <!-- 💛 COMPLIMENT GENERATOR -->
+            <section class="section card reveal" id="complimentSection">
+                <p class="eyebrow">Because you deserve to hear it</p>
+                <h2 class="section-title">Tell Me Something Sweet</h2>
+                <div class="compliment-display" id="complimentDisplay">Press the button and let Habib say something just for you. 💛</div>
+                <div class="controls">
+                    <button class="gold-button" id="complimentBtn" type="button">Tell me something 💛</button>
+                </div>
+            </section>
+
         </div>
 
         <footer class="footer">
@@ -1524,6 +1854,38 @@
             <p>Made with every piece of me, written for the most special person in my heart — forever yours, Habib 💖</p>
         </footer>
     </main>
+
+    <!-- ── ADORABLE EXTRAS: Fixed + Overlay Elements ── -->
+
+    <!-- Rain notes button (fixed bottom-left) -->
+    <button class="rain-btn" id="rainBtn" type="button" aria-label="Rain love notes">💛</button>
+
+    <!-- Hidden hearts counter -->
+    <div class="hearts-counter" id="heartsCounter">💛 Hidden hearts: 0/5</div>
+
+    <!-- Heart tooltip (shown when a hidden heart is tapped) -->
+    <div class="heart-tooltip" id="heartTooltip" style="display:none;" role="status" aria-live="polite"></div>
+
+    <!-- All 5 hearts found overlay -->
+    <div class="all-hearts-overlay" id="allHeartsOverlay" role="dialog" aria-modal="true" aria-labelledby="ahTitle">
+        <div class="all-hearts-inner">
+            <div style="font-size:2.2rem;margin-bottom:12px">💛💛💛💛💛</div>
+            <h2 id="ahTitle">You found every hidden heart 💛</h2>
+            <!-- ✏️ EDIT: all-hearts message below -->
+            <p>And now you know a secret: I have hidden little pieces of love like this all over my life for you. In every voice note, every late-night text, every moment I said nothing but smiled. You were always the treasure at the end of the search. I love you completely, Vanessa.</p>
+            <button type="button" id="ahCloseBtn">Keep this close 💛</button>
+        </div>
+    </div>
+
+    <!-- Shooting star caught message -->
+    <div class="star-caught-msg" id="starCaughtMsg" role="status">
+        <div style="font-size:1.8rem;margin-bottom:10px">⭐</div>
+        <!-- ✏️ EDIT: shooting star message below -->
+        Make a wish… mine already came true when I met you ⭐
+    </div>
+
+    <!-- Idle detection message -->
+    <div class="idle-float" id="idleFloat" role="status" aria-live="polite"></div>
 
     <section class="modal" id="passwordModal" aria-hidden="true">
         <div class="modal-content">
@@ -2206,6 +2568,519 @@
         initAudio();
         initScroll();
         initWebsiteGate();
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ADORABLE EXTRAS — All new interactive features
+         ✏️ Search "✏️ EDIT" to find all editable text content
+         ═══════════════════════════════════════════════════════ -->
+    <script>
+    (function () {
+        'use strict';
+
+        // ─────────────────────────────────────────────────────
+        // ✏️ EDIT: All message content lives here
+        // ─────────────────────────────────────────────────────
+
+        // ✏️ EDIT: Messages shown when she finds each hidden heart (in order)
+        const hiddenHeartMessages = [
+            "You found one 💛 — I love the way you laugh",
+            "Found it! 💛 — I love how soft your heart is",
+            "There you are 💛 — I love your voice in the morning",
+            "You found me 💛 — I love that you still get excited about small things",
+            "Last one 💛 — I love that you found all of them, just like I knew you would"
+        ];
+
+        // ✏️ EDIT: Reasons that rain down when gold heart button is tapped
+        const rainReasons = [
+            "Your laugh makes everything better 💛",
+            "You are kinder than you know 💛",
+            "Same moon, same love 🌙",
+            "You are my favourite thought 💛",
+            "The way you care so deeply 💛",
+            "Your voice is my favourite sound 💛",
+            "You make me braver 💛",
+            "Your patience amazes me 💛",
+            "You are softer than you think 💛",
+            "I love you across every mile 💛",
+            "You are so easy to love 💛",
+            "Your smile is everything 💛",
+            "You are genuinely one of a kind 💛",
+            "I choose you every single day 💛",
+            "You are my calm place 💛",
+            "Being loved by you is a gift 💛"
+        ];
+
+        // ✏️ EDIT: Heartbeat button messages (cycle through on each tap)
+        const heartbeatMessages = [
+            "This beats for you 💗",
+            "Every single beat, just for you 💗",
+            "You are what it's beating for 💗",
+            "Count every one — they're all yours 💗"
+        ];
+
+        // ✏️ EDIT: 28 compliments shown one by one when "Tell me something" is pressed
+        const compliments = [
+            "You have a warmth that makes any room feel like home.",
+            "The way you care about people is one of the most beautiful things about you.",
+            "You are genuinely one of the most thoughtful people I have ever known.",
+            "Your kindness is the kind that changes people. It changed me.",
+            "There is something about your laugh that makes everything better immediately.",
+            "I catch myself smiling just thinking about you — like right now.",
+            "You are the kind of person songs are actually written about.",
+            "Loving you is the easiest thing I have ever done.",
+            "You make ordinary moments feel like the ones worth remembering.",
+            "I would choose you in every life, in every version of the world.",
+            "The way you say my name still does something to my heart.",
+            "You are softer and stronger than you give yourself credit for.",
+            "Your eyes when you are happy are one of my favourite things.",
+            "You have this gentle way of making people feel seen. It is rare.",
+            "I love who I am when I am with you.",
+            "You are dangerously adorable and I am not sure you fully know it.",
+            "If sweetness were a person, it would look exactly like you.",
+            "You are my favourite notification, my favourite thought, my favourite everything.",
+            "You could not be annoying if you tried. I have checked.",
+            "The fact that you exist and are mine is genuinely unbelievable.",
+            "You carry so much grace, even on the days you do not feel it.",
+            "You are the reason I believe in the kind of love people write poems about.",
+            "There is nobody I would rather figure out the world with than you.",
+            "You are everything I did not know I needed until you were there.",
+            "My favourite version of any day is one that has you in it.",
+            "You are so easy to love, Vanessa. So incredibly easy.",
+            "The distance could never undo how deeply I feel for you.",
+            "You are the kind of beautiful that has nothing to do with how you look."
+        ];
+
+        // ✏️ EDIT: Constellation reveal message (shown when all stars are lit)
+        const constellationMessage = "Even the stars spell out us ✶";
+
+        // ✏️ EDIT: The full typewriter love letter
+        const typewriterLetter = `My dearest Vanessa,\n\nIf I could write you a letter long enough to fill the distance between us, I would. Instead, know this: every single day I wake up a little more certain that you are the best thing that has ever found me.\n\nYou have this way of making me feel like everything is going to be okay, even when I am worried, even when we are far apart, even when the silence between calls stretches too long.\n\nI love your honesty. I love your heart. I love how you love the people around you. I love that you are reading this right now, somewhere out there, and I hope it makes you feel even a fraction of how much I carry you with me.\n\nThis is not just a letter. It is a promise that I will keep writing them, keep saying it, keep choosing you.\n\nAll of me, always,\nHabib \u{1F49B}`;
+
+        // ✏️ EDIT: Messages the floating pet says when it peeks out
+        const petMessages = [
+            "Psst… he loves you 💛",
+            "You are very cute, just so you know 🐾",
+            "He asked me to remind you: you are adored 💛",
+            "Even I can see how much he loves you 🐱",
+            "Peek-a-boo! Just checking you are okay 💛"
+        ];
+
+        // ✏️ EDIT: Idle messages (shown after 20 seconds of no interaction)
+        const idleMessages = [
+            "Still here? Good. Stay a while with me 💛",
+            "Take your time. I am not going anywhere 💛",
+            "No rush. This page belongs to you 💛"
+        ];
+
+        // ─────────────────────────────────────────────────────
+        // State
+        // ─────────────────────────────────────────────────────
+        const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        let heartsFound = 0;
+        const TOTAL_HEARTS = 5;
+        let complimentIdx = 0;
+        let heartbeatMsgIdx = 0;
+        let petMsgIdx = 0;
+        let idleMsgIdx = 0;
+        let idleShown = false;
+        let lastActivity = Date.now();
+        let isBeating = false;
+        let lastScrollY = 0;
+        let lastScrollTime = 0;
+        let scrollHeartThrottle = null;
+        let petVisible = false;
+        let petBubbleEl = null;
+        let twTyping = false;
+        let twTimeoutId = null;
+
+        function mk(tag, cls) { const e = document.createElement(tag); if (cls) e.className = cls; return e; }
+        function after(ms, fn) { return window.setTimeout(fn, ms); }
+        function burst(x, y, n) { if (typeof createBurst === "function") createBurst(x, y, n || 30); }
+
+        // ─────────────────────────────────────────────────────
+        // RAIN REASONS — gold heart button rains love notes
+        // ─────────────────────────────────────────────────────
+        const rainBtn = document.getElementById("rainBtn");
+
+        function spawnRainNote() {
+            if (prefersReduced()) return;
+            const note = mk("div", "rain-note");
+            note.textContent = rainReasons[Math.floor(Math.random() * rainReasons.length)];
+            const x = 5 + Math.random() * 82;
+            const rot = -10 + Math.random() * 20;
+            note.style.left = x + "vw";
+            note.style.top = "0";
+            note.style.setProperty("--note-rot", rot + "deg");
+            note.style.setProperty("--note-rot2", (rot + 8 + Math.random() * 6) + "deg");
+            const dur = 5 + Math.random() * 3;
+            note.style.setProperty("--note-dur", dur + "s");
+            document.body.appendChild(note);
+            after((dur + 0.5) * 1000, () => note.remove());
+        }
+
+        if (rainBtn) {
+            rainBtn.addEventListener("click", () => {
+                for (let i = 0; i < 8; i++) after(i * 360, spawnRainNote);
+                const iv = window.setInterval(spawnRainNote, 400);
+                after(8000, () => window.clearInterval(iv));
+            });
+        }
+
+        // ─────────────────────────────────────────────────────
+        // HIDDEN HEARTS — 5 tiny hearts scattered across sections
+        // ─────────────────────────────────────────────────────
+        const heartsCounter = document.getElementById("heartsCounter");
+        const heartTooltip  = document.getElementById("heartTooltip");
+        const allHeartsOv   = document.getElementById("allHeartsOverlay");
+        const ahCloseBtn    = document.getElementById("ahCloseBtn");
+
+        if (ahCloseBtn) ahCloseBtn.addEventListener("click", () => allHeartsOv.classList.remove("show"));
+        allHeartsOv && allHeartsOv.addEventListener("click", (e) => { if (e.target === allHeartsOv) allHeartsOv.classList.remove("show"); });
+
+        const heartPlacements = [
+            { id: "dedication",      css: { top: "10px",    right: "12px" }, msg: 0 },
+            { id: "reasons",         css: { bottom: "10px", left: "10px"  }, msg: 1 },
+            { id: "timelineSection", css: { top: "10px",    right: "10px" }, msg: 2 },
+            { id: "letter",          css: { bottom: "10px", right: "10px" }, msg: 3 },
+            { id: "quiz",            css: { top: "10px",    left: "10px"  }, msg: 4 },
+        ];
+
+        function showHeartTooltip(heart, msgIdx) {
+            if (!heartTooltip) return;
+            heartTooltip.textContent = hiddenHeartMessages[msgIdx] || "You found a hidden heart 💛";
+            heartTooltip.style.display = "block";
+            heartTooltip.style.animation = "none";
+            void heartTooltip.offsetWidth;
+            heartTooltip.style.animation = "";
+            const rect = heart.getBoundingClientRect();
+            let top = rect.bottom + 12, left = rect.left + rect.width / 2;
+            const tw = 230;
+            if (left + tw / 2 > window.innerWidth - 10) left = window.innerWidth - tw / 2 - 10;
+            if (left - tw / 2 < 10) left = tw / 2 + 10;
+            if (top + 90 > window.innerHeight) top = rect.top - 98;
+            heartTooltip.style.top = top + "px";
+            heartTooltip.style.left = left + "px";
+            heartTooltip.style.transform = "translateX(-50%)";
+            after(3200, () => { heartTooltip.style.display = "none"; });
+        }
+
+        function handleHeartFound(heart, msgIdx) {
+            if (heart.dataset.found === "true") return;
+            heart.dataset.found = "true";
+            heartsFound++;
+            heart.classList.add("found");
+            showHeartTooltip(heart, msgIdx);
+            if (heartsCounter) {
+                heartsCounter.textContent = "💛 Hidden hearts: " + heartsFound + "/" + TOTAL_HEARTS;
+                heartsCounter.classList.remove("bump");
+                void heartsCounter.offsetWidth;
+                heartsCounter.classList.add("bump");
+            }
+            if (heartsFound >= TOTAL_HEARTS) {
+                after(900, () => { allHeartsOv && allHeartsOv.classList.add("show"); after(50, () => ahCloseBtn && ahCloseBtn.focus()); });
+            }
+        }
+
+        heartPlacements.forEach(({ id, css, msg }) => {
+            const section = document.getElementById(id);
+            if (!section) return;
+            if (window.getComputedStyle(section).position === "static") section.style.position = "relative";
+            const heart = mk("span", "hidden-heart");
+            heart.textContent = "💛";
+            heart.setAttribute("aria-label", "Hidden heart");
+            heart.setAttribute("role", "button");
+            heart.setAttribute("tabindex", "0");
+            heart.dataset.found = "false";
+            Object.assign(heart.style, css);
+            heart.addEventListener("click",    () => handleHeartFound(heart, msg));
+            heart.addEventListener("touchend", (e) => { e.preventDefault(); handleHeartFound(heart, msg); });
+            heart.addEventListener("keydown",  (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleHeartFound(heart, msg); } });
+            section.appendChild(heart);
+        });
+
+        // ─────────────────────────────────────────────────────
+        // HEARTBEAT — Web Audio + visual pulse
+        // ─────────────────────────────────────────────────────
+        const heartbeatBtn = document.getElementById("heartbeatBtn");
+        const heartbeatMsg = document.getElementById("heartbeatMsg");
+
+        function playHeartbeatSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                function beat(t, decay) {
+                    const osc = ctx.createOscillator(), gain = ctx.createGain();
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(90, t);
+                    osc.frequency.exponentialRampToValueAtTime(32, t + 0.1);
+                    gain.gain.setValueAtTime(0.45, t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t + decay);
+                    osc.start(t); osc.stop(t + decay);
+                }
+                const now = ctx.currentTime;
+                beat(now, 0.13); beat(now + 0.16, 0.2);
+                beat(now + 0.78, 0.13); beat(now + 0.94, 0.2);
+                after(2600, () => { try { ctx.close(); } catch (err) {} });
+            } catch (err) {}
+        }
+
+        if (heartbeatBtn && heartbeatMsg) {
+            let beatTimeout = null;
+            heartbeatBtn.addEventListener("click", () => {
+                if (!isBeating) {
+                    isBeating = true;
+                    heartbeatBtn.classList.add("beating");
+                    if (!prefersReduced()) playHeartbeatSound();
+                    heartbeatMsg.style.opacity = "0";
+                    after(220, () => { heartbeatMsg.textContent = heartbeatMessages[heartbeatMsgIdx % heartbeatMessages.length]; heartbeatMsgIdx++; heartbeatMsg.style.opacity = "1"; });
+                }
+                if (beatTimeout) window.clearTimeout(beatTimeout);
+                beatTimeout = after(5500, () => { isBeating = false; heartbeatBtn.classList.remove("beating"); });
+            });
+        }
+
+        // ─────────────────────────────────────────────────────
+        // COMPLIMENT GENERATOR — 28 sweet compliments
+        // ─────────────────────────────────────────────────────
+        const complimentDisplay = document.getElementById("complimentDisplay");
+        const complimentBtnEl   = document.getElementById("complimentBtn");
+
+        if (complimentDisplay && complimentBtnEl) {
+            const shuffled = compliments.slice().sort(() => Math.random() - 0.5);
+            complimentBtnEl.addEventListener("click", () => {
+                const c = shuffled[complimentIdx % shuffled.length];
+                complimentDisplay.style.opacity = "0";
+                after(220, () => { complimentDisplay.textContent = "“" + c + "”"; complimentDisplay.style.opacity = "1"; complimentIdx++; });
+                const rect = complimentBtnEl.getBoundingClientRect();
+                burst(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
+            });
+        }
+
+        // ─────────────────────────────────────────────────────
+        // SHOOTING STAR — periodic, tap to catch it
+        // ─────────────────────────────────────────────────────
+        const starCaughtEl = document.getElementById("starCaughtMsg");
+
+        function launchShootingStar() {
+            if (prefersReduced()) return;
+            const star = mk("div", "shooting-star");
+            star.textContent = "⭐";
+            const startX = 55 + Math.random() * 38, startY = 4 + Math.random() * 22;
+            star.style.left = startX + "vw";
+            star.style.top  = startY + "vh";
+            const dx = -(startX + 15 + Math.random() * 35), dy = 38 + Math.random() * 32, dur = 3 + Math.random() * 2;
+            star.style.setProperty("--sdx", dx + "vw");
+            star.style.setProperty("--sdy", dy + "vh");
+            star.style.setProperty("--star-dur", dur + "s");
+            let caught = false;
+            function catchStar() {
+                if (caught) return; caught = true;
+                star.style.opacity = "0";
+                after(200, () => star.remove());
+                if (starCaughtEl) { starCaughtEl.classList.add("show"); after(4200, () => starCaughtEl.classList.remove("show")); }
+                const rx = parseFloat(star.style.left) / 100 * window.innerWidth;
+                const ry = parseFloat(star.style.top)  / 100 * window.innerHeight;
+                burst(rx, ry, 50);
+            }
+            star.addEventListener("click", catchStar);
+            star.addEventListener("touchstart", (e) => { e.preventDefault(); catchStar(); }, { passive: false });
+            document.body.appendChild(star);
+            after((dur + 0.3) * 1000, () => { if (!caught) star.remove(); });
+        }
+
+        function scheduleStar() { const d = 16000 + Math.random() * 14000; after(d, () => { launchShootingStar(); scheduleStar(); }); }
+        after(9000, () => { launchShootingStar(); scheduleStar(); });
+
+        // ─────────────────────────────────────────────────────
+        // CONSTELLATION — tap stars to form a heart
+        // ─────────────────────────────────────────────────────
+        const constField = document.getElementById("constellationField");
+        const constMsg   = document.getElementById("constellationMsg");
+
+        if (constField && constMsg) {
+            const starPos = [[50,14],[32,19],[16,34],[12,51],[19,66],[34,77],[50,87],[66,77],[81,66],[88,51],[84,34],[68,19]];
+            const edges   = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,0]];
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("class", "constellation-svg");
+            constField.insertBefore(svg, constField.firstChild);
+            const starEls = [];
+            let litCount = 0;
+
+            starPos.forEach(([x, y], i) => {
+                const btn = mk("button", "const-star-btn");
+                btn.type = "button";
+                btn.setAttribute("aria-label", "Star " + (i + 1));
+                btn.style.left = x + "%"; btn.style.top = y + "%";
+                const core = mk("div", "const-star-core");
+                btn.appendChild(core);
+                constField.appendChild(btn);
+                starEls.push(btn);
+                btn.addEventListener("click", () => {
+                    if (btn.classList.contains("lit")) return;
+                    btn.classList.add("lit"); litCount++;
+                    edges.forEach(([a, b]) => {
+                        if ((a === i && starEls[b] && starEls[b].classList.contains("lit")) ||
+                            (b === i && starEls[a] && starEls[a].classList.contains("lit"))) drawConstLine(a, b);
+                    });
+                    if (litCount >= starPos.length) {
+                        after(260, () => { constMsg.style.opacity = "0"; after(280, () => { constMsg.textContent = constellationMessage; constMsg.style.opacity = "1"; }); });
+                        const fr = constField.getBoundingClientRect();
+                        burst(fr.left + fr.width / 2, fr.top + fr.height / 2, 60);
+                    } else {
+                        constMsg.textContent = litCount + " of " + starPos.length + " stars found… ✶";
+                    }
+                });
+            });
+
+            function drawConstLine(a, b) {
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", starPos[a][0] + "%"); line.setAttribute("y1", starPos[a][1] + "%");
+                line.setAttribute("x2", starPos[b][0] + "%"); line.setAttribute("y2", starPos[b][1] + "%");
+                line.setAttribute("stroke", "rgba(117,227,196,0.45)");
+                line.setAttribute("stroke-width", "1.5");
+                line.setAttribute("stroke-linecap", "round");
+                svg.appendChild(line);
+            }
+        }
+
+        // ─────────────────────────────────────────────────────
+        // TYPEWRITER LOVE LETTER — auto-starts on scroll into view
+        // ─────────────────────────────────────────────────────
+        const twDisplay = document.getElementById("twLetterDisplay");
+        const twBtn     = document.getElementById("twLetterBtn");
+
+        function startTypewriter() {
+            if (twTyping) return;
+            twTyping = true;
+            twBtn.disabled = true;
+            twBtn.textContent = "Writing…";
+            twDisplay.textContent = "";
+            const cursor = mk("span", "poem-cursor");
+            twDisplay.appendChild(cursor);
+            let i = 0;
+            function typeChar() {
+                if (i >= typewriterLetter.length) { twTyping = false; twBtn.disabled = false; twBtn.textContent = "Read it again 💛"; return; }
+                twDisplay.textContent = typewriterLetter.slice(0, i + 1);
+                twDisplay.appendChild(cursor);
+                twDisplay.scrollTop = twDisplay.scrollHeight;
+                i++;
+                const ch = typewriterLetter[i - 1];
+                const delay = ch === "\n" ? 75 : (ch === "." || ch === ",") ? 52 + Math.random() * 38 : 20 + Math.random() * 18;
+                twTimeoutId = after(delay, typeChar);
+            }
+            typeChar();
+        }
+
+        if (twDisplay && twBtn) {
+            const twSection = document.getElementById("typewriterSection");
+            if (twSection && !prefersReduced()) {
+                const twObs = new IntersectionObserver((entries) => {
+                    entries.forEach((e) => { if (e.isIntersecting && !twTyping && !twBtn.disabled) { after(500, startTypewriter); twObs.unobserve(twSection); } });
+                }, { threshold: 0.28 });
+                twObs.observe(twSection);
+            }
+            twBtn.addEventListener("click", () => {
+                if (twTimeoutId) { window.clearTimeout(twTimeoutId); twTimeoutId = null; }
+                twTyping = false; twBtn.disabled = false; startTypewriter();
+            });
+        }
+
+        // ─────────────────────────────────────────────────────
+        // FLOATING PET — cute gold cat peeks from right edge
+        // ─────────────────────────────────────────────────────
+        (function () {
+            const petEl = mk("div", "floating-pet");
+            petEl.setAttribute("aria-label", "Friendly cat");
+            petEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 56" width="64" height="56" aria-hidden="true"><ellipse cx="32" cy="42" rx="23" ry="15" fill="#c99a55"/><circle cx="32" cy="23" r="16" fill="#c99a55"/><polygon points="17,13 12,2 23,11" fill="#c99a55"/><polygon points="47,13 52,2 41,11" fill="#c99a55"/><polygon points="17,13 13,5 21,11" fill="#e8c87a" opacity="0.7"/><polygon points="47,13 51,5 43,11" fill="#e8c87a" opacity="0.7"/><circle cx="25" cy="22" r="4.5" fill="#1a0e09"/><circle cx="39" cy="22" r="4.5" fill="#1a0e09"/><circle cx="26.5" cy="20.5" r="1.5" fill="white"/><circle cx="40.5" cy="20.5" r="1.5" fill="white"/><ellipse cx="32" cy="27" rx="2.5" ry="1.5" fill="#c87050"/><path d="M29 29 Q32 32 35 29" stroke="#8b4040" stroke-width="1.2" fill="none" stroke-linecap="round"/><line x1="10" y1="26" x2="24" y2="27" stroke="#7a6030" stroke-width="0.8" opacity="0.55"/><line x1="10" y1="29" x2="24" y2="29" stroke="#7a6030" stroke-width="0.8" opacity="0.55"/><line x1="40" y1="27" x2="54" y2="26" stroke="#7a6030" stroke-width="0.8" opacity="0.55"/><line x1="40" y1="29" x2="54" y2="29" stroke="#7a6030" stroke-width="0.8" opacity="0.55"/><text x="22" y="54" font-size="13" fill="#c81e55">💛</text></svg>';
+            petEl.style.right = "-72px";
+            petEl.style.bottom = "150px";
+            document.body.appendChild(petEl);
+
+            function showPet() {
+                petVisible = true; petEl.style.right = "0px";
+                if (petBubbleEl) { petBubbleEl.remove(); petBubbleEl = null; }
+                petBubbleEl = mk("div", "pet-bubble");
+                petBubbleEl.textContent = petMessages[petMsgIdx % petMessages.length];
+                petMsgIdx++;
+                document.body.appendChild(petBubbleEl);
+                after(30, () => { const pr = petEl.getBoundingClientRect(); petBubbleEl.style.right = "74px"; petBubbleEl.style.bottom = Math.max(20, window.innerHeight - pr.bottom + pr.height * 0.4) + "px"; });
+                after(3600, hidePet);
+            }
+            function hidePet() { petVisible = false; petEl.style.right = "-72px"; after(600, () => { if (petBubbleEl) { petBubbleEl.remove(); petBubbleEl = null; } }); }
+
+            petEl.addEventListener("click",    () => petVisible ? hidePet() : showPet());
+            petEl.addEventListener("touchend", (e) => { e.preventDefault(); petVisible ? hidePet() : showPet(); }, { passive: false });
+
+            function schedulePet() { const d = 28000 + Math.random() * 18000; after(d, () => { if (!petVisible) showPet(); schedulePet(); }); }
+            after(14000, schedulePet);
+        })();
+
+        // ─────────────────────────────────────────────────────
+        // IDLE DETECTION — 20-second no-interaction message
+        // ─────────────────────────────────────────────────────
+        const idleFloatEl = document.getElementById("idleFloat");
+
+        function resetIdle() {
+            lastActivity = Date.now();
+            if (idleShown && idleFloatEl) { idleShown = false; idleFloatEl.classList.remove("show"); }
+        }
+        function checkIdle() {
+            if (!idleFloatEl || idleShown) return;
+            if (Date.now() - lastActivity >= 20000) {
+                idleShown = true;
+                idleFloatEl.textContent = idleMessages[idleMsgIdx % idleMessages.length];
+                idleMsgIdx++;
+                idleFloatEl.classList.add("show");
+                after(5500, () => { idleFloatEl.classList.remove("show"); idleShown = false; });
+            }
+        }
+        ["pointermove","pointerdown","keydown","touchstart","scroll","click"].forEach((ev) => document.addEventListener(ev, resetIdle, { passive: true }));
+        window.setInterval(checkIdle, 5000);
+
+        // ─────────────────────────────────────────────────────
+        // DOUBLE-TAP / DOUBLE-CLICK — heart burst at tap spot
+        // ─────────────────────────────────────────────────────
+        let lastTap = 0, lastTapX = 0, lastTapY = 0;
+
+        document.addEventListener("touchend", (e) => {
+            const now = Date.now(), touch = e.changedTouches[0];
+            if (!touch) return;
+            const dx = Math.abs(touch.clientX - lastTapX), dy = Math.abs(touch.clientY - lastTapY);
+            if (now - lastTap < 340 && dx < 34 && dy < 34) { burst(touch.clientX, touch.clientY, 30); lastTap = 0; }
+            else { lastTap = now; lastTapX = touch.clientX; lastTapY = touch.clientY; }
+        }, { passive: true });
+
+        document.addEventListener("dblclick", (e) => {
+            if (e.target.closest("button,a,input,select,textarea")) return;
+            burst(e.clientX, e.clientY, 30);
+        });
+
+        // ─────────────────────────────────────────────────────
+        // FAST-SCROLL HEARTS — hearts trail on rapid scroll
+        // ─────────────────────────────────────────────────────
+        const scrollEmoji = ["💛", "❤", "🌸", "✶", "💕"];
+
+        window.addEventListener("scroll", () => {
+            if (prefersReduced() || scrollHeartThrottle) return;
+            const now = Date.now(), dy = Math.abs(window.scrollY - lastScrollY), dt = now - lastScrollTime || 1;
+            if (dy / dt > 1.1 && dy > 50) {
+                for (let i = 0; i < 3; i++) {
+                    after(i * 80, () => {
+                        const h = mk("div", "scroll-heart");
+                        h.textContent = scrollEmoji[Math.floor(Math.random() * scrollEmoji.length)];
+                        h.style.left = (18 + Math.random() * 64) + "vw";
+                        h.style.top  = (25 + Math.random() * 50) + "vh";
+                        document.body.appendChild(h);
+                        after(1100, () => h.remove());
+                    });
+                }
+                scrollHeartThrottle = after(380, () => { scrollHeartThrottle = null; });
+            }
+            lastScrollY = window.scrollY; lastScrollTime = now;
+        }, { passive: true });
+
+    })();
     </script>
 </body>
 </html>
