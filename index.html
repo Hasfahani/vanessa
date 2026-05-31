@@ -896,6 +896,30 @@
             background: rgba(255,255,255,0.58);
         }
 
+        .password-input {
+            width: 100%;
+            min-height: 54px;
+            padding: 0 16px;
+            border: 1px solid rgba(201,168,76,0.72);
+            color: var(--ink);
+            background: rgba(255,255,255,0.68);
+            font-weight: 800;
+        }
+
+        .password-hint,
+        .password-error {
+            margin: 14px auto 0;
+            color: var(--muted);
+            line-height: 1.65;
+            text-align: center;
+        }
+
+        .password-error {
+            min-height: 24px;
+            color: var(--crimson);
+            font-weight: 800;
+        }
+
         .footer {
             margin-top: 34px;
             padding: clamp(60px, 9vw, 96px) 18px;
@@ -1231,6 +1255,20 @@
         </footer>
     </main>
 
+    <section class="modal" id="passwordModal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-button" id="closePassword" type="button" aria-label="Close password screen">×</button>
+            <p class="eyebrow">Vanessa only</p>
+            <h2 class="section-title">Unlock the Secret</h2>
+            <p class="password-hint">Password hint: what Habib promises.</p>
+            <form class="memory-form" id="passwordForm">
+                <input class="password-input" id="passwordInput" type="password" autocomplete="off" placeholder="Enter password" required>
+                <button class="gold-button" type="submit">Unlock</button>
+                <div class="password-error" id="passwordError" aria-live="polite"></div>
+            </form>
+        </div>
+    </section>
+
     <section class="secret-panel" id="secretPanel" aria-hidden="true">
         <div class="secret-content">
             <button class="close-button" id="closeSecret" type="button" aria-label="Close secret page">×</button>
@@ -1345,11 +1383,11 @@
         const scrollProgress = $("#scrollProgress");
         const heroTitle = $("#heroTitle");
         const secretLock = $("#secretLock");
+        const passwordModal = $("#passwordModal");
         const secretPanel = $("#secretPanel");
         const memoryModal = $("#memoryModal");
         let particles = [];
         let titleTaps = 0;
-        let secretUnlocked = localStorage.getItem("vanessa-secret-unlocked") === "true";
         let anniversaryBurstDone = false;
 
         function resizeCanvas() {
@@ -1677,24 +1715,41 @@
         }
 
         function initSecret() {
-            if (secretUnlocked) secretLock.classList.add("show");
+            if (localStorage.getItem("vanessa-secret-lock-found") === "true") secretLock.classList.add("show");
             heroTitle.addEventListener("click", () => {
                 titleTaps += 1;
                 if (titleTaps === 5) {
                     secretLock.classList.add("show");
+                    localStorage.setItem("vanessa-secret-lock-found", "true");
                     createBurst(window.innerWidth - 42, 44, 40);
                 }
             });
             secretLock.addEventListener("click", () => {
-                if (!secretUnlocked) {
-                    const answer = window.prompt("Password hint: what Habib promises?");
-                    if ((answer || "").trim().toLowerCase() !== SECRET_PASSWORD.toLowerCase()) return;
-                    secretUnlocked = true;
-                    localStorage.setItem("vanessa-secret-unlocked", "true");
+                passwordModal.classList.add("show");
+                passwordModal.setAttribute("aria-hidden", "false");
+                $("#passwordInput").value = "";
+                $("#passwordError").textContent = "";
+                window.setTimeout(() => $("#passwordInput").focus(), 60);
+            });
+            $("#passwordForm").addEventListener("submit", (event) => {
+                event.preventDefault();
+                const answer = $("#passwordInput").value.trim().toLowerCase();
+                if (answer !== SECRET_PASSWORD.toLowerCase()) {
+                    $("#passwordError").textContent = "Not quite. Try the word Habib means forever by.";
+                    $("#passwordInput").classList.remove("shake");
+                    void $("#passwordInput").offsetWidth;
+                    $("#passwordInput").classList.add("shake");
+                    return;
                 }
+                passwordModal.classList.remove("show");
+                passwordModal.setAttribute("aria-hidden", "true");
                 secretPanel.classList.add("show");
                 secretPanel.setAttribute("aria-hidden", "false");
                 fullScreenBurst();
+            });
+            $("#closePassword").addEventListener("click", () => {
+                passwordModal.classList.remove("show");
+                passwordModal.setAttribute("aria-hidden", "true");
             });
             $("#closeSecret").addEventListener("click", () => {
                 secretPanel.classList.remove("show");
