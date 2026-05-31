@@ -1375,6 +1375,8 @@
         const ANNIVERSARY_DATE = "2026-06-01T00:00:00";
         // EDIT THIS - password for the secret hidden page.
         const SECRET_PASSWORD = "forever";
+        // EDIT THIS - password for entering the website.
+        const WEBSITE_PASSWORD = "habib is the love of my life";
         // EDIT THIS - date when the love counter began.
         const LOVE_STARTED = "2026-05-16T00:00:00";
 
@@ -1928,7 +1930,7 @@
 
             $("#websiteGateForm").addEventListener("submit", (event) => {
                 event.preventDefault();
-                if (input.value.trim().toLowerCase() !== SECRET_PASSWORD.toLowerCase()) {
+                if (input.value.trim().toLowerCase() !== WEBSITE_PASSWORD.toLowerCase()) {
                     error.textContent = "Not quite. The password is the promise word.";
                     input.classList.remove("shake");
                     void input.offsetWidth;
