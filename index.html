@@ -929,6 +929,27 @@
             border: 0;
         }
 
+        .song-grid {
+            display: grid;
+            gap: 18px;
+            margin-top: 26px;
+        }
+
+        .song-card {
+            padding: 16px;
+            border: 1px solid rgba(201,168,76,0.62);
+            background: rgba(255,255,255,0.28);
+            box-shadow: 0 14px 32px rgba(58,13,11,0.12);
+        }
+
+        .song-caption {
+            margin: 12px 0 0;
+            color: var(--crimson);
+            font-weight: 800;
+            line-height: 1.5;
+            text-align: center;
+        }
+
         .vow {
             margin-top: 26px;
             padding: 22px;
@@ -1022,8 +1043,13 @@
             }
 
             .message-grid,
-            .interactive-grid {
+            .interactive-grid,
+            .song-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .song-card:first-child {
+                grid-column: 1 / -1;
             }
 
             .reason-wall {
@@ -1169,7 +1195,7 @@
     <main class="site">
         <section class="hero" id="top">
             <div class="hero-content">
-                <p class="eyebrow">A love letter across every mile</p>
+                <p class="eyebrow">A love letter for the woman who has my heart</p>
                 <h1 class="hero-title" id="heroTitle">Vanessa</h1>
                 <p class="hero-subtitle">Tomorrow, today, and every day after that, you are the answer my heart keeps choosing.</p>
                 <div class="countdown" id="countdown" aria-label="Countdown to our anniversary">
@@ -1196,7 +1222,7 @@
                 <h2 class="section-title">This is what my heart looks like when it thinks of you.</h2>
                 <p class="section-copy">Vanessa, I wanted this page to feel like opening a door into every soft, serious, impossible-to-explain thing I carry for you. It is not perfect because a website cannot hold all of it, but every shimmer here is trying.</p>
                 <div class="grid message-grid">
-                    <article class="mini-card"><h3>Every Mile</h3><p>The distance never wins. It only teaches me how much my heart can reach for you.</p></article>
+                    <article class="mini-card"><h3>Every Week</h3><p>Every time I see you, I remember that the best part of my life has a name.</p></article>
                     <article class="mini-card"><h3>Every Day</h3><p>I choose you in the quiet moments, in the busy ones, and in the seconds nobody else sees.</p></article>
                     <article class="mini-card"><h3>Every Dream</h3><p>When I picture my future, it has your laugh in it. It has your name. It has home.</p></article>
                     <article class="mini-card"><h3>Every Promise</h3><p>I am not loving you halfway. I am here with my whole heart, again and again.</p></article>
@@ -1248,7 +1274,7 @@
                     <div class="controls">
                         <button class="gold-button hug-button" id="hugButton" type="button">Send Vanessa a hug</button>
                     </div>
-                    <div class="hug-milestone" id="hugText">0 hugs sent across the miles.</div>
+                    <div class="hug-milestone" id="hugText">0 hugs saved for Vanessa.</div>
                 </article>
             </section>
 
@@ -1263,7 +1289,7 @@
                     <span class="envelope-seal">♥</span>
                 </button>
                 <div class="letter-paper" id="letterPaper">
-                    My Vanessa, loving you has become the softest certainty in my life. Even when we are far apart, you are close in the places that matter most. You are in my prayers, my plans, my late-night thoughts, and the quiet smile I get when your name appears. I do not want a love that only sounds beautiful. I want to build one that is patient, loyal, honest, and brave enough to survive every mile until I can finally hold your hand without counting the distance.
+                    My Vanessa, loving you has become the softest certainty in my life. You are in my prayers, my plans, my late-night thoughts, and the quiet smile I get when your name appears. I do not want a love that only sounds beautiful. I want to build one that is patient, loyal, honest, playful, and brave enough to keep choosing you in every season. Every time I see you, I feel it again: my heart knows exactly where it belongs.
                 </div>
             </section>
 
@@ -1322,7 +1348,7 @@
 
         <footer class="footer">
             <strong>Vanessa <span class="pulse-heart">♥</span></strong>
-            <p>Made with every piece of me, sent across all the miles, just for you — forever yours, Habib 💖</p>
+            <p>Made with every piece of me, written for the most special person in my heart — forever yours, Habib 💖</p>
         </footer>
     </main>
 
@@ -1346,15 +1372,35 @@
             <p class="eyebrow">Unlocked for Vanessa only</p>
             <h2 class="section-title">The Hidden Letter</h2>
             <div class="secret-letter">
-                <p>My Vanessa, if you found this, it means you touched my favorite word enough times for the page to understand what my heart already knows: everything secret in me wants to come home to you.</p>
-                <p>Long distance is not easy. It asks for patience on days when I just want to be near you. It asks for faith when time feels slow. But loving you has never felt like a burden. It feels like a promise I get to keep becoming worthy of. I choose you when I wake up. I choose you when I miss you. I choose you when the night gets quiet and all I can think about is how badly I want a future where goodbye is never the main thing between us.</p>
-                <p>I love the way your existence changes the shape of my days. I love that your name can soften me. I love that even across the miles, you still feel like the place my heart recognizes.</p>
+                <p>My Vanessa, this is the part of the website I wanted to keep hidden, because it is the closest thing here to my actual heart. If you are reading this, I want you to slow down for a second and know that every word was written for you, not for a page, not for a pretty design, but for the woman who became my life.</p>
+                <p>You are my life, Vanessa. You are not just someone I love when everything is easy. You are the person my heart chooses when I am happy, when I am tired, when I am quiet, when I am scared, when I am dreaming about the future. I cannot imagine a life that does not have you in it, because somehow you became part of the way I breathe, part of the way I hope, part of the reason ordinary days feel worth keeping.</p>
+                <p>Seeing you every week or two has made me realize something even deeper: I do not only miss you when you are not next to me. I love you even more when you are there. I love the real you. The way you speak, the way you look at me, the way your presence can change the whole room for me. Every time I leave you, I carry you with me. Every time I come back, my heart feels like it is returning to the safest place it knows.</p>
+                <p>No matter what happens, I will always stay. I will always love you. I will always fight for you, for us, for the future I see when I look at you. You will always be the most special person in my heart, the one I protect in my prayers, the one I choose with my whole chest, the one I never want to make feel alone.</p>
+                <p>I know love is not only big words and beautiful moments. Love is patience. Love is choosing each other again after hard days. Love is listening, forgiving, learning, holding on, and not letting temporary storms erase something rare. And Vanessa, what I feel for you is rare. It is soft, serious, deep, and stubborn in the best way. It is the kind of love that says: I am here, I am yours, and I am not leaving just because life becomes complicated.</p>
+                <p>Bhebbik ya mta3bit albi w law mahma wjoodik salbi. I love you in the language of my heart, in the quiet moments, in the loud ones, in the future I keep imagining, and in every version of tomorrow where I get to call you mine.</p>
+                <p>Happy anniversary, my love. Thank you for being my happiness, my softness, my reason, my favorite person, and the most beautiful part of my life. I love you more than this page can ever say.</p>
             </div>
-            <div class="video-frame">
-                <iframe src="https://www.youtube.com/embed/ysF4Hx14kJg" title="Wael Kfoury - El Waet Hdiye" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="song-grid">
+                <article class="song-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/ysF4Hx14kJg" title="Wael Kfoury - El Waet Hdiye" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <p class="song-caption">Every time this plays, I think of you 🎵</p>
+                </article>
+                <article class="song-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/iX4pSoKHN1M" title="Song for Vanessa 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <p class="song-caption">This one is for the way you live inside my heart.</p>
+                </article>
+                <article class="song-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/6FoLlcB0L4g" title="Song for Vanessa 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <p class="song-caption">And this one is for every promise I still want to keep.</p>
+                </article>
             </div>
-            <p class="section-copy">Every time this plays, I think of you 🎵</p>
-            <div class="vow">No matter the miles, no matter the time — I will always find my way back to you.</div>
+            <div class="vow">No matter what happens, I will always stay. I will always love you. You will always be the most special person in my heart.</div>
         </div>
     </section>
 
@@ -1408,7 +1454,7 @@
             },
             {
                 question: "What does Habib do when he misses you?",
-                answers: ["Pretends he is totally fine", "Counts the miles", "Chooses you even harder"],
+                answers: ["Pretends he is totally fine", "Looks forward to seeing you again", "Chooses you even harder"],
                 correct: 2
             },
             {
@@ -1419,7 +1465,7 @@
         ];
 
         const reasons = [
-            "✦ You make distance feel survivable.",
+            "✦ You make every week feel worth waiting for.",
             "♥ Your name changes my whole mood.",
             "❦ You are gentle in a way the world needs.",
             "◆ You make ordinary days feel chosen.",
@@ -1436,13 +1482,13 @@
         ];
 
         const poems = [
-            ["Across the quiet miles I send", "a golden thread that will not end,", "your name, a candle in the blue,", "my every road returns to you."],
-            ["If time becomes a sea between", "the life we have and what we dream,", "I will be faithful to the tide", "until I stand there by your side."],
+            ["Every week my heart can see", "the life you keep alive in me,", "your name, a candle in the blue,", "my every road returns to you."],
+            ["If time becomes a test for two", "I will keep choosing only you,", "through every season, calm or storm,", "your love will always feel like home."],
             ["Vanessa, soft as morning light,", "you live inside my longest night,", "and every star I whisper through", "is just my heart looking for you."]
         ];
 
         const dateIdeas = [
-            "A candlelit video dinner where we dress up like the distance is not invited.",
+            "A candlelit dinner where we dress up and make the night feel like a movie.",
             "A future walk at sunset with your hand in mine and nowhere urgent to be.",
             "A movie night where we press play at the same time and pause only to say I miss you.",
             "A little cafe date in a city we have not explored yet, with dessert first.",
@@ -1641,14 +1687,14 @@
             let hugs = Number(localStorage.getItem("vanessa-hug-count") || "0");
             const hugText = $("#hugText");
             const messages = [
-                [100, "100 hugs. At this point, the distance should be legally required to give up."],
+                [100, "100 hugs. At this point, my arms are officially saving your place."],
                 [50, "50 hugs. That is a whole little universe of missing you."],
                 [10, "10 hugs. Enough to wrap around a hard day and make it softer."],
-                [0, "hugs sent across the miles."]
+                [0, "hugs saved for Vanessa."]
             ];
             const update = () => {
                 const milestone = messages.find(([count]) => hugs >= count);
-                hugText.textContent = hugs === 0 ? "0 hugs sent across the miles." : `${hugs} hugs. ${milestone[1]}`;
+                hugText.textContent = hugs === 0 ? "0 hugs saved for Vanessa." : `${hugs} hugs. ${milestone[1]}`;
             };
             $("#hugButton").addEventListener("click", (event) => {
                 hugs += 1;
@@ -1931,7 +1977,7 @@
             $("#websiteGateForm").addEventListener("submit", (event) => {
                 event.preventDefault();
                 if (input.value.trim().toLowerCase() !== WEBSITE_PASSWORD.toLowerCase()) {
-                    error.textContent = "Not quite. The password is the promise word.";
+                    error.textContent = "Not quite. Enter the exact phrase Habib chose for you.";
                     input.classList.remove("shake");
                     void input.offsetWidth;
                     input.classList.add("shake");
