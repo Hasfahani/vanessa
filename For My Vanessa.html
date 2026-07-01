@@ -2726,7 +2726,7 @@
             margin-bottom: 14px; overflow: hidden;
         }
         .const-star-btn {
-            position: absolute; width: 30px; height: 30px;
+            position: absolute; width: 44px; height: 44px;
             border-radius: 50%; background: none; border: none;
             cursor: pointer; padding: 0;
             transform: translate(-50%, -50%);
@@ -2829,6 +2829,415 @@
             .constellation-field { max-height: 210px; }
         }
     </style>
+    <style>
+        /* Final clarity pass: stronger contrast for every readable surface. */
+        :root {
+            --text: #2b1820;
+            --text-soft: #4f3340;
+            --heading: #4a1025;
+            --cream: #fffaf2;
+            --focus-ring: #ffe8a8;
+        }
+
+        body,
+        .panel,
+        .phrase,
+        .mobile-note,
+        .quick-nav,
+        .book-page,
+        .polaroid,
+        .date-card,
+        .reason-display,
+        .poem-display,
+        .tw-display,
+        .compliment-display,
+        .all-hearts-inner,
+        .heart-tooltip,
+        .rain-note,
+        .pet-bubble,
+        .star-caught-msg,
+        .hold-burst-msg,
+        .forever-message {
+            color: var(--text) !important;
+        }
+
+        .panel,
+        .phrase,
+        .mobile-note,
+        .quick-nav,
+        .book-page,
+        .polaroid,
+        .date-card,
+        .reason-display,
+        .poem-display,
+        .tw-display,
+        .compliment-display,
+        .all-hearts-inner,
+        .heart-tooltip,
+        .rain-note,
+        .pet-bubble,
+        .star-caught-msg,
+        .hold-burst-msg,
+        .forever-message {
+            background: linear-gradient(180deg, rgba(255, 251, 244, 0.99), rgba(248, 229, 214, 0.96)) !important;
+            border-color: rgba(101, 28, 52, 0.22) !important;
+        }
+
+        .panel-title,
+        .greeting-text,
+        .countdown-text,
+        .song-title,
+        .forever-title,
+        .book-page h3,
+        .book-page summary,
+        .mobile-note h2,
+        .command-copy h2 {
+            color: var(--heading) !important;
+            -webkit-text-fill-color: currentColor !important;
+            background: none !important;
+            text-shadow: none !important;
+        }
+
+        .hero,
+        .love-command,
+        .book-cover,
+        .forever-overlay,
+        .constellation-panel,
+        .constellation-field,
+        .footer {
+            color: var(--cream) !important;
+        }
+
+        .love-command {
+            background:
+                linear-gradient(135deg, rgba(18, 10, 16, 0.92), rgba(101, 28, 52, 0.88)),
+                linear-gradient(90deg, #651c34, #a83255, #c99a55) !important;
+            border-color: rgba(255, 250, 242, 0.24) !important;
+            box-shadow: 0 24px 64px rgba(18, 10, 16, 0.28) !important;
+        }
+
+        .hero .eyebrow,
+        .hero-note,
+        .love-banner span,
+        .command-kicker,
+        .command-copy p,
+        .secret-strip,
+        .book-cover .panel-title,
+        .book-intro,
+        .book-kicker,
+        .constellation-hint,
+        .constellation-msg,
+        .footer,
+        .footer-note {
+            color: var(--cream) !important;
+            -webkit-text-fill-color: currentColor !important;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.62);
+        }
+
+        .name,
+        .love-command h2 {
+            color: var(--cream) !important;
+            -webkit-text-fill-color: currentColor !important;
+            background: none !important;
+            text-shadow: 0 8px 26px rgba(0, 0, 0, 0.56) !important;
+        }
+
+        .love-command .command-btn span:last-child {
+            color: var(--cream) !important;
+            -webkit-text-fill-color: currentColor !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .greeting-sub,
+        .mood-sub,
+        .mood-response,
+        .letter-hint,
+        .hidden-letter,
+        .forever-copy,
+        .forever-note,
+        .reason-text,
+        .reason-counter,
+        .polaroid-caption,
+        .polaroid-date,
+        .wish-hint,
+        .wish-display,
+        .hold-hint,
+        .hold-tip,
+        .heartbeat-label,
+        .heartbeat-msg,
+        .timer-tagline,
+        .timer-label,
+        .countdown-sub,
+        .song-caption,
+        .pinky-text,
+        .pinky-promise-item,
+        .hug-message,
+        .hug-counter,
+        .hug-milestone,
+        .all-hearts-inner p {
+            color: var(--text-soft) !important;
+        }
+
+        .command-btn,
+        .mood-btn,
+        .meter-button,
+        .forever-button,
+        .reason-button,
+        .poem-button,
+        .date-button,
+        .hug-button,
+        .compliment-btn,
+        .tw-btn,
+        .pinky-button,
+        .close-forever,
+        .all-hearts-inner button {
+            color: var(--cream) !important;
+            -webkit-text-fill-color: currentColor !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+        }
+
+        .quick-nav a,
+        .mood-btn {
+            color: var(--heading) !important;
+            background: rgba(255, 250, 244, 0.92) !important;
+            border-color: rgba(101, 28, 52, 0.2) !important;
+        }
+
+        .quick-nav a:hover,
+        .quick-nav a:focus-visible,
+        .mood-btn:hover,
+        .mood-btn:focus-visible,
+        .mood-btn.active {
+            color: var(--cream) !important;
+            background: linear-gradient(135deg, #651c34, #a83255) !important;
+        }
+
+        .timer-unit,
+        .meter-stats,
+        .hug-milestone,
+        .pinky-promise-item {
+            background: rgba(255, 250, 244, 0.96) !important;
+            border-color: rgba(101, 28, 52, 0.16) !important;
+        }
+
+        .timer-number,
+        .meter-percent,
+        .page-number {
+            color: #7a213c !important;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        [role="button"]:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid var(--focus-ring) !important;
+            outline-offset: 4px !important;
+        }
+
+        @media (max-width: 699px) {
+            .command-actions,
+            .mood-options,
+            .quick-nav-links {
+                gap: 10px !important;
+            }
+
+            .command-btn,
+            .mood-btn,
+            .meter-button,
+            .forever-button,
+            .reason-button,
+            .poem-button,
+            .date-button,
+            .hug-button,
+            .compliment-btn,
+            .tw-btn,
+            .pinky-button {
+                white-space: normal !important;
+            }
+
+            .love-command .command-actions {
+                grid-template-columns: 1fr !important;
+            }
+
+            .love-command .command-btn,
+            .love-command .command-btn.primary {
+                min-height: 72px !important;
+                grid-template-columns: 42px minmax(0, 1fr) !important;
+                align-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+
+            .love-command .command-btn span:last-child {
+                min-width: 0 !important;
+                overflow-wrap: anywhere !important;
+                line-height: 1.15 !important;
+            }
+        }
+    </style>
+    <style>
+        /* ═══════════════ 🎂 BIRTHDAY EDITION — styles ═══════════════ */
+        body.bday-open { overflow: hidden; }
+
+        .bday-overlay {
+            position: fixed; inset: 0; z-index: 900; display: none; place-items: center;
+            overflow: hidden; padding: 22px;
+            background:
+                radial-gradient(circle at 50% 10%, rgba(255, 214, 150, 0.24), transparent 44%),
+                radial-gradient(circle at 12% 88%, rgba(199, 57, 104, 0.42), transparent 52%),
+                linear-gradient(155deg, #23060f 0%, #4a1129 52%, #6b1c34 100%);
+        }
+        .bday-overlay.show { display: grid; animation: bdayFadeIn 0.9s ease both; }
+        .bday-overlay.leaving { opacity: 0; visibility: hidden; transition: opacity 0.9s ease, visibility 0.9s ease; }
+        @keyframes bdayFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .bday-slide { position: relative; z-index: 4; display: none; width: min(660px, 100%); text-align: center; color: #ffeff2; }
+        .bday-slide.active { display: block; animation: bdaySlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        @keyframes bdaySlideUp { from { opacity: 0; transform: translateY(44px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+        .bday-eyebrow {
+            display: inline-block; padding: 9px 20px; border-radius: 999px;
+            border: 1px solid rgba(255, 214, 150, 0.42); background: rgba(255, 255, 255, 0.07);
+            color: #ffd696; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+        }
+        .bday-title {
+            margin: 18px 0 12px; font-family: "Playfair Display", serif;
+            font-size: clamp(2.9rem, 13vw, 5.6rem); line-height: 1.02;
+            background: linear-gradient(120deg, #ffd696, #fff3e2 30%, #ff9dbb 55%, #ffd696 80%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            animation: bdayShimmer 5s linear infinite;
+        }
+        @keyframes bdayShimmer { to { background-position: 300% 0; } }
+        .bday-title-2 { margin: 0 0 4px; font-family: "Playfair Display", serif; font-size: clamp(1.7rem, 8vw, 2.6rem); color: #ffe1ec; }
+        .bday-sub { margin: 0 auto 26px; max-width: 500px; color: rgba(255, 231, 236, 0.94); font-size: clamp(1rem, 3.6vw, 1.18rem); font-weight: 700; line-height: 1.8; }
+        .bday-btn {
+            min-height: 52px; padding: 14px 30px; border-radius: 999px; cursor: pointer;
+            background: linear-gradient(135deg, #ffe9b8, #ffb0c8 55%, #e05585);
+            color: #58122b; font-weight: 900; font-size: 1.02rem;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), 0 0 26px rgba(255, 176, 200, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bday-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4), 0 0 34px rgba(255, 176, 200, 0.6); }
+        .bday-skip { display: block; margin: 16px auto 0; background: none; color: rgba(255, 231, 236, 0.55); font-size: 0.85rem; font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+        .bday-confetti-layer, .bday-balloon-layer { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+        .bday-page-layer { position: fixed; inset: 0; pointer-events: none; z-index: 890; overflow: hidden; }
+        .bday-confetti { position: absolute; top: -6vh; width: 10px; height: 16px; border-radius: 3px; opacity: 0; will-change: transform, opacity; }
+        @keyframes bdayFall {
+            0% { opacity: 0; transform: translate3d(0, -6vh, 0) rotate(0deg); }
+            8% { opacity: 1; }
+            100% { opacity: 0.9; transform: translate3d(var(--sway, 30px), 112vh, 0) rotate(var(--spin, 620deg)); }
+        }
+        .bday-balloon { position: absolute; bottom: -16vh; font-size: 2.5rem; opacity: 0; will-change: transform, opacity; }
+        @keyframes bdayRise {
+            0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-4deg); }
+            12% { opacity: 1; }
+            100% { opacity: 1; transform: translate3d(var(--sway, -44px), -135vh, 0) rotate(5deg); }
+        }
+
+        /* — the cake — */
+        .bday-cake { position: relative; width: min(270px, 74vw); height: 226px; margin: 16px auto 6px; filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35)); }
+        .bday-cake .cake-plate { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 112%; height: 15px; border-radius: 999px; background: linear-gradient(180deg, #ffe9b8, #c8963a); }
+        .bday-cake .cake-layer { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 13px; }
+        .bday-cake .cake-layer::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 16px;
+            border-radius: 13px 13px 0 0;
+            background: radial-gradient(circle at 8px 0, rgba(255, 244, 235, 0.95) 8px, transparent 9px);
+            background-size: 20px 18px; background-repeat: repeat-x;
+        }
+        .bday-cake .cake-bottom { bottom: 15px; width: 100%; height: 66px; background: linear-gradient(180deg, #a92a55 0%, #7c1839 100%); }
+        .bday-cake .cake-mid { bottom: 79px; width: 76%; height: 54px; background: linear-gradient(180deg, #e05585 0%, #b23260 100%); }
+        .bday-cake .cake-top { bottom: 131px; width: 54%; height: 44px; background: linear-gradient(180deg, #ffd8e5 0%, #f0a7c0 100%); }
+        .bday-candles { position: absolute; bottom: 173px; left: 50%; transform: translateX(-50%); display: flex; gap: 17px; z-index: 2; }
+        .bday-candle { position: relative; width: 13px; height: 48px; padding: 0; border: 0; border-radius: 7px; background: repeating-linear-gradient(45deg, #fff6ef 0 6px, #ffb0c8 6px 12px); cursor: pointer; }
+        .bday-flame {
+            position: absolute; left: 50%; top: -21px; width: 15px; height: 21px; transform: translateX(-50%);
+            border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+            background: radial-gradient(circle at 50% 72%, #fff6da, #ffce54 52%, #ff9d2e 82%, transparent);
+            box-shadow: 0 0 20px rgba(255, 206, 84, 0.9);
+            animation: bdayFlicker 0.45s ease-in-out infinite alternate;
+        }
+        @keyframes bdayFlicker { from { transform: translateX(-50%) scale(1) rotate(-4deg); } to { transform: translateX(-54%) scale(1.16) rotate(4deg); } }
+        .bday-candle.out .bday-flame { opacity: 0; box-shadow: none; animation: none; transition: opacity 0.25s ease; }
+        .bday-candle.out::after { content: "💨"; position: absolute; top: -30px; left: 50%; font-size: 0.9rem; animation: bdaySmoke 1.3s ease both; }
+        @keyframes bdaySmoke { from { opacity: 0.9; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, -26px); } }
+        .bday-cake-msg { margin: 14px auto 18px; max-width: 430px; color: rgba(255, 231, 236, 0.94); font-weight: 800; font-size: 1.02rem; line-height: 1.65; }
+
+        /* — birthday letter panel — */
+        .bday-panel { position: relative; overflow: hidden; text-align: center; border-color: rgba(200, 150, 58, 0.45) !important; }
+        .bday-panel::before {
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background:
+                radial-gradient(circle at 88% 0%, rgba(255, 205, 120, 0.24), transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(255, 157, 187, 0.22), transparent 45%);
+        }
+        .bday-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 999px;
+            background: linear-gradient(135deg, rgba(200, 150, 58, 0.16), rgba(199, 57, 104, 0.14));
+            border: 1px solid rgba(200, 150, 58, 0.42);
+            color: var(--rose-deep); font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem;
+        }
+        .bday-panel-title { margin: 14px 0 8px; font-family: "Playfair Display", serif; color: var(--heading); font-size: clamp(2rem, 9vw, 3.1rem); line-height: 1.08; position: relative; }
+        .bday-panel-sub { margin: 0 auto 22px; max-width: 580px; color: var(--text-soft); font-weight: 700; line-height: 1.75; position: relative; }
+        .bday-quotes { display: grid; gap: 12px; margin: 0 0 20px; position: relative; }
+        .bday-quote {
+            padding: 16px 18px; border-radius: 18px; border: 1px solid rgba(200, 150, 58, 0.38);
+            background: linear-gradient(150deg, rgba(255, 250, 240, 0.96), rgba(255, 236, 214, 0.82));
+            box-shadow: var(--shadow-sm);
+        }
+        .bday-quote .ar { display: block; direction: rtl; font-size: 1.5rem; line-height: 2; color: var(--rose-deep); font-weight: 700; }
+        .bday-quote .en { display: block; margin-top: 6px; color: var(--text-soft); font-size: 0.92rem; font-weight: 700; font-style: italic; }
+        .bday-letter {
+            position: relative; margin: 0 auto 22px; padding: clamp(20px, 5vw, 34px); max-width: 660px; text-align: left;
+            border-radius: 22px; border: 1px solid rgba(200, 150, 58, 0.48);
+            background: linear-gradient(180deg, #fffdf7, #fdeede);
+            box-shadow: var(--shadow-md); color: var(--text); line-height: 1.95; font-weight: 600;
+        }
+        .bday-letter p { margin: 0 0 16px; }
+        .bday-letter p:last-child { margin-bottom: 0; }
+        .bday-letter .letter-open { font-family: "Playfair Display", serif; font-size: 1.3rem; color: var(--heading); font-weight: 700; }
+        .bday-letter .letter-sign { margin-top: 4px; text-align: right; font-family: "Playfair Display", serif; font-style: italic; font-size: 1.3rem; color: var(--rose-deep); }
+        .bday-actions { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 22px; }
+        .bday-action-btn {
+            min-height: 48px; padding: 12px 20px; border-radius: 999px; cursor: pointer;
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep)); color: #fff;
+            font-weight: 900; box-shadow: var(--shadow-sm); transition: transform 0.2s ease;
+        }
+        .bday-action-btn:hover { transform: translateY(-2px) scale(1.02); }
+        .bday-action-btn.gold { background: linear-gradient(135deg, #ffdf9e, var(--gold)); color: #5c3a10; }
+
+        .bday-gifts { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 580px; margin: 0 auto; }
+        .bday-gifts-title { position: relative; margin: 0 0 12px; color: var(--rose-deep); font-weight: 900; font-size: 0.95rem; }
+        .bday-gift {
+            min-height: 96px; display: grid; place-items: center; align-content: center; gap: 6px; padding: 12px 8px;
+            border-radius: 18px; border: 1.5px dashed rgba(200, 150, 58, 0.6);
+            background: rgba(255, 255, 255, 0.75); cursor: pointer; font-size: 2rem;
+            transition: transform 0.2s ease;
+        }
+        .bday-gift:hover { transform: translateY(-3px) rotate(-2deg); }
+        .bday-gift .gift-hint { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+        .bday-gift.open { cursor: default; font-size: 1rem; animation: pop-in 0.5s ease both; border-style: solid; }
+        .bday-gift.open .gift-msg { color: var(--text-soft); font-weight: 800; font-size: 0.86rem; line-height: 1.5; }
+
+        .bday-fab {
+            position: fixed; bottom: 22px; right: 18px; z-index: 62;
+            width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 1.45rem;
+            background: linear-gradient(135deg, #ffe9b8, #ffb0c8);
+            border: 2px solid rgba(255, 247, 236, 0.55);
+            box-shadow: 0 6px 22px rgba(180, 80, 120, 0.45);
+            animation: float-bob 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 520px) {
+            .bday-gifts { grid-template-columns: 1fr; }
+            .bday-fab { width: 46px; height: 46px; font-size: 1.3rem; bottom: 18px; right: 14px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bday-confetti, .bday-balloon, .bday-flame, .bday-title, .bday-fab { animation: none !important; }
+        }
+    </style>
 </head>
 <body>
     <div class="aurora-layer" aria-hidden="true">
@@ -2850,6 +3259,55 @@
                     <p class="hero-note">A little corner of the internet built by Habib, because even though the miles keep us apart, nothing in this world could ever keep my heart from yours. You are my favourite everything.</p>
                 </header>
 
+                <!-- 🎂 BIRTHDAY LETTER — the crown of the page -->
+                <section class="panel bday-panel reveal" id="birthdayPanel" aria-labelledby="bdayPanelTitle">
+                    <div class="bday-badge">🎂 The most important day of the whole year 🎂</div>
+                    <h2 class="bday-panel-title" id="bdayPanelTitle">Happy Birthday, My Vanessa 👑🎉</h2>
+                    <p class="bday-panel-sub">Today the world celebrates the day its most beautiful soul arrived. I could never fit what you mean to me into words, but I wrote you a letter and borrowed a few lines of Arabic, because some feelings deserve the most beautiful language I know. 💖</p>
+
+                    <div class="bday-quotes" aria-label="Arabic love quotes for Vanessa">
+                        <div class="bday-quote">
+                            <span class="ar">كُلُّ عامٍ وأنتِ بِخَير، يا أَجْمَلَ ما في حَياتي</span>
+                            <span class="en">"May every year find you well, most beautiful part of my life."</span>
+                        </div>
+                        <div class="bday-quote">
+                            <span class="ar">أنتِ نُورُ عَيني وسَكَنُ قَلبي</span>
+                            <span class="en">"You are the light of my eyes and the home of my heart."</span>
+                        </div>
+                        <div class="bday-quote">
+                            <span class="ar">الحُبُّ الصادِقُ لا تُطفِئُهُ المَسافات</span>
+                            <span class="en">"True love can never be dimmed by distance."</span>
+                        </div>
+                        <div class="bday-quote">
+                            <span class="ar">مَعَكِ يُصبِحُ العُمرُ كُلُّهُ عِيدًا</span>
+                            <span class="en">"With you, all of life becomes a celebration."</span>
+                        </div>
+                    </div>
+
+                    <div class="bday-letter">
+                        <p class="letter-open">To Vanessa — the birthday queen, the love of my life, my favourite person in every universe that has ever existed 👑💖</p>
+                        <p>HAPPY BIRTHDAY MY LOVE!!! 🎂🎉🎈✨ Today is not a normal day. Today is THE day. The day the sky got a little jealous, because the most beautiful star it ever made decided to come live down here instead. The day the world quietly became a better place and didn't even know why yet. The day my whole future was born — because Vanessa, my future has your name written all over it. 💍🌹</p>
+                        <p>I want you to know something, and I need you to really, really hear it: you are the single most precious thing in my entire life. Not one of the most precious. THE most. 💛 Your laugh is my favourite song. Your voice is my favourite place. Your heart — that soft, kind, impossibly gentle heart — is the home I want to live in for the rest of my days. When you smile, I genuinely forget every problem I have ever had. That is not an exaggeration. That is just what you do to me. 🥺💘</p>
+                        <p>I know the miles sit between us, and I know some days that is heavy. But look at what we are: two hearts that refuse to let distance win. Every kilometre between us is just a countdown, not a wall. And on your birthday I promise you this — one day I will be the first voice you hear when you wake up on this day, the one holding the cake, the one singing terribly, the one kissing your forehead at midnight. Until then, this whole page is me showing up for you the loudest way I can. 🎈🌍💌</p>
+                        <p>May this new year of your life bring you everything your beautiful heart deserves: peace that stays, laughter that hurts your cheeks, dreams that come true one by one, and love — endless, patient, loyal love — which I will personally be supplying forever, free of charge, with unlimited refills. 😄💝</p>
+                        <p>You are my answered prayer, my favourite notification, my calm, my chaos, my always. Happy birthday, my Vanessa. I love you more than yesterday, less than tomorrow, and more than these words could ever carry. 🎂💖✨🌹💛🎉</p>
+                        <p class="letter-sign">Forever and completely yours, Habib 💛</p>
+                    </div>
+
+                    <div class="bday-actions">
+                        <button class="bday-action-btn" id="bdayConfettiBtn" type="button">Confetti! 🎊</button>
+                        <button class="bday-action-btn gold" id="bdayBalloonsBtn" type="button">Release balloons 🎈</button>
+                        <button class="bday-action-btn" id="bdayReplayBtn" type="button">Replay my surprise 🎂</button>
+                    </div>
+
+                    <p class="bday-gifts-title">Three little gifts — tap each one, my love 🎁</p>
+                    <div class="bday-gifts">
+                        <button class="bday-gift" type="button" data-gift="Gift one: unlimited hugs for life — redeemable any second, any day, forever 🤗💛">🎁<span class="gift-hint">Tap me</span></button>
+                        <button class="bday-gift" type="button" data-gift="Gift two: my whole heart — honestly it has been yours since day one anyway 💖">🎁<span class="gift-hint">Tap me</span></button>
+                        <button class="bday-gift" type="button" data-gift="Gift three: a promise — every birthday from now on, I will be closer than the last one, until I never miss one again 🥺💍">🎁<span class="gift-hint">Tap me</span></button>
+                    </div>
+                </section>
+
                 <section class="love-command reveal" id="loveCommand">
                     <div class="command-copy">
                         <span class="command-kicker">Love control room</span>
@@ -2869,6 +3327,7 @@
                 <nav class="quick-nav reveal" aria-label="Quick love sections">
                     <p class="quick-nav-title">Quick path for Vanessa</p>
                     <div class="quick-nav-links">
+                        <a href="#birthdayPanel">🎂 Birthday</a>
                         <a href="#moodSection">Mood</a>
                         <a href="#letterPanel">Letter</a>
                         <a href="#littleBookSection">Book</a>
@@ -4649,6 +5108,210 @@ Habib 💛`;
             lastScrollTime = now;
         }, { passive: true });
 
+    })();
+    </script>
+
+    <!-- ═══════════════ 🎂 BIRTHDAY EDITION — markup ═══════════════ -->
+    <div class="bday-overlay" id="bdayOverlay" role="dialog" aria-modal="true" aria-label="Happy Birthday Vanessa">
+        <div class="bday-confetti-layer" id="bdayConfettiLayer" aria-hidden="true"></div>
+        <div class="bday-balloon-layer" id="bdayBalloonLayer" aria-hidden="true"></div>
+
+        <div class="bday-slide active" data-slide="1">
+            <p class="bday-eyebrow">✨ Stop everything — today is THE day ✨</p>
+            <h1 class="bday-title">Happy Birthday,<br>Vanessa 🎂</h1>
+            <p class="bday-sub">On this exact day, the most beautiful soul in the whole world was born — and my entire heart has been celebrating ever since. Happy birthday, my queen. 👑💖</p>
+            <button class="bday-btn" id="bdayNext1" type="button">Wait… there's more ✨</button>
+            <button class="bday-skip" id="bdaySkip" type="button">take me straight to my page 💌</button>
+        </div>
+
+        <div class="bday-slide" data-slide="2">
+            <h2 class="bday-title-2">Blow out your candles, my love 🕯️</h2>
+            <div class="bday-cake" aria-hidden="false">
+                <div class="bday-candles" id="bdayCandles">
+                    <button class="bday-candle" type="button" aria-label="Blow out candle 1"><span class="bday-flame"></span></button>
+                    <button class="bday-candle" type="button" aria-label="Blow out candle 2"><span class="bday-flame"></span></button>
+                    <button class="bday-candle" type="button" aria-label="Blow out candle 3"><span class="bday-flame"></span></button>
+                    <button class="bday-candle" type="button" aria-label="Blow out candle 4"><span class="bday-flame"></span></button>
+                    <button class="bday-candle" type="button" aria-label="Blow out candle 5"><span class="bday-flame"></span></button>
+                </div>
+                <div class="cake-layer cake-top"></div>
+                <div class="cake-layer cake-mid"></div>
+                <div class="cake-layer cake-bottom"></div>
+                <div class="cake-plate"></div>
+            </div>
+            <p class="bday-cake-msg" id="bdayCakeMsg">Tap every little flame — and don't forget to make a wish 🌠</p>
+            <button class="bday-btn" id="bdayNext2" type="button" hidden>I made my wish 💫</button>
+        </div>
+
+        <div class="bday-slide" data-slide="3">
+            <p class="bday-eyebrow">🎁 One last thing 🎁</p>
+            <h2 class="bday-title">You are my<br>greatest gift</h2>
+            <p class="bday-sub">Whatever you wished for, I hope it comes true — but my wish already did, the day you walked into my life. There is a birthday letter waiting for you inside, written with everything I have. 💌</p>
+            <button class="bday-btn" id="bdayEnter" type="button">Open your birthday letter 💌</button>
+        </div>
+    </div>
+
+    <div class="bday-page-layer" id="bdayPageLayer" aria-hidden="true"></div>
+    <button class="bday-fab" id="bdayFab" type="button" aria-label="Fire birthday confetti" title="Birthday confetti 🎊">🎊</button>
+
+    <!-- ═══════════════ 🎂 BIRTHDAY EDITION — logic ═══════════════ -->
+    <script>
+    (function () {
+        'use strict';
+
+        const overlay       = document.getElementById("bdayOverlay");
+        const confettiLayer = document.getElementById("bdayConfettiLayer");
+        const balloonLayer  = document.getElementById("bdayBalloonLayer");
+        const pageLayer     = document.getElementById("bdayPageLayer");
+        const cakeMsg       = document.getElementById("bdayCakeMsg");
+        const next2         = document.getElementById("bdayNext2");
+        const reduced       = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const CONFETTI_COLORS = ["#ffd696", "#ff9dbb", "#e05585", "#fff3e2", "#c8963a", "#ffb0c8", "#f7a8b8"];
+
+        function heartBurst(x, y, count) {
+            if (typeof createHeartBurst === "function") createHeartBurst(x, y, count || 18);
+        }
+
+        // ── confetti ──────────────────────────────────────────
+        function spawnConfetti(layer, count, loop) {
+            if (reduced()) count = Math.min(count, 12);
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement("span");
+                const duration = 3.2 + Math.random() * 3.4;
+                const delay = Math.random() * (loop ? duration : 0.9);
+                piece.className = "bday-confetti";
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+                piece.style.width = 7 + Math.random() * 7 + "px";
+                piece.style.height = 12 + Math.random() * 8 + "px";
+                piece.style.setProperty("--sway", (-70 + Math.random() * 140) + "px");
+                piece.style.setProperty("--spin", (300 + Math.random() * 620) + "deg");
+                piece.style.animation = "bdayFall " + duration + "s linear " + delay + "s " + (loop ? "infinite" : "1 both");
+                layer.appendChild(piece);
+                if (!loop) window.setTimeout(() => piece.remove(), (duration + delay) * 1000 + 300);
+            }
+        }
+
+        // ── balloons ──────────────────────────────────────────
+        function spawnBalloons(layer, count, loop) {
+            if (reduced()) count = Math.min(count, 4);
+            for (let i = 0; i < count; i++) {
+                const balloon = document.createElement("span");
+                const duration = 7 + Math.random() * 6;
+                const delay = Math.random() * (loop ? duration : 1.6);
+                balloon.className = "bday-balloon";
+                balloon.textContent = "🎈";
+                balloon.style.left = 4 + Math.random() * 90 + "vw";
+                balloon.style.fontSize = 1.9 + Math.random() * 1.5 + "rem";
+                balloon.style.filter = "hue-rotate(" + Math.floor(Math.random() * 300) + "deg) drop-shadow(0 8px 12px rgba(0,0,0,0.25))";
+                balloon.style.setProperty("--sway", (-60 + Math.random() * 120) + "px");
+                balloon.style.animation = "bdayRise " + duration + "s linear " + delay + "s " + (loop ? "infinite" : "1 both");
+                layer.appendChild(balloon);
+                if (!loop) window.setTimeout(() => balloon.remove(), (duration + delay) * 1000 + 300);
+            }
+        }
+
+        // ── slides ────────────────────────────────────────────
+        function showSlide(number) {
+            overlay.querySelectorAll(".bday-slide").forEach((slide) => {
+                slide.classList.toggle("active", slide.dataset.slide === String(number));
+            });
+        }
+
+        function openOverlay() {
+            confettiLayer.innerHTML = "";
+            balloonLayer.innerHTML = "";
+            overlay.querySelectorAll(".bday-candle.out").forEach((candle) => candle.classList.remove("out"));
+            next2.hidden = true;
+            cakeMsg.textContent = "Tap every little flame — and don't forget to make a wish 🌠";
+            overlay.classList.remove("leaving");
+            overlay.classList.add("show");
+            document.body.classList.add("bday-open");
+            showSlide(1);
+            spawnConfetti(confettiLayer, 70, true);
+            spawnBalloons(balloonLayer, 9, true);
+        }
+
+        function closeOverlay() {
+            overlay.classList.add("leaving");
+            document.body.classList.remove("bday-open");
+            window.setTimeout(() => {
+                overlay.classList.remove("show", "leaving");
+                confettiLayer.innerHTML = "";
+                balloonLayer.innerHTML = "";
+            }, 950);
+        }
+
+        function enterPage() {
+            closeOverlay();
+            const panel = document.getElementById("birthdayPanel");
+            window.setTimeout(() => {
+                if (panel) panel.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+                heartBurst(window.innerWidth / 2, window.innerHeight / 2, 26);
+                spawnConfetti(pageLayer, 50, false);
+            }, 500);
+        }
+
+        document.getElementById("bdayNext1").addEventListener("click", () => showSlide(2));
+        document.getElementById("bdaySkip").addEventListener("click", enterPage);
+        next2.addEventListener("click", () => showSlide(3));
+        document.getElementById("bdayEnter").addEventListener("click", enterPage);
+
+        // ── candles ───────────────────────────────────────────
+        const candles = Array.from(document.querySelectorAll("#bdayCandles .bday-candle"));
+        const wishSteps = [
+            "One down… keep going, my love 🌬️",
+            "You're doing amazing 🥰 keep blowing…",
+            "Halfway there — wish loading 💭",
+            "One little flame left… make it count ✨",
+            "All out!! Now close your eyes and make the biggest wish 🌠💖"
+        ];
+        candles.forEach((candle) => {
+            candle.addEventListener("click", () => {
+                if (candle.classList.contains("out")) return;
+                candle.classList.add("out");
+                const rect = candle.getBoundingClientRect();
+                heartBurst(rect.left + rect.width / 2, rect.top, 8);
+                const outCount = candles.filter((c) => c.classList.contains("out")).length;
+                cakeMsg.textContent = wishSteps[outCount - 1] || wishSteps[wishSteps.length - 1];
+                if (outCount === candles.length) {
+                    next2.hidden = false;
+                    spawnConfetti(confettiLayer, 60, false);
+                    heartBurst(window.innerWidth / 2, window.innerHeight / 2, 30);
+                }
+            });
+        });
+
+        // ── page features ─────────────────────────────────────
+        const confettiBtn = document.getElementById("bdayConfettiBtn");
+        const balloonsBtn = document.getElementById("bdayBalloonsBtn");
+        const replayBtn   = document.getElementById("bdayReplayBtn");
+        const fab         = document.getElementById("bdayFab");
+
+        if (confettiBtn) confettiBtn.addEventListener("click", () => spawnConfetti(pageLayer, 60, false));
+        if (balloonsBtn) balloonsBtn.addEventListener("click", () => spawnBalloons(pageLayer, 10, false));
+        if (replayBtn) replayBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" });
+            window.setTimeout(openOverlay, reduced() ? 0 : 350);
+        });
+        fab.addEventListener("click", (event) => {
+            spawnConfetti(pageLayer, 45, false);
+            heartBurst(event.clientX || window.innerWidth - 40, event.clientY || window.innerHeight - 40, 14);
+        });
+
+        // ── gifts ─────────────────────────────────────────────
+        document.querySelectorAll(".bday-gift").forEach((gift) => {
+            gift.addEventListener("click", () => {
+                if (gift.classList.contains("open")) return;
+                gift.classList.add("open");
+                const rect = gift.getBoundingClientRect();
+                heartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 12);
+                gift.innerHTML = '<span class="gift-msg">' + gift.dataset.gift + "</span>";
+            });
+        });
+
+        // ── show the birthday surprise on EVERY visit ─────────
+        window.setTimeout(openOverlay, 450);
     })();
     </script>
 </body>

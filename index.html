@@ -1508,7 +1508,7 @@
         }
         .constellation-hint { color: rgba(200,180,255,0.72); font-size: 0.87rem; font-weight: 600; margin: 8px 0; text-align: center; }
         .const-star-btn {
-            position: absolute; width: 30px; height: 30px;
+            position: absolute; width: 44px; height: 44px;
             border-radius: 50%; background: none; border: none;
             cursor: pointer; padding: 0;
             transform: translate(-50%, -50%);
@@ -1597,6 +1597,210 @@
             .hearts-counter { bottom: 74px; left: 14px; font-size: 0.7rem; }
             .heartbeat-btn { width: 96px; height: 96px; font-size: 2.5rem; }
             .constellation-field { max-height: 210px; }
+        }
+    </style>
+    <style>
+        /* Final clarity pass: keep every message readable on dark, gold, and cream surfaces. */
+        :root {
+            --ink: #2a090b;
+            --muted: #5d342d;
+            --readable-cream: #fffaf0;
+            --readable-gold: #ffe7a5;
+            --readable-dark: #1d0708;
+            --focus-ring: #fff4bf;
+        }
+
+        body,
+        .section-copy,
+        .mini-card p,
+        .certificate-copy,
+        .timeline-card p,
+        .quiz-message,
+        .date-card,
+        .poem-display,
+        .hug-milestone,
+        .password-hint,
+        .memory-input,
+        .password-input,
+        .promise-card span,
+        .song-caption,
+        .modal-content p,
+        .all-hearts-inner p {
+            color: var(--muted) !important;
+        }
+
+        .card,
+        .gate-card,
+        .modal-content,
+        .timeline-card,
+        .mini-card,
+        .certificate,
+        .quiz-box,
+        .date-card,
+        .poem-display,
+        .letter-paper,
+        .all-hearts-inner,
+        .star-caught-msg,
+        .pet-bubble,
+        .heart-tooltip,
+        .rain-note {
+            background: linear-gradient(180deg, rgba(255, 250, 240, 0.99), rgba(245, 225, 186, 0.96)) !important;
+            color: var(--ink) !important;
+        }
+
+        .section-title,
+        .gate-title,
+        .certificate-title,
+        .timeline-date,
+        .mini-card h3,
+        .quiz-question,
+        .reason-front,
+        .reason-back,
+        .modal-content .section-title,
+        .all-hearts-inner h2 {
+            color: var(--crimson) !important;
+            -webkit-text-fill-color: currentColor !important;
+            background: none !important;
+            text-shadow: none !important;
+        }
+
+        .hero,
+        .footer,
+        .secret-panel,
+        .secret-content,
+        .constellation-field,
+        .constellation-panel,
+        .hearts-counter,
+        .idle-float {
+            color: var(--readable-cream) !important;
+        }
+
+        .hero .eyebrow,
+        .hero-subtitle,
+        .anniversary-message,
+        .hero-jewel span,
+        .footer p,
+        .secret-letter p,
+        .vow,
+        .final-message,
+        .constellation-msg,
+        .tw-display,
+        .compliment-display,
+        .heartbeat-msg,
+        .constellation-hint {
+            color: var(--readable-cream) !important;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
+        }
+
+        .hero-title,
+        .hero-jewel strong,
+        .footer strong,
+        .heartbeat-label,
+        .hearts-counter,
+        .idle-float,
+        .secret-content .eyebrow {
+            color: var(--readable-gold) !important;
+            -webkit-text-fill-color: currentColor !important;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.78);
+        }
+
+        .hero-jewel,
+        .meter-shell,
+        .secret-letter,
+        .promise-card,
+        .song-card,
+        .tw-display,
+        .compliment-display,
+        .constellation-msg {
+            background: rgba(20, 5, 6, 0.78) !important;
+            border-color: rgba(255, 231, 165, 0.62) !important;
+        }
+
+        .gold-button,
+        .close-button,
+        .crown-button,
+        .wax-seal,
+        .rain-btn,
+        .audio-toggle,
+        .memory-fab,
+        .secret-lock,
+        .all-hearts-inner button {
+            color: #230607 !important;
+            -webkit-text-fill-color: currentColor !important;
+            text-shadow: none !important;
+        }
+
+        .gold-button:hover,
+        .gold-button:focus-visible,
+        .close-button:hover,
+        .close-button:focus-visible,
+        .crown-button:hover,
+        .crown-button:focus-visible,
+        .wax-seal:hover,
+        .wax-seal:focus-visible {
+            color: var(--readable-cream) !important;
+        }
+
+        input,
+        textarea {
+            color: var(--ink) !important;
+            background: rgba(255, 252, 244, 0.98) !important;
+            border-color: rgba(139, 0, 0, 0.44) !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #6b433a !important;
+            opacity: 1 !important;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 3px solid var(--focus-ring) !important;
+            outline-offset: 4px !important;
+        }
+
+        .password-error {
+            color: #b00020 !important;
+            font-weight: 900 !important;
+        }
+
+        body.loaded #loader {
+            display: none !important;
+        }
+
+        .gate-lock {
+            z-index: 21000 !important;
+        }
+
+        .gate-card {
+            background: linear-gradient(180deg, #fffaf0, #ead2a9) !important;
+        }
+
+        .gate-card .eyebrow {
+            color: #6e0507 !important;
+            text-shadow: none !important;
+        }
+
+        .gate-copy {
+            color: #4f2c25 !important;
+            font-weight: 800 !important;
+        }
+
+        @media (max-width: 699px) {
+            .hero-actions,
+            .controls,
+            .quiz-options {
+                gap: 12px !important;
+            }
+
+            .gold-button {
+                min-width: min(100%, 260px);
+                white-space: normal !important;
+            }
         }
     </style>
 </head>
@@ -2242,10 +2446,11 @@
                 hugText.textContent = hugs === 0 ? "0 hugs saved for Vanessa." : `${hugs} hugs. ${milestone[1]}`;
             };
             $("#hugButton").addEventListener("click", (event) => {
+                const button = event.currentTarget;
                 hugs += 1;
                 localStorage.setItem("vanessa-hug-count", String(hugs));
-                event.currentTarget.classList.add("press");
-                window.setTimeout(() => event.currentTarget.classList.remove("press"), 220);
+                button.classList.add("press");
+                window.setTimeout(() => button.classList.remove("press"), 220);
                 update();
                 createBurst(event.clientX, event.clientY, 28);
             });
