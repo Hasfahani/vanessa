@@ -193,8 +193,12 @@
             if (prefersReducedMotion || document.body.classList.contains("gate-locked")) return;
             count = Math.min(count, window.innerWidth < 700 ? 18 : 36);
             const pieces = ["✦", "◆", "♥", "❦", "•"];
+            const styles = window.getComputedStyle(document.body);
+            const hues = ["--crimson", "--crimson-soft", "--accent", "--gold-light"].map((name) => styles.getPropertyValue(name).trim()).concat(["#f2a7bb", "#bba7de", "#eab872"]);
             for (let index = 0; index < count; index += 1) {
                 const piece = document.createElement("span");
+                piece.style.color = hues[index % hues.length];
+                piece.style.textShadow = "none";
                 const angle = (Math.PI * 2 * index) / count;
                 const distance = 80 + Math.random() * 220;
                 piece.className = "burst-piece";
@@ -1072,6 +1076,160 @@
             });
         }
 
+        // Each chapter tints the whole page in its own colour as she reaches it.
+        function initChapterWashes() {
+            const marks = Array.from(document.querySelectorAll(".chapter-mark[data-tint]"));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) document.body.style.setProperty("--chapter-tint", entry.target.dataset.tint);
+                });
+            }, { rootMargin: "0px 0px -55% 0px" });
+            marks.forEach((mark) => observer.observe(mark));
+            const top = new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting) document.body.style.removeProperty("--chapter-tint");
+            });
+            top.observe($("#top"));
+        }
+
+        function initColorsOfYou() {
+            const flood = $("#colorFlood");
+            let opener = null;
+            const close = () => {
+                if (flood.hidden) return;
+                flood.classList.remove("is-open");
+                window.setTimeout(() => { flood.hidden = true; }, 520);
+                if (opener) opener.focus({ preventScroll: true });
+            };
+            document.querySelectorAll(".swatch-card").forEach((card) => {
+                card.style.setProperty("--swatch", card.dataset.color);
+                card.addEventListener("click", (event) => {
+                    opener = card;
+                    const rect = card.getBoundingClientRect();
+                    const x = Math.min(window.innerWidth, Math.max(0, event.clientX || rect.left + rect.width / 2));
+                    const y = Math.min(window.innerHeight, Math.max(0, event.clientY || rect.top + rect.height / 2));
+                    flood.style.setProperty("--flood", card.dataset.color);
+                    flood.style.setProperty("--flood-ink", card.dataset.ink);
+                    flood.style.setProperty("--flood-x", `${x}px`);
+                    flood.style.setProperty("--flood-y", `${y}px`);
+                    $("#colorFloodOf").textContent = card.dataset.of;
+                    $("#colorFloodName").textContent = card.dataset.name;
+                    $("#colorFloodLine").textContent = card.dataset.line;
+                    flood.hidden = false;
+                    requestAnimationFrame(() => requestAnimationFrame(() => flood.classList.add("is-open")));
+                    window.setTimeout(() => $("#colorFloodClose").focus({ preventScroll: true }), 400);
+                });
+            });
+            flood.addEventListener("click", close);
+            document.addEventListener("keydown", (event) => { if (event.key === "Escape") close(); });
+        }
+
+        function initBouquet() {
+            const layer = $("#bouquetFlowers");
+            if (!layer) return;
+            const flowers = {
+                rose: { meaning: "Red rose: I love you, simply and completely.", colors: ["#c8364f", "#a8213b"] },
+                tulip: { meaning: "Tulip: perfect love, the kind that still feels new.", colors: ["#f07a8f", "#e2566f"] },
+                daisy: { meaning: "Daisy: loyal love. I am not going anywhere.", colors: ["#fffaf0", "#f2c14e"] },
+                lavender: { meaning: "Lavender: devotion, and calm whenever you are near.", colors: ["#9b84d6", "#7d66c0"] },
+                peony: { meaning: "Peony: a happy life together, for many, many years.", colors: ["#f5b5c6", "#ec8fa8"] },
+                sunflower: { meaning: "Sunflower: wherever you are, I will turn toward you.", colors: ["#f2c14e", "#7a4a1f"] }
+            };
+            const slots = [[150, 78], [104, 100], [196, 100], [128, 140], [174, 140], [70, 144], [230, 144], [150, 118], [96, 182], [204, 182]].slice(0, 9);
+            let bouquet;
+            try {
+                const stored = JSON.parse(safeStorage.getItem("vanessa-bouquet") || "[]");
+                bouquet = Array.isArray(stored) ? stored.filter((type) => Object.hasOwn(flowers, type)).slice(0, slots.length) : [];
+            } catch { bouquet = []; }
+
+            const head = (type) => {
+                const [main, second] = flowers[type].colors;
+                if (type === "rose") return `<circle r="17" fill="${second}"/><circle r="13" fill="${main}"/><path d="M-7 -2a7 7 0 1 1 9 7a4 4 0 1 1-4-6" fill="none" stroke="${second}" stroke-width="2"/>`;
+                if (type === "tulip") return `<path d="M-14 -4C-14 12 -6 18 0 18S14 12 14 -4L7 4 0 -12 -7 4Z" fill="${main}"/><path d="M0 -12 -7 4 0 18 7 4Z" fill="${second}"/>`;
+                if (type === "daisy") return Array.from({ length: 10 }, (_, i) => `<ellipse rx="5" ry="15" fill="${main}" stroke="#e8dccb" stroke-width=".6" transform="rotate(${i * 36}) translate(0 -11)"/>`).join("") + `<circle r="7" fill="${second}"/>`;
+                if (type === "lavender") return Array.from({ length: 7 }, (_, i) => `<ellipse cx="${i % 2 ? 4 : -4}" cy="${-i * 7 + 18}" rx="4.5" ry="6" fill="${i % 2 ? main : second}"/>`).join("");
+                if (type === "peony") return `<circle r="21" fill="${second}"/><circle cx="-7" cy="-4" r="12" fill="${main}"/><circle cx="7" cy="-4" r="12" fill="${main}"/><circle cy="6" r="12" fill="${main}"/><circle r="7" fill="#fbd6df"/>`;
+                return Array.from({ length: 14 }, (_, i) => `<ellipse rx="4.5" ry="13" fill="${main}" transform="rotate(${i * 25.7}) translate(0 -15)"/>`).join("") + `<circle r="11" fill="${second}"/><circle r="6" fill="#5a3416"/>`;
+            };
+
+            const render = (animateLast = false) => {
+                layer.innerHTML = bouquet.map((type, index) => {
+                    const [x, y] = slots[index];
+                    const baseX = 150 + (x - 150) * 0.25;
+                    const tilt = (x - 150) / 6;
+                    const fresh = animateLast && index === bouquet.length - 1 ? " is-new" : "";
+                    return `<g class="bloom${fresh}" style="--d:${(index % 4) * -1.3}s">
+                        <path class="stem" d="M${baseX} 250 Q${(baseX + x) / 2 + tilt} ${(250 + y) / 2} ${x} ${y}" />
+                        <path class="leaf" d="M${(baseX + x) / 2} ${(250 + y) / 2 + 20} q${tilt > 0 ? 16 : -16} -4 ${tilt > 0 ? 20 : -20} -16 q${tilt > 0 ? -14 : 14} 0 ${tilt > 0 ? -20 : 20} 16Z" />
+                        <g class="bloom-head" transform="translate(${x} ${y}) rotate(${tilt})"><g class="bloom-inner">${head(type)}</g></g>
+                    </g>`;
+                }).join("");
+                $("#bouquetCount").textContent = bouquet.length >= slots.length ? "A full bouquet. Just like my heart." : `${bouquet.length} of ${slots.length} flowers`;
+                safeStorage.setItem("vanessa-bouquet", JSON.stringify(bouquet));
+            };
+
+            document.querySelectorAll("[data-flower]").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const type = button.dataset.flower;
+                    $("#flowerMeaning").textContent = flowers[type].meaning;
+                    if (bouquet.length >= slots.length) {
+                        $("#flowerMeaning").textContent = "Your vase is full. Send it, or start a new one.";
+                        return;
+                    }
+                    bouquet.push(type);
+                    render(true);
+                    const rect = $("#bouquetSvg").getBoundingClientRect();
+                    const [x, y] = slots[bouquet.length - 1];
+                    createBurst(rect.left + (x / 300) * rect.width, rect.top + (y / 360) * rect.height, 10);
+                });
+            });
+            $("#clearBouquet").addEventListener("click", () => {
+                bouquet = [];
+                render();
+                $("#flowerMeaning").textContent = "An empty vase, waiting for you.";
+            });
+            $("#sendBouquet").addEventListener("click", async () => {
+                if (!bouquet.length) {
+                    $("#flowerMeaning").textContent = "Pick a flower or two first, my love.";
+                    return;
+                }
+                const counts = bouquet.reduce((all, type) => ({ ...all, [type]: (all[type] || 0) + 1 }), {});
+                const list = Object.entries(counts).map(([type, count]) => `${count} ${type}${count > 1 ? "s" : ""}`).join(", ");
+                const sent = await sendToHabib(`Habib, I made you a bouquet 💐 ${list}. Now you owe me the real one.`);
+                if (sent) $("#flowerMeaning").textContent = "Sent. Now I owe you the real thing.";
+            });
+            render();
+        }
+
+        // A trail of tiny sparkles follows her finger or cursor.
+        function initSparkleTrail() {
+            if (prefersReducedMotion) return;
+            const hues = ["#f2a7bb", "#eab872", "#bba7de", "#9fd0c4", "#da9a86"];
+            let last = 0;
+            let hue = 0;
+            const spawn = (x, y) => {
+                const now = performance.now();
+                if (now - last < 45 || document.body.classList.contains("gate-locked")) return;
+                last = now;
+                const spark = document.createElement("span");
+                spark.className = "trail-spark";
+                spark.textContent = hue % 3 ? "✦" : "♥";
+                spark.style.left = `${x}px`;
+                spark.style.top = `${y}px`;
+                spark.style.color = hues[hue % hues.length];
+                spark.style.setProperty("--drift", `${-14 + Math.random() * 28}px`);
+                hue += 1;
+                document.body.appendChild(spark);
+                window.setTimeout(() => spark.remove(), 900);
+            };
+            document.addEventListener("pointermove", (event) => {
+                if (event.pointerType === "mouse") spawn(event.clientX, event.clientY);
+            }, { passive: true });
+            document.addEventListener("touchmove", (event) => {
+                const touch = event.touches[0];
+                if (touch) spawn(touch.clientX, touch.clientY);
+            }, { passive: true });
+        }
+
         window.addEventListener("load", () => {
             window.setTimeout(() => document.body.classList.add("loaded"), 650);
         });
@@ -1117,6 +1275,10 @@
         initLoveLanguages();
         initCoupons();
         initWriteBack();
+        initChapterWashes();
+        initColorsOfYou();
+        initBouquet();
+        initSparkleTrail();
         heroTitle.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();

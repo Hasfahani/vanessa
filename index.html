@@ -41,6 +41,15 @@
         </div>
     </section>
 
+    <div class="chapter-wash" aria-hidden="true"></div>
+    <div class="color-flood" id="colorFlood" hidden>
+        <div class="color-flood-inner">
+            <p class="color-flood-of" id="colorFloodOf"></p>
+            <h2 class="color-flood-name" id="colorFloodName"></h2>
+            <p class="color-flood-line" id="colorFloodLine"></p>
+            <button class="color-flood-close" id="colorFloodClose" type="button">Back to us <span aria-hidden="true">↺</span></button>
+        </div>
+    </div>
     <div class="intro-curtain" id="introCurtain" hidden>
         <div class="intro-glow" aria-hidden="true"></div>
         <div class="intro-lines" role="status">
@@ -78,6 +87,7 @@
             </div>
         </header>
         <section class="hero" id="top">
+            <div class="hero-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
             <img class="hero-botanical" src="assets/botanical.svg" width="160" height="260" alt="" aria-hidden="true">
             <div class="hero-content">
                 <p class="eyebrow">For my favourite person, in every lifetime</p>
@@ -115,8 +125,8 @@
                 </div>
                 <div class="love-map-grid">
                     <a href="#chapterOne"><small>Chapter I</small><strong>Words I keep <span aria-hidden="true">↗</span></strong><span>A sealed letter, open-when notes, and fourteen little truths.</span></a>
-                    <a href="#chapterTwo"><small>Chapter II</small><strong>The story of us</strong><span>Where we began, and every chapter still waiting.</span></a>
-                    <a href="#chapterThree"><small>Chapter III</small><strong>Little games</strong><span>Scratch-off love coupons, a quiz, and a jar of somedays.</span></a>
+                    <a href="#chapterTwo"><small>Chapter II</small><strong>The story of us</strong><span>A palette made of you, and every chapter still waiting.</span></a>
+                    <a href="#chapterThree"><small>Chapter III</small><strong>Little games</strong><span>Scratch-off coupons, a bouquet to build, and a jar of somedays.</span></a>
                     <a href="#chapterFour"><small>Chapter IV</small><strong>The same sky</strong><span>Stars to connect, a heartbeat, and a page for your words.</span></a>
                 </div>
             </section>
@@ -155,7 +165,7 @@
                 </div>
             </section>
 
-            <header class="chapter-mark reveal" id="chapterOne">
+            <header class="chapter-mark reveal" id="chapterOne" data-tint="#f4b3c6">
                 <span class="chapter-numeral" aria-hidden="true">I</span>
                 <p class="chapter-kicker">Chapter one</p>
                 <h2 class="chapter-title">Words I keep for you</h2>
@@ -239,7 +249,7 @@
                 </ol>
             </section>
 
-            <header class="chapter-mark reveal" id="chapterTwo">
+            <header class="chapter-mark reveal" id="chapterTwo" data-tint="#f6c39c">
                 <span class="chapter-numeral" aria-hidden="true">II</span>
                 <p class="chapter-kicker">Chapter two</p>
                 <h2 class="chapter-title">The story of us</h2>
@@ -266,6 +276,22 @@
                     </figure>
                 </div>
             </section>
+            <section class="section colors-of-you reveal" id="colorsOfYou" aria-labelledby="colorsTitle">
+                <div class="colors-head">
+                    <p class="eyebrow">A palette, mixed from you</p>
+                    <h2 class="section-title" id="colorsTitle">If you were<br><em>a box of paints.</em></h2>
+                    <p class="section-copy">Every colour I love has a little of you in it. Tap one and step inside it.</p>
+                </div>
+                <div class="palette" role="list">
+                    <button class="swatch-card" type="button" role="listitem" data-color="#f2a7bb" data-ink="#5a1f33" data-name="Peony" data-of="Your laugh" data-line="Bright, a little loud, and my favourite sound in the whole world."><span class="swatch-chip"></span><strong>Peony</strong><small>Your laugh</small></button>
+                    <button class="swatch-card" type="button" role="listitem" data-color="#eab872" data-ink="#4d2f0c" data-name="Honey" data-of="Your eyes when you are happy" data-line="Warm enough to turn any ordinary room into late afternoon light."><span class="swatch-chip"></span><strong>Honey</strong><small>Your happy eyes</small></button>
+                    <button class="swatch-card" type="button" role="listitem" data-color="#bba7de" data-ink="#2f2150" data-name="Lavender" data-of="You, half asleep" data-line="Soft, slow, a little sleepy, and completely impossible not to adore."><span class="swatch-chip"></span><strong>Lavender</strong><small>You, half asleep</small></button>
+                    <button class="swatch-card" type="button" role="listitem" data-color="#9fd0c4" data-ink="#123c35" data-name="Sea glass" data-of="Your kindness" data-line="Clear and gentle, smoothed by everything you have carried so gracefully."><span class="swatch-chip"></span><strong>Sea glass</strong><small>Your kindness</small></button>
+                    <button class="swatch-card" type="button" role="listitem" data-color="#da9a86" data-ink="#4a1f14" data-name="Rose gold" data-of="Your heart" data-line="Rare, warm, and worth more than anything I will ever own."><span class="swatch-chip"></span><strong>Rose gold</strong><small>Your heart</small></button>
+                    <button class="swatch-card" type="button" role="listitem" data-color="#4b2346" data-ink="#fbe7f0" data-name="Plum night" data-of="Your voice at night" data-line="Deep and calm. The last thing I want to hear before I fall asleep."><span class="swatch-chip"></span><strong>Plum night</strong><small>Your voice at night</small></button>
+                </div>
+            </section>
+
             <section class="section cinematic-promise reveal" aria-label="A promise across the distance">
                 <div class="cinematic-promise-image" aria-hidden="true"></div>
                 <div class="cinematic-promise-shade" aria-hidden="true"></div>
@@ -299,7 +325,7 @@
                 </div>
             </section>
 
-            <header class="chapter-mark reveal" id="chapterThree">
+            <header class="chapter-mark reveal" id="chapterThree" data-tint="#c6b2ee">
                 <span class="chapter-numeral" aria-hidden="true">III</span>
                 <p class="chapter-kicker">Chapter three</p>
                 <h2 class="chapter-title">Little games of love</h2>
@@ -315,6 +341,37 @@
                 <div class="coupon-book" id="couponBook"></div>
                 <p class="note-feedback coupon-feedback" id="couponFeedback" role="status"></p>
             </section>
+            <section class="section card bouquet-room reveal" id="bouquet" aria-labelledby="bouquetTitle">
+                <div class="bouquet-copy">
+                    <p class="eyebrow">A florist with only one customer</p>
+                    <h2 class="section-title" id="bouquetTitle">Make yourself<br>a bouquet.</h2>
+                    <p class="section-copy">I cannot hand you flowers today, so here is the whole shop. Pick any you like. Every flower means something.</p>
+                    <div class="flower-picker" role="group" aria-label="Choose flowers">
+                        <button type="button" data-flower="rose"><i style="--f:#c8364f"></i>Rose</button>
+                        <button type="button" data-flower="tulip"><i style="--f:#f07a8f"></i>Tulip</button>
+                        <button type="button" data-flower="daisy"><i style="--f:#fff6e8"></i>Daisy</button>
+                        <button type="button" data-flower="lavender"><i style="--f:#9b84d6"></i>Lavender</button>
+                        <button type="button" data-flower="peony"><i style="--f:#f5b5c6"></i>Peony</button>
+                        <button type="button" data-flower="sunflower"><i style="--f:#f2c14e"></i>Sunflower</button>
+                    </div>
+                    <p class="flower-meaning" id="flowerMeaning" role="status">Tap a flower to add it to your vase.</p>
+                    <div class="bouquet-actions">
+                        <button class="gold-button" id="sendBouquet" type="button">Send it to Habib <span aria-hidden="true">↗</span></button>
+                        <button class="text-link" id="clearBouquet" type="button">Start again</button>
+                    </div>
+                </div>
+                <div class="bouquet-stage" aria-hidden="true">
+                    <svg class="bouquet-svg" id="bouquetSvg" viewBox="0 0 300 360">
+                        <g id="bouquetFlowers"></g>
+                        <path class="vase-back" d="M96 236h108l-6 14H102z"/>
+                        <path class="vase" d="M100 246h100c4 30-6 44-14 58-6 12-4 30 6 44H108c10-14 12-32 6-44-8-14-18-28-14-58Z"/>
+                        <path class="vase-shine" d="M118 262c-3 18 2 32 8 42"/>
+                        <path class="vase-ribbon" d="M104 268c30 8 62 8 92 0"/>
+                    </svg>
+                    <p class="bouquet-count" id="bouquetCount">0 of 9 flowers</p>
+                </div>
+            </section>
+
             <section class="section card reveal" id="meter">
                 <p class="eyebrow">Impossible to measure, still fun to try</p>
                 <h2 class="section-title">How full is my heart?</h2>
@@ -380,7 +437,7 @@
                 </div>
             </section>
 
-            <header class="chapter-mark reveal" id="chapterFour">
+            <header class="chapter-mark reveal" id="chapterFour" data-tint="#9fb6ea">
                 <span class="chapter-numeral" aria-hidden="true">IV</span>
                 <p class="chapter-kicker">Chapter four</p>
                 <h2 class="chapter-title">Under the same sky</h2>
