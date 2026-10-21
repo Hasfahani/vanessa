@@ -1,0 +1,202 @@
+/* The finishing layer: two new moods, chapters, coupons, a reply page, and one palette for every older piece. */
+body[data-mood="golden"] {
+  --paper: #fbf1e6; --surface: #fffaf3; --surface-soft: #f6e8d9;
+  --rose-wash: #f2d9c3; --crimson: #9a4632; --crimson-soft: #c0765a;
+  --crimson-hover: #7a3322; --deep: #3e2419; --wine: #3e2419;
+  --wine-soft: #573427; --ink: #3b2a21; --muted: #7a5f4e;
+  --edge: #e8d2bd; --accent: #a8733d; --sage: #6f7a4e;
+  --gold: #c49a62; --gold-light: #f0d6b1; --champagne: #f6ebdc;
+  --cream: #fffaf3; --dark-edge: #b48f73; --dark-accent: #f2c9a1;
+  --readable-gold: #f0d6b1; --focus-ring: #b0603f;
+}
+body[data-mood="midnight"] {
+  --paper: #16121d; --surface: #201a2a; --surface-soft: #2a2235;
+  --rose-wash: #3a2a45; --crimson: #ecbfd2; --crimson-soft: #c792ad;
+  --crimson-hover: #f7d9e6; --deep: #0d0a12; --wine: #0d0a12;
+  --wine-soft: #2c2140; --ink: #efe5ee; --muted: #b5a5b6;
+  --edge: #3b3047; --accent: #ddb592; --sage: #9cb7a4;
+  --gold: #ddb592; --gold-light: #f3d9bd; --champagne: #2a2235;
+  --cream: #201a2a; --dark-edge: #5a4a68; --dark-text: #fbf1f5;
+  --dark-accent: #f0c9b6; --readable-cream: #fbf1f5; --readable-gold: #f3d9bd;
+  --focus-ring: #ecbfd2;
+  --shadow: 0 20px 65px #00000059; --card-shadow: 0 12px 40px #00000040;
+  color-scheme: dark;
+}
+body[data-mood="midnight"] .particle-canvas { opacity: .42; }
+body[data-mood="midnight"] .hero-portrait img, body[data-mood="midnight"] .photo-card img { filter: saturate(.8) brightness(.88); }
+.mood-swatch[data-mood="golden"] span { background: #c9875c; }
+.mood-swatch[data-mood="midnight"] span { background: #2c2238; box-shadow: inset 0 0 0 1px #ecbfd2; }
+.mood-swatch[data-mood="midnight"][aria-pressed="true"] span { box-shadow: inset 0 0 0 1px #ecbfd2, 0 0 0 1px var(--crimson); }
+body, .card, .site-header, .gate-lock, .gate-card { transition: background-color .5s ease, color .5s ease, border-color .5s ease; }
+.site-header nav a, .love-map-grid strong, .love-map-grid span, .mini-card h3, .timeline-card h3, .open-card strong, .section-title { color: inherit; }
+.section-title { color: var(--crimson) !important; }
+.score-room .section-title, .finale .section-title, .secret-panel .section-title { color: var(--dark-text) !important; }
+.score-room .section-copy, .finale-copy { color: color-mix(in srgb, var(--dark-text) 78%, transparent) !important; }
+.section-copy, .mini-card p, .timeline-card p, .open-card strong, .love-map-grid span { color: var(--muted); }
+.open-card strong, .love-map-grid strong, .mini-card h3, .timeline-card h3, .certificate-title { color: var(--crimson) !important; }
+.site-header nav a { color: var(--ink); }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.visually-hidden:focus { position: static !important; width: auto; height: auto; margin: 10px auto 0; clip: auto; white-space: normal; }
+
+/* Buttons read as one family in every mood. */
+.gold-button, .gold-button:hover, .gold-button:focus-visible { color: var(--paper) !important; }
+.hug-button { border-radius: 999px; background: var(--crimson); border-color: var(--crimson); box-shadow: 0 10px 26px color-mix(in srgb, var(--crimson) 22%, transparent); }
+.hug-milestone { border: 1px solid var(--edge); background: var(--surface-soft); color: var(--muted); border-radius: 4px; }
+
+/* Hero: I love you, in every language. */
+.love-languages { display: flex; align-items: baseline; gap: 14px; margin: -8px 0 26px; min-height: 40px; transition: opacity .42s ease, transform .42s ease; }
+.love-languages.is-changing { opacity: 0; transform: translateY(6px); }
+.love-lang-word { font: italic 500 clamp(26px, 2.6vw, 34px)/1.1 'Cormorant Garamond', Georgia, serif; color: var(--crimson-soft); }
+.love-lang-word[lang="ar"] { font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-style: normal; }
+.love-lang-name { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+
+/* Opening curtain. */
+.intro-curtain { position: fixed; inset: 0; z-index: 21000; display: grid; place-items: center; padding: 30px; background: var(--deep); color: var(--dark-text); opacity: 0; transition: opacity .9s ease; cursor: pointer; overflow: hidden; }
+.intro-curtain.is-playing { opacity: 1; }
+.intro-curtain.is-leaving { opacity: 0; }
+.intro-glow { position: absolute; inset: -20%; background: radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--crimson-soft) 45%, transparent), transparent 45%); animation: intro-breathe 5s ease-in-out infinite; }
+.intro-lines { position: relative; text-align: center; max-width: 560px; }
+.intro-line { margin: 0 0 18px; font: italic 500 clamp(26px, 4.5vw, 40px)/1.25 'Cormorant Garamond', Georgia, serif; opacity: 0; transform: translateY(14px); filter: blur(6px); }
+.intro-curtain.is-playing .intro-line { animation: intro-line 1.3s cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-curtain.is-playing .intro-line:nth-child(2) { animation-delay: 1.5s; font-size: clamp(19px, 3vw, 26px); color: var(--dark-accent); }
+.intro-curtain.is-playing .intro-line:nth-child(3) { animation-delay: 3s; }
+.intro-name { font-style: normal; font-size: clamp(36px, 7vw, 64px) !important; }
+.intro-name em { color: var(--dark-accent); }
+.intro-skip { position: absolute; bottom: max(28px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); min-height: 44px; padding: 10px 22px; border: 1px solid color-mix(in srgb, var(--dark-text) 30%, transparent); border-radius: 999px; background: transparent; color: var(--dark-text); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+@keyframes intro-line { to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+@keyframes intro-breathe { 0%, 100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.12); opacity: 1; } }
+
+/* Chapter marks. */
+.chapter-mark { position: relative; margin: 110px auto 40px; text-align: center; max-width: 640px; padding-top: 8px; }
+.chapter-numeral { display: block; font: italic 500 clamp(92px, 13vw, 150px)/.8 'Cormorant Garamond', Georgia, serif; color: transparent; -webkit-text-stroke: 1px var(--accent); opacity: .75; margin-bottom: 10px; }
+.chapter-kicker { display: inline-flex; align-items: center; gap: 14px; margin: 0 0 12px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); }
+.chapter-kicker::before, .chapter-kicker::after { content: ''; width: 46px; height: 1px; background: color-mix(in srgb, var(--accent) 55%, transparent); }
+.chapter-title { margin: 0 0 14px; font: 500 clamp(42px, 5.6vw, 72px)/1.02 'Cormorant Garamond', Georgia, serif; letter-spacing: -.03em; color: var(--crimson); }
+.chapter-line { margin: 0 auto; max-width: 430px; font: italic 500 20px/1.5 'Cormorant Garamond', Georgia, serif; color: var(--muted); }
+
+/* Love map cards gain a numeral. */
+.love-map-grid small { color: var(--accent) !important; letter-spacing: .2em !important; }
+
+/* Older pieces, re-dressed in the shared palette. */
+.reason-front { color: var(--crimson); background: var(--surface-soft); border: 1px solid var(--edge); box-shadow: none; font: italic 500 2.4rem/1 'Cormorant Garamond', Georgia, serif; }
+.reason-back { color: var(--paper); background: var(--crimson); border: 1px solid var(--crimson); box-shadow: 0 14px 30px color-mix(in srgb, var(--crimson) 18%, transparent); font: italic 500 1.25rem/1.35 'Cormorant Garamond', Georgia, serif; }
+.reason-card:hover .reason-front { border-color: var(--accent); }
+.meter-shell { background: var(--surface-soft) !important; border: 1px solid var(--edge) !important; border-radius: 6px; padding: 26px; }
+.meter-track { background: var(--surface); border: 1px solid var(--edge); }
+.meter-fill { background: linear-gradient(90deg, var(--crimson-soft), var(--crimson)); box-shadow: none; }
+.meter-fill::after { color: var(--paper); background: var(--crimson); border: 2px solid var(--surface); box-shadow: 0 4px 14px color-mix(in srgb, var(--crimson) 35%, transparent); }
+.meter-label { color: var(--crimson) !important; font: italic 500 24px 'Cormorant Garamond', Georgia, serif; }
+.wax-seal { color: var(--paper); border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent); background: radial-gradient(circle at 42% 36%, var(--crimson-soft), var(--crimson) 58%, var(--crimson-hover)); box-shadow: inset 0 -10px 22px #0000002e, 0 16px 34px color-mix(in srgb, var(--crimson) 28%, transparent); }
+.wax-seal, .wax-seal:hover, .wax-seal:focus-visible { color: var(--paper) !important; }
+#foreverButton { width: 132px; height: 132px; font: italic 500 1.7rem/1 'Cormorant Garamond', Georgia, serif; }
+.wax-seal small { color: var(--dark-accent); }
+.finale-reveal { background: var(--surface); color: var(--ink); }
+.forever-note { color: var(--crimson); }
+.envelope { border: 1px solid var(--edge); background: linear-gradient(150deg, var(--wine-soft), var(--deep)); border-radius: 6px; }
+.envelope::before, .envelope::after { background: linear-gradient(135deg, transparent 49.6%, color-mix(in srgb, var(--dark-accent) 26%, transparent) 50%, transparent 50.4%); }
+.envelope::after { transform: scaleX(-1); }
+.envelope-seal { color: var(--paper); background: radial-gradient(circle at 38% 30%, var(--crimson-soft), var(--crimson)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--crimson) 18%, transparent), 0 10px 24px #0000004d; }
+.envelope:hover .envelope-seal { transform: scale(1.06); transition: transform .25s; }
+.poem-display { color: var(--crimson) !important; font-size: 1.7rem !important; display: grid; place-items: center; }
+.date-jar { color: var(--accent); text-shadow: none; filter: none; font-size: 0; }
+.date-card { color: var(--muted) !important; font: italic 500 22px/1.5 'Cormorant Garamond', Georgia, serif !important; display: grid; place-items: center; }
+.quiz-question { color: var(--crimson) !important; font-weight: 500 !important; }
+.quiz-box { padding: clamp(20px, 3vw, 32px) !important; border-radius: 6px; }
+.quiz-message { color: var(--muted); }
+.heartbeat-btn { background: radial-gradient(circle at 38% 32%, var(--crimson-soft), var(--crimson)); color: var(--paper); font: 3rem/1 Georgia, serif; box-shadow: 0 0 0 10px color-mix(in srgb, var(--crimson) 10%, transparent), 0 0 0 22px color-mix(in srgb, var(--crimson) 5%, transparent), 0 18px 40px color-mix(in srgb, var(--crimson) 28%, transparent); }
+.heartbeat-label { color: var(--accent) !important; }
+.constellation-field { border: 0; border-radius: 6px; background: radial-gradient(ellipse at 50% 120%, var(--wine-soft), var(--deep) 70%); max-height: 300px; }
+.constellation-field::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(1px 1px at 12% 22%, #fff9 50%, transparent), radial-gradient(1px 1px at 72% 12%, #fff7 50%, transparent), radial-gradient(1px 1px at 42% 62%, #fff6 50%, transparent), radial-gradient(1px 1px at 88% 82%, #fff8 50%, transparent), radial-gradient(1px 1px at 25% 88%, #fff5 50%, transparent), radial-gradient(1.5px 1.5px at 60% 40%, #fff8 50%, transparent), radial-gradient(1px 1px at 6% 60%, #fff6 50%, transparent), radial-gradient(1px 1px at 95% 35%, #fff6 50%, transparent); }
+.const-star-core { background: color-mix(in srgb, var(--dark-text) 55%, transparent); box-shadow: 0 0 6px 2px color-mix(in srgb, var(--dark-text) 18%, transparent); }
+.const-star-btn.lit .const-star-core { background: var(--dark-accent); box-shadow: 0 0 12px 4px color-mix(in srgb, var(--dark-accent) 55%, transparent), 0 0 26px color-mix(in srgb, var(--dark-accent) 25%, transparent); }
+.constellation-msg { color: var(--crimson) !important; background: transparent !important; border: 0 !important; font: italic 500 22px/1.4 'Cormorant Garamond', Georgia, serif !important; }
+.tw-display, .compliment-display { color: var(--dark-text) !important; background: linear-gradient(160deg, var(--wine-soft), var(--deep)) !important; border-radius: 6px !important; }
+.compliment-display { font-size: 1.5rem !important; line-height: 1.5 !important; padding: 30px !important; min-height: 140px; display: grid; place-items: center; text-align: center; }
+.tw-display { font-size: 1.2rem !important; }
+.poem-cursor { background: var(--dark-accent); }
+.timeline-dot { background: var(--crimson) !important; box-shadow: 0 0 0 5px color-mix(in srgb, var(--crimson) 14%, transparent) !important; border-color: var(--surface) !important; }
+.timeline::before { background: linear-gradient(var(--edge), var(--accent), var(--edge)) !important; }
+.timeline-date { color: var(--accent) !important; }
+.certificate-seal { background: var(--crimson) !important; color: var(--paper) !important; }
+
+/* Floating extras. */
+.rain-btn { color: var(--crimson) !important; font: 22px/1 Georgia, serif; animation: none; }
+.rain-note, .heart-tooltip, .pet-bubble, .star-caught-msg { background: var(--surface) !important; color: var(--crimson) !important; border: 1px solid var(--edge) !important; box-shadow: var(--shadow) !important; font-family: 'Cormorant Garamond', Georgia, serif !important; font-style: italic; font-weight: 600 !important; font-size: 1.02rem !important; }
+.hearts-counter { color: var(--dark-accent) !important; }
+.all-hearts-overlay { background: color-mix(in srgb, var(--deep) 86%, transparent) !important; }
+.all-hearts-inner { background: var(--surface) !important; border: 1px solid var(--edge) !important; border-radius: 8px; }
+.all-hearts-inner h2 { color: var(--crimson) !important; }
+.all-hearts-inner p { color: var(--muted) !important; font-weight: 400 !important; }
+.all-hearts-inner button { background: var(--crimson) !important; color: var(--paper) !important; border-radius: 999px; font-weight: 600 !important; }
+.idle-float { background: var(--deep) !important; color: var(--dark-text) !important; border: 0 !important; }
+
+/* Coupons. */
+.coupon-room { padding: 10px 0; }
+.coupon-head { text-align: center; max-width: 620px; margin: 0 auto 38px; }
+.coupon-head .section-title em { color: var(--crimson-soft); }
+.coupon-book { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.coupon { position: relative; display: grid; grid-template-columns: 46px 1fr; min-height: 250px; background: var(--surface); border: 1px solid var(--edge); border-radius: 10px; box-shadow: var(--card-shadow); overflow: hidden; transition: transform .3s ease; }
+.coupon:hover { transform: translateY(-3px) rotate(-.4deg); }
+.coupon::before, .coupon::after { content: ''; position: absolute; left: 37px; width: 18px; height: 18px; border-radius: 50%; background: var(--paper); border: 1px solid var(--edge); z-index: 3; }
+.coupon::before { top: -10px; }
+.coupon::after { bottom: -10px; }
+.coupon-stub { display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 18px 0; border-right: 1px dashed var(--edge); background: var(--surface-soft); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); writing-mode: vertical-rl; transform: rotate(180deg); }
+.coupon-body { position: relative; }
+.coupon-prize { height: 100%; display: flex; flex-direction: column; padding: 24px 22px 18px; }
+.coupon-icon { font: italic 34px/1 'Cormorant Garamond', Georgia, serif; color: var(--accent); margin-bottom: 14px; }
+.coupon-prize h3 { margin: 0 0 10px; font: 500 28px/1.05 'Cormorant Garamond', Georgia, serif; color: var(--crimson); letter-spacing: -.01em; }
+.coupon-prize p { margin: 0 0 16px; font-size: 13px; line-height: 1.75; color: var(--muted); }
+.coupon-redeem { margin-top: auto; align-self: flex-start; min-height: 40px; padding: 9px 16px; border: 1px solid var(--crimson); border-radius: 999px; background: transparent; color: var(--crimson); font-size: 11px; letter-spacing: .04em; transition: background .2s, color .2s; }
+.coupon-redeem:hover, .coupon-redeem:focus-visible { background: var(--crimson); color: var(--paper); }
+.coupon.is-redeemed .coupon-redeem { border-color: var(--edge); color: var(--muted); }
+.coupon-foil { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; transition: opacity .6s ease; z-index: 2; }
+.coupon.is-revealed .coupon-foil { opacity: 0; pointer-events: none; }
+.coupon:not(.is-revealed) .coupon-prize { visibility: hidden; }
+.coupon-reveal:focus { position: absolute !important; z-index: 4; left: 50%; bottom: 14px; transform: translateX(-50%); margin: 0; padding: 8px 14px; border-radius: 999px; border: 0; background: var(--paper); color: var(--crimson); font-size: 11px; }
+.coupon-feedback { text-align: center; margin-top: 18px; color: var(--muted); }
+
+/* Write back. */
+.write-back { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(30px, 6vw, 90px); align-items: center; padding: 30px 0; }
+.write-back-intro .section-title { font-size: clamp(48px, 6vw, 78px); }
+.write-back-paper { position: relative; padding: clamp(24px, 4vw, 40px); background: var(--surface); border: 1px solid var(--edge); border-radius: 3px 3px 26px 3px; box-shadow: 7px 9px 0 -1px var(--surface-soft), 7px 9px 0 0 var(--edge), var(--shadow); transform: rotate(.8deg); }
+.prompt-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; }
+.prompt-chips button { min-height: 36px; padding: 7px 13px; border: 1px solid var(--edge); border-radius: 999px; background: var(--surface-soft); color: var(--crimson); font-size: 11px; transition: border-color .2s, background .2s; }
+.prompt-chips button:hover { border-color: var(--accent); background: var(--rose-wash); }
+.write-back-input { width: 100%; min-height: 220px; margin-top: 10px; padding: 8px 0; border: 0; resize: vertical; background: repeating-linear-gradient(transparent 0 37px, var(--edge) 37px 38px); background-attachment: local; color: var(--crimson); font: italic 500 23px/38px 'Cormorant Garamond', Georgia, serif; outline: none; }
+.write-back-input::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent) !important; }
+input, textarea { color: var(--ink) !important; background: var(--surface) !important; border-color: var(--edge) !important; }
+input::placeholder, textarea::placeholder { color: var(--muted) !important; }
+.password-error { color: var(--crimson) !important; font-weight: 600 !important; }
+.write-back-input { color: var(--crimson) !important; background: repeating-linear-gradient(transparent 0 37px, var(--edge) 37px 38px) !important; background-attachment: local !important; }
+.write-back-input:focus-visible { outline: none !important; }
+.heartbeat-label { margin-top: 26px !important; }
+.write-back-paper:focus-within { box-shadow: 7px 9px 0 -1px var(--surface-soft), 7px 9px 0 0 var(--edge), 0 0 0 2px var(--focus-ring); }
+.write-back-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--edge); }
+.write-back-count { font-size: 11px; color: var(--muted); }
+
+.footer-secret { font: italic 18px 'Cormorant Garamond', Georgia, serif !important; color: var(--accent) !important; margin-top: 0 !important; }
+
+@media (max-width: 899px) {
+  .coupon-book { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .write-back { grid-template-columns: 1fr; }
+}
+@media (max-width: 699px) {
+  .love-languages { justify-content: center; flex-direction: column; align-items: center; gap: 6px; margin: -6px 0 22px; min-height: 62px; }
+  .love-lang-name { font-size: 8px; }
+  .chapter-mark { margin: 72px auto 26px; }
+  .chapter-numeral { font-size: 96px; }
+  .chapter-title { font-size: 44px !important; }
+  .chapter-line { font-size: 18px; padding: 0 10px; }
+  .coupon-book { grid-template-columns: 1fr; gap: 14px; }
+  .coupon { min-height: 225px; }
+  .coupon-prize h3 { font-size: 27px; }
+  .write-back { padding: 10px 0; gap: 20px; }
+  .write-back-intro .section-title { font-size: 52px !important; }
+  .write-back-paper { transform: none; padding: 24px 20px; }
+  .write-back-foot { flex-direction: column; align-items: stretch; text-align: center; }
+  .write-back-foot .gold-button { justify-content: center; }
+  .compliment-display { font-size: 1.3rem !important; padding: 24px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-curtain { display: none !important; }
+}

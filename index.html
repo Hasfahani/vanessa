@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="image" href="assets/images/vanessa-hero-letter-768.jpg" imagesrcset="assets/images/vanessa-hero-letter-768.jpg 768w, assets/images/vanessa-hero-letter-1280.jpg 1280w" imagesizes="(min-width: 900px) 46vw, 100vw">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Raleway:wght@400;500;600;700&family=Amiri:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="assets/timeless.css">
+    <link rel="stylesheet" href="assets/ultimate.css">
     <link rel="icon" type="image/svg+xml" href="assets/heart.svg">
 </head>
 <body class="gate-locked">
@@ -40,6 +41,16 @@
         </div>
     </section>
 
+    <div class="intro-curtain" id="introCurtain" hidden>
+        <div class="intro-glow" aria-hidden="true"></div>
+        <div class="intro-lines" role="status">
+            <p class="intro-line">Hi, my love.</p>
+            <p class="intro-line">I made this slowly, with every piece of me.</p>
+            <p class="intro-line intro-name">For you, <em>Vanessa.</em></p>
+        </div>
+        <button class="intro-skip" id="introSkip" type="button">Come in <span aria-hidden="true">↓</span></button>
+    </div>
+
     <canvas class="particle-canvas" id="particleCanvas" aria-hidden="true"></canvas>
     <div class="scroll-progress" id="scrollProgress"></div>
     <button class="secret-lock" id="secretLock" type="button" aria-label="Open the secret lock">🔒</button>
@@ -50,9 +61,10 @@
         <header class="site-header">
             <a class="wordmark" href="#top" aria-label="Habib and Vanessa, back to top">h <span>&</span> v<span class="wordmark-dot">.</span></a>
             <nav aria-label="Main navigation">
-                <a href="#letter">The letter</a>
-                <a href="#dailyNoteRoom">Little notes</a>
-                <a href="#foreverRoom">Our forever <span aria-hidden="true">↗</span></a>
+                <a href="#chapterOne">Letters</a>
+                <a href="#coupons">Coupons</a>
+                <a href="#writeBack">Write back</a>
+                <a href="#foreverRoom">Forever <span aria-hidden="true">↗</span></a>
             </nav>
             <div class="header-tools">
                 <span class="header-note" id="moodLabel" role="status">Rose garden</span>
@@ -60,6 +72,8 @@
                     <button class="mood-swatch" type="button" data-mood="rose" aria-label="Rose garden colors" aria-pressed="true" title="Rose garden"><span></span></button>
                     <button class="mood-swatch" type="button" data-mood="moonlight" aria-label="Blue hour colors" aria-pressed="false" title="Blue hour"><span></span></button>
                     <button class="mood-swatch" type="button" data-mood="sage" aria-label="Sunday morning colors" aria-pressed="false" title="Sunday morning"><span></span></button>
+                    <button class="mood-swatch" type="button" data-mood="golden" aria-label="Golden hour colors" aria-pressed="false" title="Golden hour"><span></span></button>
+                    <button class="mood-swatch" type="button" data-mood="midnight" aria-label="Midnight colors" aria-pressed="false" title="Midnight"><span></span></button>
                 </div>
             </div>
         </header>
@@ -69,6 +83,7 @@
                 <p class="eyebrow">For my favourite person, in every lifetime</p>
                 <p class="hero-pretitle">My heart has a name.</p>
                 <h1 class="hero-title" id="heroTitle" tabindex="0" role="button" aria-label="Vanessa. Press five times for a little secret.">Vanessa<span aria-hidden="true">.</span></h1>
+                <p class="love-languages" aria-hidden="true"><span class="love-lang-word" id="loveLangWord">I love you</span><span class="love-lang-name" id="loveLangName">in English</span></p>
                 <p class="hero-subtitle">And somehow, every ordinary day becomes a little more beautiful with you in it. This is my little way of keeping you close.</p>
                 <p class="counter-caption">Our story, still unfolding</p>
                 <div class="countdown" id="countdown" aria-label="Time loving Vanessa">
@@ -79,7 +94,7 @@
                 </div>
                 <div class="hero-actions">
                     <a class="gold-button" href="#letter">A letter for you <span aria-hidden="true">↗</span></a>
-                    <a class="text-link" href="#openWhen">Stay a little while <span aria-hidden="true">↓</span></a>
+                    <a class="text-link" href="#loveMap">Stay a little while <span aria-hidden="true">↓</span></a>
                 </div>
                 <p class="hero-signature">With all my love, <em>Habib</em></p>
             </div>
@@ -96,16 +111,15 @@
                 <div class="love-map-copy">
                     <p class="eyebrow">A whole little world for you</p>
                     <h2 class="section-title">A place to come back to.</h2>
-                    <p class="section-copy">For the days we are together, and the days we wish we were. A few words to keep, a few things to discover, and a reminder that you are always on my mind.</p>
+                    <p class="section-copy">For the days we are together, and the days we wish we were. Four little chapters, a few secrets hidden along the way, and a reminder that you are always on my mind. Take it slowly. There is no wrong way to read it.</p>
                 </div>
                 <div class="love-map-grid">
-                    <a href="#letter"><small>01 / Words to keep</small><strong>The love letter <span aria-hidden="true">↗</span></strong><span>A little piece of my heart, folded into words.</span></a>
-                    <a href="#openWhen"><small>02 / A little comfort</small><strong>Open when…</strong><span>Small messages for the moments that need me.</span></a>
-                    <a href="#timelineSection"><small>03 / You & me</small><strong>Our story</strong><span>Every chapter, even the ones still waiting.</span></a>
-                    <a href="#constellationSection"><small>04 / Something to discover</small><strong>Our sky</strong><span>Stars that only make sense together.</span></a>
+                    <a href="#chapterOne"><small>Chapter I</small><strong>Words I keep <span aria-hidden="true">↗</span></strong><span>A sealed letter, open-when notes, and fourteen little truths.</span></a>
+                    <a href="#chapterTwo"><small>Chapter II</small><strong>The story of us</strong><span>Where we began, and every chapter still waiting.</span></a>
+                    <a href="#chapterThree"><small>Chapter III</small><strong>Little games</strong><span>Scratch-off love coupons, a quiz, and a jar of somedays.</span></a>
+                    <a href="#chapterFour"><small>Chapter IV</small><strong>The same sky</strong><span>Stars to connect, a heartbeat, and a page for your words.</span></a>
                 </div>
             </section>
-
             <section class="section daily-note-room reveal" id="dailyNoteRoom" aria-labelledby="dailyNoteTitle">
                 <div class="daily-note-intro">
                     <p class="eyebrow"><span class="little-spark" aria-hidden="true">✧</span> A tiny ritual, just ours</p>
@@ -141,38 +155,65 @@
                 </div>
             </section>
 
-            <section class="section photo-story reveal" id="photoStory" aria-label="A symbolic photo moodboard">
-                <div class="photo-story-head">
-                    <p class="eyebrow">A moodboard for us</p>
-                    <h2 class="section-title">If a feeling were a photograph.</h2>
-                    <p class="section-copy">The words, the waiting, and the someday. A little moodboard of everything I feel for you.</p>
-                </div>
-                <div class="photo-story-grid">
-                    <figure class="photo-card">
-                        <img src="assets/images/unsplash-love-letter.jpg" loading="lazy" decoding="async" alt="A rose and love letter with romantic details">
-                        <figcaption><span>The Letter</span><strong>Every word keeps finding its way back to you.</strong></figcaption>
-                    </figure>
-                    <figure class="photo-card">
-                        <img src="assets/images/unsplash-heart-hands.jpg" loading="lazy" decoding="async" alt="Hands making a heart shape in front of a sunset">
-                        <figcaption><span>The Distance</span><strong>Even far away, my heart still knows your shape.</strong></figcaption>
-                    </figure>
-                    <figure class="photo-card">
-                        <img src="assets/images/unsplash-holding-hands.jpg" loading="lazy" decoding="async" alt="A couple holding hands in golden sunset light">
-                        <figcaption><span>The Future</span><strong>One day, no countdown. Just your hand in mine.</strong></figcaption>
-                    </figure>
+            <header class="chapter-mark reveal" id="chapterOne">
+                <span class="chapter-numeral" aria-hidden="true">I</span>
+                <p class="chapter-kicker">Chapter one</p>
+                <h2 class="chapter-title">Words I keep for you</h2>
+                <p class="chapter-line">The letters, the little truths, and the things I would whisper if I were next to you.</p>
+            </header>
+            <section class="section card reveal" id="letter">
+                <p class="eyebrow">A wax-sealed piece of me</p>
+                <h2 class="section-title">Some words are only for you.</h2>
+                <p class="section-copy">A small envelope. Everything I mean. Tap the heart to open it.</p>
+                <button class="envelope" id="envelopeButton" type="button" aria-label="Open love letter" aria-expanded="false" aria-controls="letterPaper">
+                    <span class="envelope-seal">♥</span>
+                </button>
+                <div class="letter-paper" id="letterPaper" role="region" aria-label="A letter from Habib" hidden>
+                    <p class="letter-salutation">My Vanessa,</p><p>
+                    Loving you has become the softest certainty in my life. You are in my prayers, my plans, my late-night thoughts, and the quiet smile I get when your name appears. I do not want a love that only sounds beautiful. I want to build one that is patient, loyal, honest, playful, and brave enough to keep choosing you in every season. Every time I see you, I feel it again: my heart knows exactly where it belongs.</p><p class="letter-signature">Always yours,<br><em>Habib</em></p>
                 </div>
             </section>
-
-            <section class="section cinematic-promise reveal" aria-label="A promise across the distance">
-                <div class="cinematic-promise-image" aria-hidden="true"></div>
-                <div class="cinematic-promise-shade" aria-hidden="true"></div>
-                <div class="cinematic-promise-copy">
-                    <p class="eyebrow">Until there are no miles between us</p>
-                    <blockquote>“The distance is temporary.<br>Choosing you isn’t.”</blockquote>
-                    <p>Every day apart is still a day closer to the life I want beside you.</p>
+            <section class="section card reveal open-when" id="openWhen">
+                <p class="eyebrow">For the moments between us</p>
+                <h2 class="section-title">Open this when...</h2>
+                <p class="section-copy">A few tiny letters for the exact seconds I wish I could be beside you.</p>
+                <div class="open-when-grid" aria-label="Open when messages">
+                    <button aria-pressed="true" class="open-card active" type="button" data-note="When you miss me, remember this: I am missing you too, probably at the exact same second, probably smiling at my phone like your name is a sunrise. Distance is loud sometimes, but my love is louder.">
+                        <span>You miss me</span>
+                        <strong>I am already there in my heart.</strong>
+                    </button>
+                    <button aria-pressed="false" class="open-card" type="button" data-note="When you feel tired, you do not have to be strong for the whole world. Be soft for one minute. Breathe. I am proud of you for every quiet thing you carry and every day you still keep going.">
+                        <span>You feel tired</span>
+                        <strong>Rest, my love. I am proud of you.</strong>
+                    </button>
+                    <button aria-pressed="false" class="open-card" type="button" data-note="When you doubt yourself, borrow my eyes. I see a woman with a beautiful heart, a brave soul, and a light that stays even on hard days. I believe in you completely.">
+                        <span>You doubt yourself</span>
+                        <strong>Borrow my eyes for a second.</strong>
+                    </button>
+                    <button aria-pressed="false" class="open-card" type="button" data-note="When you need a promise, take this one: I will keep choosing you with patience, honesty, loyalty, laughter, and the kind of love that does not disappear when life gets complicated.">
+                        <span>You need a promise</span>
+                        <strong>I choose you in every season.</strong>
+                    </button>
+                </div>
+                <div class="open-when-note" id="openWhenNote" role="status">When you miss me, remember this: I am missing you too, probably at the exact same second, probably smiling at my phone like your name is a sunrise. Distance is loud sometimes, but my love is louder.</div>
+            </section>
+            <section class="section card reveal" id="typewriterSection">
+                <p class="eyebrow">Written just for you, live</p>
+                <h2 class="section-title">A letter, written live.</h2>
+                <div class="tw-display" id="twLetterDisplay"><span class="poem-cursor"></span></div>
+                <div class="controls">
+                    <button class="gold-button" id="twLetterBtn" type="button">Begin the letter</button>
                 </div>
             </section>
-
+            <section class="section card reveal" id="reasons">
+                <p class="eyebrow">Fourteen little truths</p>
+                <h2 class="section-title">Reasons I love you.</h2>
+                <p class="section-copy" id="reasonCounter">0 of 14 revealed</p>
+                <div class="reason-wall" id="reasonWall"></div>
+                <div class="controls">
+                    <button class="gold-button" id="reasonButton" type="button">Reveal a reason</button>
+                </div>
+            </section>
             <section class="section score-room reveal" id="tenOutOfTen" aria-label="Vanessa is ten out of ten">
                 <div class="score-copy">
                     <p class="eyebrow">Ten little things, one favourite person</p>
@@ -198,10 +239,48 @@
                 </ol>
             </section>
 
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 10c16 16 16 6 0 22-16-16-16-6 0-22Z" fill="currentColor"/></svg>
-            </div>
-
+            <header class="chapter-mark reveal" id="chapterTwo">
+                <span class="chapter-numeral" aria-hidden="true">II</span>
+                <p class="chapter-kicker">Chapter two</p>
+                <h2 class="chapter-title">The story of us</h2>
+                <p class="chapter-line">Where we began, what we are, and how it feels from the inside.</p>
+            </header>
+            <section class="section photo-story reveal" id="photoStory" aria-label="A symbolic photo moodboard">
+                <div class="photo-story-head">
+                    <p class="eyebrow">A moodboard for us</p>
+                    <h2 class="section-title">If a feeling were a photograph.</h2>
+                    <p class="section-copy">The words, the waiting, and the someday. A little moodboard of everything I feel for you.</p>
+                </div>
+                <div class="photo-story-grid">
+                    <figure class="photo-card">
+                        <img src="assets/images/unsplash-love-letter.jpg" loading="lazy" decoding="async" alt="A rose and love letter with romantic details">
+                        <figcaption><span>The Letter</span><strong>Every word keeps finding its way back to you.</strong></figcaption>
+                    </figure>
+                    <figure class="photo-card">
+                        <img src="assets/images/unsplash-heart-hands.jpg" loading="lazy" decoding="async" alt="Hands making a heart shape in front of a sunset">
+                        <figcaption><span>The Distance</span><strong>Even far away, my heart still knows your shape.</strong></figcaption>
+                    </figure>
+                    <figure class="photo-card">
+                        <img src="assets/images/unsplash-holding-hands.jpg" loading="lazy" decoding="async" alt="A couple holding hands in golden sunset light">
+                        <figcaption><span>The Future</span><strong>One day, no countdown. Just your hand in mine.</strong></figcaption>
+                    </figure>
+                </div>
+            </section>
+            <section class="section cinematic-promise reveal" aria-label="A promise across the distance">
+                <div class="cinematic-promise-image" aria-hidden="true"></div>
+                <div class="cinematic-promise-shade" aria-hidden="true"></div>
+                <div class="cinematic-promise-copy">
+                    <p class="eyebrow">Until there are no miles between us</p>
+                    <blockquote>“The distance is temporary.<br>Choosing you isn’t.”</blockquote>
+                    <p>Every day apart is still a day closer to the life I want beside you.</p>
+                </div>
+            </section>
+            <section class="section card reveal" id="timelineSection">
+                <p class="eyebrow">Our little forever, so far</p>
+                <h2 class="section-title">The chapters of us.</h2>
+                <p class="section-copy">Every chapter has been leading closer to you: the first spark, the patient distance, the moments I replay, and the future I keep choosing.</p>
+                <div class="timeline" id="timeline"></div>
+            </section>
             <section class="section card reveal" id="dedication">
                 <p class="eyebrow">For the woman I adore</p>
                 <h2 class="section-title">This is what my heart looks like when it thinks of you.</h2>
@@ -220,54 +299,26 @@
                 </div>
             </section>
 
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="7" fill="currentColor"/></svg>
-            </div>
+            <header class="chapter-mark reveal" id="chapterThree">
+                <span class="chapter-numeral" aria-hidden="true">III</span>
+                <p class="chapter-kicker">Chapter three</p>
+                <h2 class="chapter-title">Little games of love</h2>
+                <p class="chapter-line">Things to tap, scratch, shake, and play with. Every one of them ends in the same answer.</p>
+            </header>
 
-            <section class="section card reveal open-when" id="openWhen">
-                <p class="eyebrow">For the moments between us</p>
-                <h2 class="section-title">Open this when...</h2>
-                <p class="section-copy">A few tiny letters for the exact seconds I wish I could be beside you.</p>
-                <div class="open-when-grid" aria-label="Open when messages">
-                    <button aria-pressed="true" class="open-card active" type="button" data-note="When you miss me, remember this: I am missing you too, probably at the exact same second, probably smiling at my phone like your name is a sunrise. Distance is loud sometimes, but my love is louder.">
-                        <span>You miss me</span>
-                        <strong>I am already there in my heart.</strong>
-                    </button>
-                    <button aria-pressed="false" class="open-card" type="button" data-note="When you feel tired, you do not have to be strong for the whole world. Be soft for one minute. Breathe. I am proud of you for every quiet thing you carry and every day you still keep going.">
-                        <span>You feel tired</span>
-                        <strong>Rest, my love. I am proud of you.</strong>
-                    </button>
-                    <button aria-pressed="false" class="open-card" type="button" data-note="When you doubt yourself, borrow my eyes. I see a woman with a beautiful heart, a brave soul, and a light that stays even on hard days. I believe in you completely.">
-                        <span>You doubt yourself</span>
-                        <strong>Borrow my eyes for a second.</strong>
-                    </button>
-                    <button aria-pressed="false" class="open-card" type="button" data-note="When you need a promise, take this one: I will keep choosing you with patience, honesty, loyalty, laughter, and the kind of love that does not disappear when life gets complicated.">
-                        <span>You need a promise</span>
-                        <strong>I choose you in every season.</strong>
-                    </button>
+            <section class="section coupon-room reveal" id="coupons" aria-labelledby="couponTitle">
+                <div class="coupon-head">
+                    <p class="eyebrow">Valid forever · no expiry date · no take-backs</p>
+                    <h2 class="section-title" id="couponTitle">Love coupons,<br><em>signed by me.</em></h2>
+                    <p class="section-copy">Scratch the foil with your finger to see what is inside. Whenever you want one, tap redeem and the message comes straight to me. I will honour every single one.</p>
                 </div>
-                <div class="open-when-note" id="openWhenNote" role="status">When you miss me, remember this: I am missing you too, probably at the exact same second, probably smiling at my phone like your name is a sunrise. Distance is loud sometimes, but my love is louder.</div>
+                <div class="coupon-book" id="couponBook"></div>
+                <p class="note-feedback coupon-feedback" id="couponFeedback" role="status"></p>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 8l9 9-9 17-9-17 9-9Z" fill="currentColor"/></svg>
-            </div>
-
-            <section class="section card reveal" id="timelineSection">
-                <p class="eyebrow">Our little forever, so far</p>
-                <h2 class="section-title">Relationship Timeline</h2>
-                <p class="section-copy">Every chapter has been leading closer to you: the first spark, the patient distance, the moments I replay, and the future I keep choosing.</p>
-                <div class="timeline" id="timeline"></div>
-            </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M308 12h24v18h-24z" fill="currentColor"/></svg>
-            </div>
-
             <section class="section card reveal" id="meter">
                 <p class="eyebrow">Impossible to measure, still fun to try</p>
-                <h2 class="section-title">Romance Meter</h2>
-                <p class="section-copy">Every tap fills it with a little more of what is already overflowing.</p>
+                <h2 class="section-title">How full is my heart?</h2>
+                <p class="section-copy">Spoiler: it was already full. Every tap just proves it a little louder.</p>
                 <div class="meter-shell">
                     <div class="meter-track" role="progressbar" aria-label="Romance meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="meter-fill" id="meterFill"></div></div>
                     <p class="meter-label" id="meterLabel">0% full of Vanessa.</p>
@@ -276,67 +327,35 @@
                     <button class="gold-button" id="meterButton" type="button">Add more love</button>
                 </div>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 8l9 9-9 17-9-17 9-9Z" fill="currentColor"/></svg>
-            </div>
-
             <section class="section grid interactive-grid">
                 <article class="card reveal">
                     <p class="eyebrow">A seal for forever</p>
-                    <h2 class="section-title">Tap for Forever</h2>
+                    <h2 class="section-title">Seal it forever.</h2>
                     <button class="wax-seal" id="foreverButton" type="button">Forever</button>
                     <p class="forever-note" id="foreverNote">Opened. Sealed. Promised. Yours.</p>
                 </article>
                 <article class="card reveal">
                     <p class="eyebrow">For when I cannot hold you yet</p>
-                    <h2 class="section-title">Virtual Hug</h2>
+                    <h2 class="section-title">A hug, sent from here.</h2>
                     <div class="controls">
                         <button class="gold-button hug-button" id="hugButton" type="button">Send Vanessa a hug</button>
                     </div>
                     <div class="hug-milestone" id="hugText">0 hugs saved for Vanessa.</div>
                 </article>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="303" cy="21" r="5" fill="currentColor"/><circle cx="337" cy="21" r="5" fill="currentColor"/></svg>
-            </div>
-
-            <section class="section card reveal" id="letter">
-                <p class="eyebrow">A wax-sealed piece of me</p>
-                <h2 class="section-title">Some words are only for you.</h2>
-                <p class="section-copy">A small envelope. Everything I mean. Tap the heart to open it.</p>
-                <button class="envelope" id="envelopeButton" type="button" aria-label="Open love letter" aria-expanded="false" aria-controls="letterPaper">
-                    <span class="envelope-seal">♥</span>
-                </button>
-                <div class="letter-paper" id="letterPaper" role="region" aria-label="A letter from Habib" hidden>
-                    <p class="letter-salutation">My Vanessa,</p><p>
-                    Loving you has become the softest certainty in my life. You are in my prayers, my plans, my late-night thoughts, and the quiet smile I get when your name appears. I do not want a love that only sounds beautiful. I want to build one that is patient, loyal, honest, playful, and brave enough to keep choosing you in every season. Every time I see you, I feel it again: my heart knows exactly where it belongs.</p><p class="letter-signature">Always yours,<br><em>Habib</em></p>
+            <section class="section card reveal" id="quiz">
+                <p class="eyebrow">A game with only one real prize: you</p>
+                <h2 class="section-title">How well do you know me?</h2>
+                <div class="quiz-box" id="quizBox">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div class="quiz-message" id="quizMessage"></div>
                 </div>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 9c10 8 18 14 0 25-18-11-10-17 0-25Z" fill="currentColor"/></svg>
-            </div>
-
-            <section class="section card reveal" id="reasons">
-                <p class="eyebrow">Fourteen little truths</p>
-                <h2 class="section-title">Reasons I Love You</h2>
-                <p class="section-copy" id="reasonCounter">0 of 14 revealed</p>
-                <div class="reason-wall" id="reasonWall"></div>
-                <div class="controls">
-                    <button class="gold-button" id="reasonButton" type="button">Reveal a reason</button>
-                </div>
-            </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M300 11h40v20h-40z" fill="currentColor"/></svg>
-            </div>
-
             <section class="section grid interactive-grid">
                 <article class="card reveal">
                     <p class="eyebrow">A parchment for your heart</p>
-                    <h2 class="section-title">Poem Scroll</h2>
+                    <h2 class="section-title">A little poem.</h2>
                     <div class="poem-display" id="poemText">Tap below, and I will write you something soft.</div>
                     <div class="controls">
                         <button class="gold-button" id="poemButton" type="button">Unfurl poem</button>
@@ -344,85 +363,45 @@
                 </article>
                 <article class="card reveal">
                     <p class="eyebrow">Our future, folded into wishes</p>
-                    <h2 class="section-title">Dream Date Jar</h2>
-                    <div class="date-jar" id="dateJar" aria-hidden="true">♕</div>
-                    <div class="date-card" id="dateIdea">Shake the golden jar for a dream date.</div>
+                    <h2 class="section-title">The someday jar.</h2>
+                    <div class="date-jar" id="dateJar" aria-hidden="true"><svg viewBox="0 0 80 100" width="86" height="108" fill="none" stroke="currentColor" stroke-width="2"><rect x="22" y="6" width="36" height="12" rx="3"/><path d="M24 18c-10 6-14 14-14 26v38c0 8 6 12 14 12h32c8 0 14-4 14-12V44c0-12-4-20-14-26"/><path d="M30 54c0-5 4-8 8-5l2 2 2-2c4-3 8 0 8 5 0 6-10 12-10 12s-10-6-10-12Z" fill="currentColor" stroke="none"/><path d="M20 76h40" stroke-dasharray="2 5"/></svg></div>
+                    <div class="date-card" id="dateIdea">Shake the jar for a date we will go on someday.</div>
                     <div class="controls">
                         <button class="gold-button" id="dateButton" type="button">Pull a date</button>
                     </div>
                 </article>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="9" fill="currentColor"/></svg>
-            </div>
-
-            <section class="section card reveal" id="quiz">
-                <p class="eyebrow">A game with only one real prize: you</p>
-                <h2 class="section-title">How Well Do You Know Habib?</h2>
-                <div class="quiz-box" id="quizBox">
-                    <div class="quiz-question" id="quizQuestion"></div>
-                    <div class="quiz-options" id="quizOptions"></div>
-                    <div class="quiz-message" id="quizMessage"></div>
+            <section class="section card reveal" id="complimentSection">
+                <p class="eyebrow">Because you deserve to hear it</p>
+                <h2 class="section-title">Tell me something sweet.</h2>
+                <div class="compliment-display" id="complimentDisplay">Press the button, and I will tell you something true.</div>
+                <div class="controls">
+                    <button class="gold-button" id="complimentBtn" type="button">Tell me something</button>
                 </div>
             </section>
 
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="7" fill="currentColor"/></svg>
-            </div>
-
-            <!-- 💗 TAP TO HEAR MY HEARTBEAT -->
+            <header class="chapter-mark reveal" id="chapterFour">
+                <span class="chapter-numeral" aria-hidden="true">IV</span>
+                <p class="chapter-kicker">Chapter four</p>
+                <h2 class="chapter-title">Under the same sky</h2>
+                <p class="chapter-line">Wherever you are tonight, look up. It is the same sky I am looking at.</p>
+            </header>
             <section class="section card reveal" id="heartbeatSection">
                 <p class="eyebrow">Beating for one person only</p>
-                <h2 class="section-title">Tap to Hear My Heartbeat</h2>
+                <h2 class="section-title">Put your ear to my chest.</h2>
                 <div style="text-align:center;padding:14px 0 4px">
-                    <button class="heartbeat-btn" id="heartbeatBtn" type="button" aria-label="Tap to hear heartbeat">💗</button>
+                    <button class="heartbeat-btn" id="heartbeatBtn" type="button" aria-label="Tap to hear heartbeat">♥</button>
                     <p class="heartbeat-label">Tap me</p>
                     <p class="heartbeat-msg" id="heartbeatMsg">This beats for you.</p>
                 </div>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M320 8l9 9-9 17-9-17 9-9Z" fill="currentColor"/></svg>
-            </div>
-
-            <!-- ✦ OUR CONSTELLATION -->
             <section class="section card reveal" id="constellationSection">
                 <p class="eyebrow">Written in the night sky for you</p>
-                <h2 class="section-title">Our Constellation ✦</h2>
+                <h2 class="section-title">Connect our stars.</h2>
                 <p class="constellation-hint">Tap each star to light it up — follow the shape they make together.</p>
                 <div class="constellation-field" id="constellationField"><!-- stars injected by JS --></div>
                 <p class="constellation-msg" id="constellationMsg">The stars are waiting for you... ✦</p>
             </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><path d="M308 12h24v18h-24z" fill="currentColor"/></svg>
-            </div>
-
-            <!-- 🖊️ TYPEWRITER LOVE LETTER -->
-            <section class="section card reveal" id="typewriterSection">
-                <p class="eyebrow">Written just for you, live</p>
-                <h2 class="section-title">A Letter, Written Live</h2>
-                <div class="tw-display" id="twLetterDisplay"><span class="poem-cursor"></span></div>
-                <div class="controls">
-                    <button class="gold-button" id="twLetterBtn" type="button">Begin the letter 🖊️</button>
-                </div>
-            </section>
-
-            <div class="flourish" aria-hidden="true">
-                <svg viewBox="0 0 640 42" fill="none"><path d="M10 21h220c36 0 46-16 61-16 17 0 20 32 38 32s21-32 38-32c15 0 25 16 61 16h202" stroke="currentColor" stroke-width="2"/><circle cx="320" cy="21" r="9" fill="currentColor"/></svg>
-            </div>
-
-            <!-- 💛 COMPLIMENT GENERATOR -->
-            <section class="section card reveal" id="complimentSection">
-                <p class="eyebrow">Because you deserve to hear it</p>
-                <h2 class="section-title">Tell Me Something Sweet</h2>
-                <div class="compliment-display" id="complimentDisplay">Press the button and let Habib say something just for you. 💛</div>
-                <div class="controls">
-                    <button class="gold-button" id="complimentBtn" type="button">Tell me something 💛</button>
-                </div>
-            </section>
-
             <section class="section someday-room reveal" id="somedayRoom" aria-labelledby="somedayTitle">
                 <div class="someday-heading">
                     <p class="eyebrow">Postcards from a life I dream of</p>
@@ -448,6 +427,29 @@
                 </article>
             </section>
 
+            <section class="section write-back reveal" id="writeBack" aria-labelledby="writeBackTitle">
+                <div class="write-back-intro">
+                    <p class="eyebrow">Your turn, only if you want</p>
+                    <h2 class="section-title" id="writeBackTitle">Write me back.</h2>
+                    <p class="section-copy">This whole page has been me talking to you. Here is a little paper for your words. Write anything, a sentence or a page, and send it straight to me. I will keep every one.</p>
+                </div>
+                <form class="write-back-paper" id="writeBackForm">
+                    <div class="note-topline"><span>Dear Habib,</span><span aria-hidden="true">♡</span></div>
+                    <div class="prompt-chips" role="group" aria-label="A few ways to begin">
+                        <button type="button" data-prompt="Today I missed you when ">Today I missed you when…</button>
+                        <button type="button" data-prompt="My favourite thing about us is ">My favourite thing about us…</button>
+                        <button type="button" data-prompt="Next time I see you, I want ">Next time I see you…</button>
+                        <button type="button" data-prompt="Something I never told you: ">Something I never told you…</button>
+                    </div>
+                    <label class="visually-hidden" for="writeBackInput">Your letter to Habib</label>
+                    <textarea class="write-back-input" id="writeBackInput" rows="7" maxlength="1500" placeholder="Start anywhere, my love…"></textarea>
+                    <div class="write-back-foot">
+                        <span class="write-back-count" id="writeBackCount">Your draft stays here until you send it.</span>
+                        <button class="gold-button" type="submit">Send it to Habib <span aria-hidden="true">↗</span></button>
+                    </div>
+                    <p class="note-feedback" id="writeBackFeedback" role="status"></p>
+                </form>
+            </section>
             <section class="section finale reveal" id="foreverRoom">
                 <div class="finale-inner">
                     <p class="eyebrow">The last room</p>
@@ -473,19 +475,19 @@
                     </div>
                 </div>
             </section>
-
         </div>
 
         <footer class="footer">
             <strong>Vanessa <span class="pulse-heart">♥</span></strong>
-            <p>Made with every piece of me, written for the most special person in my heart — forever yours, Habib 💖</p>
+            <p>Made slowly, by hand, with every piece of me. For the most special person in my heart. Forever yours, Habib.</p>
+            <p class="footer-secret">P.S. Some things here are hidden. Try tapping your name five times.</p>
         </footer>
     </main>
 
     <!-- ── ADORABLE EXTRAS: Fixed + Overlay Elements ── -->
 
     <!-- Rain notes button (fixed bottom-left) -->
-    <button class="rain-btn" id="rainBtn" type="button" aria-label="Rain love notes">💛</button>
+    <button class="rain-btn" id="rainBtn" type="button" aria-label="Rain love notes" title="Make it rain love notes">♥</button>
 
     <!-- Hidden hearts counter -->
     <div class="hearts-counter" id="heartsCounter">💛 Hidden hearts: 0/5</div>

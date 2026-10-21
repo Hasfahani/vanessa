@@ -100,6 +100,16 @@
         let particles = [];
         let particleFrame = 0;
         let titleTaps = 0;
+        let particleColors = { petal: "#925f7c", dust: "#ead3c0" };
+
+        // Petals and dust follow the chosen color mood.
+        function readParticleColors() {
+            const styles = window.getComputedStyle(document.body);
+            particleColors = {
+                petal: styles.getPropertyValue("--crimson-soft").trim() || particleColors.petal,
+                dust: styles.getPropertyValue("--gold-light").trim() || particleColors.dust
+            };
+        }
 
         function resizeCanvas() {
             const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -148,13 +158,15 @@
                 context.translate(particle.x, particle.y);
                 context.rotate(particle.rotation);
                 if (particle.type === "petal") {
-                    context.fillStyle = "rgba(139, 0, 0, 0.58)";
+                    context.globalAlpha = 0.6;
+                    context.fillStyle = particleColors.petal;
                     context.beginPath();
                     context.ellipse(0, 0, particle.size * 0.55, particle.size, Math.PI / 4, 0, Math.PI * 2);
                     context.fill();
                 } else {
-                    context.fillStyle = "rgba(245, 222, 142, 0.82)";
-                    context.shadowColor = "rgba(201,168,76,0.9)";
+                    context.globalAlpha = 0.85;
+                    context.fillStyle = particleColors.dust;
+                    context.shadowColor = particleColors.dust;
                     context.shadowBlur = 12;
                     context.beginPath();
                     context.arc(0, 0, particle.size, 0, Math.PI * 2);
@@ -579,6 +591,7 @@
                 $(".site").inert = false;
                 $("#mainContent").focus({ preventScroll: true });
                 startParticles();
+                playIntro();
             };
 
             $("#websiteGateForm").addEventListener("submit", (event) => {
@@ -633,7 +646,9 @@
             const moods = {
                 rose: { label: "Rose garden", color: "#fbf4f5" },
                 moonlight: { label: "Blue hour", color: "#f2f3fb" },
-                sage: { label: "Sunday morning", color: "#f3f5ee" }
+                sage: { label: "Sunday morning", color: "#f3f5ee" },
+                golden: { label: "Golden hour", color: "#fbf1e6" },
+                midnight: { label: "Midnight", color: "#16121d" }
             };
             const buttons = Array.from(document.querySelectorAll(".mood-swatch"));
             function chooseMood(value) {
@@ -643,6 +658,8 @@
                 document.querySelector('meta[name="theme-color"]').content = moods[mood].color;
                 buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mood === mood)));
                 safeStorage.setItem("vanessa-color-mood", mood);
+                readParticleColors();
+                document.dispatchEvent(new CustomEvent("vanessa-mood", { detail: mood }));
             }
             chooseMood(safeStorage.getItem("vanessa-color-mood"));
             buttons.forEach((button) => button.addEventListener("click", () => chooseMood(button.dataset.mood)));
@@ -782,6 +799,279 @@
             });
         }
 
+        // A short curtain of words right after the gate opens.
+        function playIntro() {
+            const curtain = $("#introCurtain");
+            if (!curtain || prefersReducedMotion) return;
+            let closing = false;
+            let timer = 0;
+            const close = () => {
+                if (closing) return;
+                closing = true;
+                window.clearTimeout(timer);
+                curtain.classList.add("is-leaving");
+                window.setTimeout(() => {
+                    curtain.hidden = true;
+                    curtain.classList.remove("is-playing", "is-leaving");
+                    $("#mainContent").focus({ preventScroll: true });
+                }, 900);
+            };
+            curtain.hidden = false;
+            requestAnimationFrame(() => curtain.classList.add("is-playing"));
+            timer = window.setTimeout(close, 6400);
+            curtain.addEventListener("click", close, { once: true });
+            window.setTimeout(() => $("#introSkip").focus({ preventScroll: true }), 80);
+        }
+
+        function initLoveLanguages() {
+            const word = $("#loveLangWord");
+            const name = $("#loveLangName");
+            if (!word || !name || prefersReducedMotion) return;
+            const languages = [
+                ["I love you", "in English", "en"],
+                ["Je t'aime", "in French", "fr"],
+                ["بحبك", "in Arabic", "ar"],
+                ["Ti amo", "in Italian", "it"],
+                ["Te quiero", "in Spanish", "es"],
+                ["Ich liebe dich", "in German", "de"],
+                ["Eu te amo", "in Portuguese", "pt"],
+                ["Σ' αγαπώ", "in Greek", "el"],
+                ["Seni seviyorum", "in Turkish", "tr"],
+                ["愛してる", "in Japanese", "ja"],
+                ["사랑해", "in Korean", "ko"],
+                ["Bhebbik ya albi", "in the language of my heart", "ar-Latn"]
+            ];
+            let index = 0;
+            window.setInterval(() => {
+                if (document.hidden) return;
+                word.parentElement.classList.add("is-changing");
+                window.setTimeout(() => {
+                    index = (index + 1) % languages.length;
+                    const [text, label, lang] = languages[index];
+                    word.textContent = text;
+                    word.lang = lang;
+                    word.dir = lang === "ar" ? "rtl" : "ltr";
+                    name.textContent = label;
+                    word.parentElement.classList.remove("is-changing");
+                }, 420);
+            }, 2900);
+        }
+
+        // Opens the native share sheet on phones, or WhatsApp everywhere else.
+        async function sendToHabib(text) {
+            if (navigator.share) {
+                try {
+                    await navigator.share({ text });
+                    return true;
+                } catch (error) {
+                    if (error && error.name === "AbortError") return false;
+                }
+            }
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+            return true;
+        }
+
+        function initCoupons() {
+            const book = $("#couponBook");
+            if (!book) return;
+            const coupons = [
+                { id: "hug", icon: "∞", title: "One very long hug", fine: "Minimum duration: until you say stop. Valid at any door, any station, any airport." },
+                { id: "your-pick", icon: "✦", title: "Your pick, no debate", fine: "Restaurant, film, playlist. You choose, I agree, and I pretend it was my idea too." },
+                { id: "breakfast", icon: "☾", title: "Breakfast, made by me", fine: "Served slowly, on a lazy morning, with coffee exactly the way you like it." },
+                { id: "listening", icon: "❝", title: "A whole evening of listening", fine: "Phone face down. Tell me everything, from the big things to the tiny ones." },
+                { id: "dance", icon: "♪", title: "One dance, anywhere", fine: "Kitchen, street, empty car park. Music optional. Bad dancing guaranteed." },
+                { id: "win", icon: "♛", title: "Win any argument, instantly", fine: "Use wisely. Valid even when you are wrong. Especially then." }
+            ];
+            let revealed;
+            let redeemed;
+            try {
+                const storedRevealed = JSON.parse(safeStorage.getItem("vanessa-coupons-revealed") || "[]");
+                revealed = new Set(Array.isArray(storedRevealed) ? storedRevealed : []);
+                const storedRedeemed = JSON.parse(safeStorage.getItem("vanessa-coupons-redeemed") || "{}");
+                redeemed = storedRedeemed && typeof storedRedeemed === "object" ? storedRedeemed : {};
+            } catch { revealed = new Set(); redeemed = {}; }
+            const feedback = $("#couponFeedback");
+
+            coupons.forEach((coupon, index) => {
+                const card = document.createElement("article");
+                card.className = "coupon" + (revealed.has(coupon.id) ? " is-revealed" : "");
+                card.innerHTML = `
+                    <div class="coupon-stub" aria-hidden="true"><span>No. ${String(index + 1).padStart(2, "0")}</span><span>H ♡ V</span></div>
+                    <div class="coupon-body">
+                        <div class="coupon-prize">
+                            <span class="coupon-icon" aria-hidden="true">${coupon.icon}</span>
+                            <h3>${escapeHTML(coupon.title)}</h3>
+                            <p>${escapeHTML(coupon.fine)}</p>
+                            <button class="coupon-redeem" type="button"></button>
+                        </div>
+                        <canvas class="coupon-foil" aria-hidden="true"></canvas>
+                        <button class="coupon-reveal visually-hidden" type="button">Reveal love coupon ${index + 1}</button>
+                    </div>`;
+                book.appendChild(card);
+
+                const body = card.querySelector(".coupon-body");
+                const foil = card.querySelector(".coupon-foil");
+                const paint = foil.getContext("2d");
+                const redeemButton = card.querySelector(".coupon-redeem");
+                let scratching = false;
+                let last = null;
+                let strokes = 0;
+                let paintedWidth = 0;
+
+                const updateRedeem = () => {
+                    const when = redeemed[coupon.id];
+                    redeemButton.textContent = when
+                        ? `Redeemed ${new Date(when).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} · use again ↗`
+                        : "Redeem with Habib ↗";
+                    card.classList.toggle("is-redeemed", Boolean(when));
+                };
+
+                const drawFoil = () => {
+                    const width = body.offsetWidth;
+                    const height = body.offsetHeight;
+                    if (!width || !height || card.classList.contains("is-revealed")) return;
+                    paintedWidth = width;
+                    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+                    foil.width = Math.floor(width * ratio);
+                    foil.height = Math.floor(height * ratio);
+                    paint.setTransform(ratio, 0, 0, ratio, 0, 0);
+                    paint.globalCompositeOperation = "source-over";
+                    const styles = window.getComputedStyle(document.body);
+                    const tone = (name, fallback) => styles.getPropertyValue(name).trim() || fallback;
+                    const gradient = paint.createLinearGradient(0, 0, width, height);
+                    gradient.addColorStop(0, tone("--crimson-soft", "#925f7c"));
+                    gradient.addColorStop(0.55, tone("--crimson", "#6c3d5c"));
+                    gradient.addColorStop(1, tone("--crimson-hover", "#512b47"));
+                    paint.fillStyle = gradient;
+                    paint.fillRect(0, 0, width, height);
+                    paint.fillStyle = tone("--gold-light", "#ead3c0");
+                    paint.globalAlpha = 0.16;
+                    paint.font = "14px Georgia, serif";
+                    for (let y = 18; y < height; y += 26) {
+                        for (let x = (y / 26) % 2 ? 6 : 19; x < width; x += 26) paint.fillText("♥", x, y);
+                    }
+                    paint.globalAlpha = 1;
+                    paint.textAlign = "center";
+                    paint.fillStyle = tone("--paper", "#fbf4f5");
+                    paint.font = "italic 600 26px 'Cormorant Garamond', Georgia, serif";
+                    paint.fillText("Scratch me", width / 2, height / 2);
+                    paint.font = "600 10px Raleway, system-ui, sans-serif";
+                    paint.fillText("✦  WITH YOUR FINGER  ✦", width / 2, height / 2 + 24);
+                };
+
+                const reveal = () => {
+                    if (card.classList.contains("is-revealed")) return;
+                    card.classList.add("is-revealed");
+                    revealed.add(coupon.id);
+                    safeStorage.setItem("vanessa-coupons-revealed", JSON.stringify(Array.from(revealed)));
+                    const rect = body.getBoundingClientRect();
+                    createBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 30);
+                    feedback.textContent = `You found “${coupon.title}”. Redeem it whenever you like.`;
+                };
+
+                const clearedShare = () => {
+                    const { data } = paint.getImageData(0, 0, foil.width, foil.height);
+                    let clear = 0;
+                    let total = 0;
+                    for (let i = 3; i < data.length; i += 64) {
+                        total += 1;
+                        if (data[i] < 40) clear += 1;
+                    }
+                    return total ? clear / total : 0;
+                };
+
+                const scratchTo = (event) => {
+                    const rect = foil.getBoundingClientRect();
+                    const point = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+                    paint.globalCompositeOperation = "destination-out";
+                    paint.lineCap = "round";
+                    paint.lineWidth = 38;
+                    paint.beginPath();
+                    paint.moveTo((last || point).x, (last || point).y);
+                    paint.lineTo(point.x, point.y);
+                    paint.stroke();
+                    last = point;
+                    strokes += 1;
+                    if (strokes % 8 === 0 && clearedShare() > 0.48) reveal();
+                };
+
+                foil.addEventListener("pointerdown", (event) => {
+                    scratching = true;
+                    last = null;
+                    try { foil.setPointerCapture(event.pointerId); } catch { /* Scratching still follows the pointer. */ }
+                    scratchTo(event);
+                });
+                foil.addEventListener("pointermove", (event) => { if (scratching) scratchTo(event); });
+                ["pointerup", "pointercancel"].forEach((type) => foil.addEventListener(type, () => {
+                    scratching = false;
+                    last = null;
+                    if (clearedShare() > 0.48) reveal();
+                }));
+                card.querySelector(".coupon-reveal").addEventListener("click", () => {
+                    reveal();
+                    redeemButton.focus();
+                });
+                redeemButton.addEventListener("click", async () => {
+                    const sent = await sendToHabib(`Habib, I am redeeming my love coupon: “${coupon.title}” 💌\n${coupon.fine}`);
+                    if (!sent) return;
+                    redeemed[coupon.id] = Date.now();
+                    safeStorage.setItem("vanessa-coupons-redeemed", JSON.stringify(redeemed));
+                    updateRedeem();
+                    feedback.textContent = "Coupon sent. Consider it already honoured.";
+                });
+
+                new ResizeObserver(() => {
+                    if (body.offsetWidth !== paintedWidth) drawFoil();
+                }).observe(body);
+                document.addEventListener("vanessa-mood", drawFoil);
+                if (document.fonts) document.fonts.ready.then(drawFoil);
+                updateRedeem();
+            });
+        }
+
+        function initWriteBack() {
+            const form = $("#writeBackForm");
+            if (!form) return;
+            const input = $("#writeBackInput");
+            const count = $("#writeBackCount");
+            const feedback = $("#writeBackFeedback");
+            const updateCount = () => {
+                count.textContent = input.value.length
+                    ? `${input.value.length} / 1500 · saved as you write`
+                    : "Your draft stays here until you send it.";
+            };
+            input.value = (safeStorage.getItem("vanessa-letter-draft") || "").slice(0, 1500);
+            updateCount();
+            input.addEventListener("input", () => {
+                safeStorage.setItem("vanessa-letter-draft", input.value);
+                updateCount();
+            });
+            form.querySelectorAll("[data-prompt]").forEach((chip) => {
+                chip.addEventListener("click", () => {
+                    const prompt = chip.dataset.prompt;
+                    input.value = input.value.trim() ? `${input.value.trimEnd()}\n\n${prompt}` : prompt;
+                    safeStorage.setItem("vanessa-letter-draft", input.value);
+                    updateCount();
+                    input.focus();
+                    input.setSelectionRange(input.value.length, input.value.length);
+                });
+            });
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const words = input.value.trim();
+                if (!words) {
+                    feedback.textContent = "Write a few words first, my love. Even one is enough.";
+                    input.focus();
+                    return;
+                }
+                const sent = await sendToHabib(`Dear Habib,\n\n${words}\n\n— Vanessa ♡`);
+                if (!sent) return;
+                feedback.textContent = "Sent with love. I am going to read this more than once.";
+                const rect = form.getBoundingClientRect();
+                createBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 40);
+            });
+        }
+
         window.addEventListener("load", () => {
             window.setTimeout(() => document.body.classList.add("loaded"), 650);
         });
@@ -824,6 +1114,9 @@
         initColorMoods();
         initDailyNotes();
         initSomedayPostcards();
+        initLoveLanguages();
+        initCoupons();
+        initWriteBack();
         heroTitle.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
@@ -832,6 +1125,7 @@
         });
         document.addEventListener("keydown", (event) => {
             if (event.key !== "Escape") return;
+            if (!$("#introCurtain").hidden) $("#introCurtain").click();
             [passwordModal, memoryModal, secretPanel].forEach((panel) => {
                 if (!panel.classList.contains("show")) return;
                 panel.classList.remove("show");
@@ -1203,7 +1497,8 @@
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
                 line.setAttribute("x1", starPos[a][0] + "%"); line.setAttribute("y1", starPos[a][1] + "%");
                 line.setAttribute("x2", starPos[b][0] + "%"); line.setAttribute("y2", starPos[b][1] + "%");
-                line.setAttribute("stroke", "rgba(117,227,196,0.45)");
+                line.style.stroke = "var(--dark-accent)";
+                line.style.opacity = "0.7";
                 line.setAttribute("stroke-width", "1.5");
                 line.setAttribute("stroke-linecap", "round");
                 svg.appendChild(line);
