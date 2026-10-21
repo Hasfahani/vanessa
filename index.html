@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f7f3ec">
+    <meta name="theme-color" content="#fbf4f5">
     <meta name="description" content="A little world of letters, promises, and everyday love. For Vanessa, from Habib.">
     <title>For Vanessa · Always, Habib</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,12 +51,20 @@
             <a class="wordmark" href="#top" aria-label="Habib and Vanessa, back to top">h <span>&</span> v<span class="wordmark-dot">.</span></a>
             <nav aria-label="Main navigation">
                 <a href="#letter">The letter</a>
-                <a href="#openWhen">For your heart</a>
+                <a href="#dailyNoteRoom">Little notes</a>
                 <a href="#foreverRoom">Our forever <span aria-hidden="true">↗</span></a>
             </nav>
-            <span class="header-note">A place to feel loved.</span>
+            <div class="header-tools">
+                <span class="header-note" id="moodLabel" role="status">Rose garden</span>
+                <div class="mood-picker" role="group" aria-label="Choose your color mood">
+                    <button class="mood-swatch" type="button" data-mood="rose" aria-label="Rose garden colors" aria-pressed="true" title="Rose garden"><span></span></button>
+                    <button class="mood-swatch" type="button" data-mood="moonlight" aria-label="Blue hour colors" aria-pressed="false" title="Blue hour"><span></span></button>
+                    <button class="mood-swatch" type="button" data-mood="sage" aria-label="Sunday morning colors" aria-pressed="false" title="Sunday morning"><span></span></button>
+                </div>
+            </div>
         </header>
         <section class="hero" id="top">
+            <img class="hero-botanical" src="assets/botanical.svg" width="160" height="260" alt="" aria-hidden="true">
             <div class="hero-content">
                 <p class="eyebrow">For my favourite person, in every lifetime</p>
                 <p class="hero-pretitle">My heart has a name.</p>
@@ -95,6 +103,41 @@
                     <a href="#openWhen"><small>02 / A little comfort</small><strong>Open when…</strong><span>Small messages for the moments that need me.</span></a>
                     <a href="#timelineSection"><small>03 / You & me</small><strong>Our story</strong><span>Every chapter, even the ones still waiting.</span></a>
                     <a href="#constellationSection"><small>04 / Something to discover</small><strong>Our sky</strong><span>Stars that only make sense together.</span></a>
+                </div>
+            </section>
+
+            <section class="section daily-note-room reveal" id="dailyNoteRoom" aria-labelledby="dailyNoteTitle">
+                <div class="daily-note-intro">
+                    <p class="eyebrow"><span class="little-spark" aria-hidden="true">✧</span> A tiny ritual, just ours</p>
+                    <h2 class="section-title" id="dailyNoteTitle">A little love,<br>for today.</h2>
+                    <p class="section-copy">Something small to find when you come back. A new thought each day, from my heart to your pocket.</p>
+                    <p class="daily-date" id="dailyDate"></p>
+                    <p class="daily-keepsake">Keep the words that feel like a hug.</p>
+                </div>
+                <div class="daily-note-desk">
+                    <div class="note-tape" aria-hidden="true"></div>
+                    <div class="daily-note-paper" id="dailyNotePaper">
+                        <div class="note-topline"><span>To my Vanessa</span><span aria-hidden="true">♡</span></div>
+                        <button class="note-unfold" id="dailyNoteOpen" type="button" aria-expanded="false" aria-controls="dailyNoteContent">
+                            <span class="note-seal" aria-hidden="true">v.</span>
+                            <span>A thought I saved for you</span>
+                            <small>Unfold your note <span aria-hidden="true">↗</span></small>
+                        </button>
+                        <div class="daily-note-content" id="dailyNoteContent" hidden>
+                            <blockquote id="dailyNoteText" aria-live="polite" aria-atomic="true"></blockquote>
+                            <p class="note-signoff">All my love, <em>Habib</em></p>
+                            <div class="note-actions">
+                                <button class="note-save" id="saveDailyNote" type="button" aria-pressed="false">♡ Keep this note</button>
+                                <button class="note-next" id="nextDailyNote" type="button">One more thought <span aria-hidden="true">→</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <details class="kept-notes" id="keptNotes">
+                        <summary>Your little keepsakes <span id="keptNotesCount">0</span></summary>
+                        <p class="kept-notes-empty" id="keptNotesEmpty">When a note speaks to you, keep it here. These little keepsakes stay in this browser.</p>
+                        <ul id="keptNotesList"></ul>
+                    </details>
+                    <p class="note-feedback" id="noteFeedback" role="status"></p>
                 </div>
             </section>
 
@@ -378,6 +421,31 @@
                 <div class="controls">
                     <button class="gold-button" id="complimentBtn" type="button">Tell me something 💛</button>
                 </div>
+            </section>
+
+            <section class="section someday-room reveal" id="somedayRoom" aria-labelledby="somedayTitle">
+                <div class="someday-heading">
+                    <p class="eyebrow">Postcards from a life I dream of</p>
+                    <h2 class="section-title" id="somedayTitle">The ordinary things.<br>With you.</h2>
+                    <p class="section-copy">No grand occasion. No perfect plan. Just a few little somedays I hope we get to call ours.</p>
+                </div>
+                <div class="postcard-tabs" role="tablist" aria-label="Choose a little someday">
+                    <button type="button" role="tab" id="morningTab" aria-controls="morningPostcard" aria-selected="true" tabindex="0" data-postcard="morning">01 <span>A slow morning</span></button>
+                    <button type="button" role="tab" id="wanderingTab" aria-controls="wanderingPostcard" aria-selected="false" tabindex="-1" data-postcard="wandering">02 <span>Getting a little lost</span></button>
+                    <button type="button" role="tab" id="homeTab" aria-controls="homePostcard" aria-selected="false" tabindex="-1" data-postcard="home">03 <span>Coming home</span></button>
+                </div>
+                <article class="someday-postcard" role="tabpanel" id="morningPostcard" aria-labelledby="morningTab" tabindex="0">
+                    <div class="postcard-art morning-art" aria-hidden="true"><span class="scene-sun"></span><span class="scene-window"></span><span class="coffee-cup cup-one"></span><span class="coffee-cup cup-two"></span><span class="scene-table"></span><em>coffee for two.</em></div>
+                    <div class="postcard-letter"><p class="postcard-kicker">Somewhere in our someday · No. 01</p><h3>Nowhere to rush.<br>Someone to stay for.</h3><p>I keep imagining a quiet morning. Two cups on the table. You telling me something unimportant that becomes my favourite part of the day. No countdown until goodbye. Just another cup, and a little more time.</p><span class="postcard-signature">Wish you were here. Always.</span><span class="postcard-postmark" aria-hidden="true">H + V<br>♡<br>SOMEDAY</span></div>
+                </article>
+                <article class="someday-postcard" role="tabpanel" id="wanderingPostcard" aria-labelledby="wanderingTab" tabindex="0" hidden>
+                    <div class="postcard-art wandering-art" aria-hidden="true"><span class="scene-sun"></span><span class="scene-hill hill-one"></span><span class="scene-hill hill-two"></span><span class="scene-path"></span><span class="scene-star">✦</span><em>the long way home.</em></div>
+                    <div class="postcard-letter"><p class="postcard-kicker">Somewhere in our someday · No. 02</p><h3>The wrong turn.<br>The right person.</h3><p>Let's take a street we don't know. Find a tiny café. Order the thing we can't pronounce. Laugh when it starts to rain. I don't need every plan to work out. I just love the thought of figuring it out with you.</p><span class="postcard-signature">Anywhere, as long as it's with you.</span><span class="postcard-postmark" aria-hidden="true">H + V<br>♡<br>SOMEDAY</span></div>
+                </article>
+                <article class="someday-postcard" role="tabpanel" id="homePostcard" aria-labelledby="homeTab" tabindex="0" hidden>
+                    <div class="postcard-art home-art" aria-hidden="true"><span class="scene-moon"></span><span class="scene-star star-one">✧</span><span class="scene-star star-two">✦</span><span class="scene-house"><span></span></span><span class="scene-ground"></span><em>where you are.</em></div>
+                    <div class="postcard-letter"><p class="postcard-kicker">Somewhere in our someday · No. 03</p><h3>A light left on.<br>Your shoes by mine.</h3><p>One day, I hope missing you becomes meeting you at the door. We can talk about our days while dinner gets a little cold. Nothing extraordinary to anybody else. Everything to me.</p><span class="postcard-signature">You make the word home feel different.</span><span class="postcard-postmark" aria-hidden="true">H + V<br>♡<br>SOMEDAY</span></div>
+                </article>
             </section>
 
             <section class="section finale reveal" id="foreverRoom">

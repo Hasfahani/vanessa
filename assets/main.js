@@ -629,6 +629,159 @@
             });
         }
 
+        function initColorMoods() {
+            const moods = {
+                rose: { label: "Rose garden", color: "#fbf4f5" },
+                moonlight: { label: "Blue hour", color: "#f2f3fb" },
+                sage: { label: "Sunday morning", color: "#f3f5ee" }
+            };
+            const buttons = Array.from(document.querySelectorAll(".mood-swatch"));
+            function chooseMood(value) {
+                const mood = Object.hasOwn(moods, value) ? value : "rose";
+                document.body.dataset.mood = mood;
+                $("#moodLabel").textContent = moods[mood].label;
+                document.querySelector('meta[name="theme-color"]').content = moods[mood].color;
+                buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mood === mood)));
+                safeStorage.setItem("vanessa-color-mood", mood);
+            }
+            chooseMood(safeStorage.getItem("vanessa-color-mood"));
+            buttons.forEach((button) => button.addEventListener("click", () => chooseMood(button.dataset.mood)));
+        }
+
+        function initDailyNotes() {
+            const notes = [
+                { id: "ordinary", text: "You don't have to do anything extraordinary today to be extraordinary to me. You already are, just by being you." },
+                { id: "little-things", text: "If you ever wonder whether I notice the little things about you: I do. The way you care. The way you try. All the beautiful things you don't make a fuss about." },
+                { id: "next-to-you", text: "My favourite plan is still the simplest one: being next to you, doing absolutely nothing, and somehow having everything." },
+                { id: "gentle-day", text: "I hope today is gentle with you. And if it isn't, I hope you remember there is someone who would listen to every single word of it." },
+                { id: "small-joy", text: "I hope something small makes you smile today. A good song. A little sunshine. This note. I wish I could be there to see it." },
+                { id: "home", text: "You have changed the way I think about home. It used to be a place. Now, more and more, it sounds like your voice." },
+                { id: "all-versions", text: "The sleepy you, the excited you, the quiet you, the you who has had a long day. I don't have a favourite version. I just love that they're all you." },
+                { id: "ordinary-future", text: "When I imagine our future, it's the ordinary bits that make me happiest. Your mug next to mine. A shared umbrella. Another evening we don't have to say goodbye." },
+                { id: "proud", text: "I'm proud of the things you keep trying, even when nobody sees the effort. Especially then. I hope you give yourself a little credit today." },
+                { id: "notification", text: "Somewhere between our first conversations and now, your name became the notification I always hope to see." },
+                { id: "no-perfect-words", text: "I won't always find the perfect words. But underneath all of them, I mean the same thing: you matter to me, and I'm so glad it's you." },
+                { id: "slowly", text: "There is no rush to become anyone else. I love getting to know you slowly, in all the little ways a person keeps unfolding." },
+                { id: "distance", text: "I wish there were fewer miles between this note and your hand. Until then, let these words be a little something to hold onto." },
+                { id: "again", text: "If I could go back to the moment before I knew you, with everything I know now, I would still hope the next person I met was you." },
+                { id: "safe-place", text: "You don't need to have an interesting story to tell me. Tell me what you had for lunch. Tell me you're tired. I just like having you in my day." },
+                { id: "choose-you", text: "Out of all the grand things I could wish for, I keep coming back to this: more time with you. More ordinary, beautiful, unhurried time." },
+                { id: "laughter", text: "I want more of the moments where we start laughing and can't quite remember why. The kind that make the whole day feel lighter afterward." },
+                { id: "enough", text: "Here is your small reminder: you are allowed to have a quiet day. You are loved in the middle of the ordinary, too." },
+                { id: "song", text: "There are songs I can't hear without thinking of you now. I like that you've quietly made a home in the things I love." },
+                { id: "tomorrow", text: "Whatever today becomes, there is one thing I already know about tomorrow: I'll be glad you're in my life." }
+            ];
+            const byId = new Map(notes.map((note) => [note.id, note]));
+            let saved;
+            try {
+                const stored = JSON.parse(safeStorage.getItem("vanessa-kept-notes") || "[]");
+                saved = new Set(Array.isArray(stored) ? stored.filter((id) => byId.has(id)) : []);
+            } catch { saved = new Set(); }
+            let dayKey = "";
+            let noteIndex = 0;
+            const saveButton = $("#saveDailyNote");
+            function updateSaveButton() {
+                const kept = saved.has(notes[noteIndex].id);
+                saveButton.setAttribute("aria-pressed", String(kept));
+                saveButton.textContent = kept ? "♥ Kept close" : "♡ Keep this note";
+            }
+            function renderCollection() {
+                $("#keptNotesCount").textContent = String(saved.size);
+                $("#keptNotesEmpty").hidden = saved.size > 0;
+                const list = $("#keptNotesList");
+                list.replaceChildren();
+                saved.forEach((id) => {
+                    const item = document.createElement("li");
+                    const text = document.createElement("span");
+                    text.textContent = byId.get(id).text;
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.textContent = "×";
+                    remove.setAttribute("aria-label", "Remove this saved note: " + byId.get(id).text.slice(0, 45) + "…");
+                    remove.addEventListener("click", () => {
+                        saved.delete(id);
+                        persistCollection();
+                        $("#keptNotes").querySelector("summary").focus();
+                    });
+                    item.append(text, remove);
+                    list.appendChild(item);
+                });
+                updateSaveButton();
+            }
+            function persistCollection() {
+                const value = JSON.stringify(Array.from(saved));
+                safeStorage.setItem("vanessa-kept-notes", value);
+                renderCollection();
+                $("#noteFeedback").textContent = safeStorage.getItem("vanessa-kept-notes") === value
+                    ? (saved.size ? "A little piece of love, kept for another day." : "There is always another little thought waiting for you.")
+                    : "Kept for this visit. This browser couldn't save the change for later.";
+            }
+            function renderNote() {
+                $("#dailyNoteText").textContent = notes[noteIndex].text;
+                updateSaveButton();
+            }
+            function refreshDay() {
+                const now = new Date();
+                const nextKey = [now.getFullYear(), now.getMonth(), now.getDate()].join("-");
+                if (nextKey === dayKey) return;
+                dayKey = nextKey;
+                const ordinal = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+                noteIndex = ((ordinal % notes.length) + notes.length) % notes.length;
+                $("#dailyDate").textContent = now.toLocaleDateString("en-GB", { weekday: "long", month: "long", day: "numeric" });
+                renderNote();
+            }
+            $("#dailyNoteOpen").addEventListener("click", () => {
+                const button = $("#dailyNoteOpen");
+                const open = button.getAttribute("aria-expanded") !== "true";
+                button.setAttribute("aria-expanded", String(open));
+                $("#dailyNoteContent").hidden = !open;
+                $("#dailyNotePaper").classList.toggle("is-open", open);
+                button.querySelector("small").textContent = open ? "Fold this little thought away ↗" : "Unfold your note ↗";
+            });
+            saveButton.addEventListener("click", () => {
+                const id = notes[noteIndex].id;
+                if (saved.has(id)) saved.delete(id);
+                else saved.add(id);
+                persistCollection();
+            });
+            $("#nextDailyNote").addEventListener("click", () => {
+                noteIndex = (noteIndex + 1) % notes.length;
+                renderNote();
+                $("#noteFeedback").textContent = "Another little thought, just for you.";
+            });
+            document.addEventListener("visibilitychange", () => {
+                if (!document.hidden) refreshDay();
+            });
+            refreshDay();
+            renderCollection();
+        }
+
+        function initSomedayPostcards() {
+            const tabs = Array.from(document.querySelectorAll("[data-postcard]"));
+            function selectTab(tab, focus = false) {
+                tabs.forEach((item) => {
+                    const selected = item === tab;
+                    item.setAttribute("aria-selected", String(selected));
+                    item.tabIndex = selected ? 0 : -1;
+                    document.getElementById(item.getAttribute("aria-controls")).hidden = !selected;
+                });
+                if (focus) tab.focus();
+            }
+            tabs.forEach((tab, index) => {
+                tab.addEventListener("click", () => selectTab(tab));
+                tab.addEventListener("keydown", (event) => {
+                    let next;
+                    if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+                    else if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+                    else if (event.key === "Home") next = 0;
+                    else if (event.key === "End") next = tabs.length - 1;
+                    else return;
+                    event.preventDefault();
+                    selectTab(tabs[next], true);
+                });
+            });
+        }
+
         window.addEventListener("load", () => {
             window.setTimeout(() => document.body.classList.add("loaded"), 650);
         });
@@ -668,6 +821,9 @@
         initOpenWhen();
         initFinale();
         initWebsiteGate();
+        initColorMoods();
+        initDailyNotes();
+        initSomedayPostcards();
         heroTitle.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
